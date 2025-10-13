@@ -91,7 +91,7 @@
 .openMenuSearchIcon{
     @apply w-[40px] h-[30px] text-black 
 }
-.searchContainer{
+.searchContainer{.
     box-shadow: 0 0 10px rgb(52, 52, 52);
     border-radius: 0 16px 16px 0;
     @apply absolute h-full w-[45px] bottom-0 left-0 top-0 flex justify-center items-center

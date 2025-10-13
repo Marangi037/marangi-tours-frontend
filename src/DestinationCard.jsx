@@ -9,7 +9,7 @@ export const DestinationCard = ({imageUrl, name, rating}) => {
             <img className='w-full h-full rounded-md object-cover' src={imageUrl} alt="destination image" />
             {showContent && <div className='cardDiv'>
                     <h2 className='lg:text-[20px] text-[16px] px-2'>{name}</h2>
-                    <div className='flex w-max h-max px-2'>{Array.from({ length: rating }).map((_, i) => <span key={i}>< FaStar size={10} color='yellow'/></span>  )} </div>
+                    <div className='flex w-max h-max px-2'> </div>
                 </div>
             }
                             

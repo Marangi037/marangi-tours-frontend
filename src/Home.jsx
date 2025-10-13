@@ -9,7 +9,7 @@ import { Footer } from "./Footer.jsx";
 
 export const Home = () => {
   return (
-    <section className="max-w-screen min-w-screen h-full box-border m-0 p-0">
+    <section className="max-w-screen min-w-screen h-full box-border m-0 p-0 ">
         <Header/>
         <Destination/>
         <Accomodation/>
