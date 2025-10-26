@@ -8,6 +8,7 @@ html,body {
     overflow-x: hidden;
 }
 
+
 .header{
     font-family: 'Garamond' ;
     @apply lg:h-screen h-[90vh] max-w-screen relative text-white overflow-hidden
