@@ -1,59 +1,106 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext.jsx';
 
 export const Signup = () => {
+  const navigate = useNavigate();
+  const { register, error: authError, loading } = useAuth();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [formError, setFormError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFormError('');
+
+    if (!firstName || !lastName || !email || !password) {
+      setFormError('Please complete all fields.');
+      return;
+    }
+
+    try {
+      await register(email, password, firstName, lastName);
+      navigate('/');
+    } catch (err) {
+      setFormError(err.response?.data?.error || 'Unable to sign up. Please try again.');
+    }
+  };
+
   return (
-    <section className="h-screen w-screen flex bg-[url('/login_bg.jpg')] bg-cover bg-center justify-center items-center bg-white lg:bg-none">
-      <div className='w-[80%] h-[60%] lg:w-[60%] lg:h-[70%] text-white lg:text-black flex gap-[2rem] lg:border-2 border-black rounded-lg lg:shadow-gray-400 lg:shadow-lg overflow-hidden'>
-        <div className='lg:w-1/2 w-full h-full flex justify-center items-center  bg-[rgba(0_0_0_0.3)] backdrop-blur-lg'>
-          <form className='flex flex-col justify-center items-center gap-4' action="submit">
-            <div className='flex w-[80%] h-max gap-2'>
-                <div className='w-[50%] h-max flex flex-col'>
-                  <label className='text-2xl' htmlFor="input">firstname</label>
-                  <input type="text"  className='w-full h-[40px] px-2 text-black bg-gray-300 rounded-md outline-0'/>
+    <section className="min-h-screen flex items-center justify-center bg-[linear-gradient(180deg,_#08101f_0%,_#112a4b_60%,_#f2e8d8_100%)] px-4 py-10">
+      <div className="w-full max-w-2xl bg-[rgba(255,255,255,0.95)] rounded-[2rem] shadow-2xl overflow-hidden border border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-10">
+          <div className="space-y-4">
+            <h1 className="text-5xl font-bold text-[var(--color-primary)]">Create account</h1>
+            <p className="text-[var(--color-muted)]">Sign up to start booking hotels, saving trips, and managing reservations.</p>
+
+            {formError && <div className="rounded-2xl bg-red-100 px-4 py-3 text-red-700">{formError}</div>}
+            {authError && <div className="rounded-2xl bg-red-100 px-4 py-3 text-red-700">{authError}</div>}
+          </div>
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-[var(--color-primary)]">First name</label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full rounded-2xl input-glow px-4 py-3"
+                  placeholder="First name"
+                />
               </div>
-              <div className='w-[50%] h-max flex flex-col'>
-                <label className='text-2xl' htmlFor="input">lastname</label>
-                <input type="text"  className='w-full h-[40px] px-2 text-black bg-gray-300 rounded-md outline-0'/>
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-[var(--color-primary)]">Last name</label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full rounded-2xl input-glow px-4 py-3"
+                  placeholder="Last name"
+                />
               </div>
             </div>
-            
-            <div className='w-[80%] h-max flex flex-col'>
-              <label className='text-2xl' htmlFor="input">email</label>
-              <input type="email"  className='w-full h-[40px] px-2 text-black bg-gray-300 rounded-md outline-0'/>
+
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-[var(--color-primary)]">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-2xl input-glow px-4 py-3"
+                placeholder="you@example.com"
+              />
             </div>
-            <div className='w-[80%] h-max flex flex-col'>
-              <label className='text-2xl' htmlFor="input">password</label>
-              <input type="password"  className='w-full h-[40px] px-2 text-black bg-gray-300 rounded-md outline-0'/>
+
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-[var(--color-primary)]">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-2xl input-glow px-4 py-3"
+                placeholder="Create a password"
+              />
             </div>
-            <button className='bg-yellow-400 rounded-md text-2xl font-bold uppercase w-[120px] h-[40px] text-white'>signup</button>
-            <h1 className='text-2xl'>already have an account? <Link className='signup_link' to={"/login"}>login</Link></h1>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full rounded-2xl px-4 py-3 text-white font-semibold disabled:opacity-60"
+            >
+              {loading ? 'Creating account…' : 'Create account'}
+            </button>
           </form>
 
-        </div>
-        <div className='hidden lg:flex h-full w-1/2'>
-           <svg width="100%" height="100%" viewBox="0 0 500 500" preserveAspectRatio="none">
-              <defs>
-                <pattern id="imgPattern" patternUnits="userSpaceOnUse" width="500" height="500">
-                  <image xlinkHref="/login_bg.jpg" width="500" height="500" preserveAspectRatio="xMidYMid slice" />
-                </pattern>
-              </defs>
-
-              <g transform="scale(-1,1) translate(-500,0)">
-                <path
-                  d="
-                    M0,0 
-                    L450,0
-                    C380,100 380,150 450,250
-                    C520,350 520,400 450,500
-                    L0,500 Z"
-                  fill="url(#imgPattern)"
-                />
-              </g>
-            </svg>
-
+          <p className="text-sm text-[var(--color-muted)] lg:col-span-2">
+            Already have an account?{' '}
+            <Link to="/login" className="font-semibold text-[var(--color-secondary)] hover:underline">Login</Link>
+          </p>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

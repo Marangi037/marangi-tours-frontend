@@ -1,46 +1,79 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext.jsx';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const { login, error: authError, loading } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [formError, setFormError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFormError('');
+
+    if (!email || !password) {
+      setFormError('Please enter your email and password.');
+      return;
+    }
+
+    try {
+      await login(email, password);
+      navigate('/');
+    } catch (err) {
+      setFormError(err.response?.data?.error || 'Unable to log in. Please try again.');
+    }
+  };
+
   return (
-    <section className="h-screen w-screen flex bg-[url('/login_bg.jpg')] bg-cover bg-center justify-center items-center bg-white lg:bg-none">
-      <div className='w-[80%] h-[60%] lg:w-[60%] lg:h-[70%] text-white lg:text-black flex gap-[2rem] lg:border-2 border-black rounded-lg lg:shadow-gray-400 lg:shadow-lg overflow-hidden'>
-        <div className="hidden lg:flex w-1/2 h-full">
-         <svg width="100%" height="100%" viewBox="0 0 500 500" preserveAspectRatio="none">
-            <defs>
-              <pattern id="imgPattern" patternUnits="userSpaceOnUse" width="500" height="500">
-                <image xlinkHref="/login_bg.jpg" width="500" height="500" preserveAspectRatio="xMidYMid slice" />
-              </pattern>
-            </defs>
+    <section className="min-h-screen flex items-center justify-center bg-[linear-gradient(180deg,_#08101f_0%,_#112a4b_60%,_#f2e8d8_100%)] px-4 py-10">
+      <div className="w-full max-w-md bg-[rgba(255,255,255,0.95)] rounded-[2rem] shadow-2xl overflow-hidden border border-white/10">
+        <div className="p-10">
+          <h1 className="text-5xl font-bold mb-2 text-[var(--color-primary)]">Login</h1>
+          <p className="text-[var(--color-muted)] mb-8">Access your travel bookings and manage your next adventure.</p>
 
-            <path
-              d="
-                M0,0 
-                L450,0
-                C380,100 380,150 450,250
-                C520,350 520,400 450,500
-                L0,500 Z"
-              fill="url(#imgPattern)"
-            />
-          </svg>
+          {formError && <div className="mb-4 rounded-2xl bg-red-100 px-4 py-3 text-red-700">{formError}</div>}
+          {authError && <div className="mb-4 rounded-2xl bg-red-100 px-4 py-3 text-red-700">{authError}</div>}
 
-        </div>
-        <div className="w-full lg:w-1/3 h-[90%] flex justify-center items-center bg-[rgba(0_0_0_0.3)] backdrop-blur-lg">
-          <form className='flex flex-col w-full h-[80%] justify-center items-center gap-4'>
-            <div className="w-[90%] h-max flex flex-col">
-              <label className='text-3xl' htmlFor="input">email</label>
-              <input type="text" className="w-full h-[40px] bg-gray-300 px-2 rounded-md text-black" placeholder='email' />
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-[var(--color-primary)]">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-2xl input-glow px-4 py-3"
+                placeholder="you@example.com"
+              />
             </div>
-            <div className="w-[90%] h-max flex flex-col">
-              <label className='text-3xl' htmlFor="input">password</label>
-              <input type="text" className="w-full h-[40px] bg-gray-300 px-2 rounded-md text-black" placeholder='password'/>
+
+            <div>
+              <label className="block text-sm font-semibold mb-2 text-[var(--color-primary)]">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-2xl input-glow px-4 py-3"
+                placeholder="Enter your password"
+              />
             </div>
-            <a className='forgot_password' href="#">forgot password</a>
-            <button className='bg-yellow-400 rounded-md text-2xl font-bold uppercase w-[120px] h-[40px] text-white'>login</button>
-            <h1 className='text-2xl'>don't have an acccount? <Link to={"/signup"} ><span className='signup_link'>sign up</span></Link></h1>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full rounded-2xl px-4 py-3 text-white font-semibold disabled:opacity-60"
+            >
+              {loading ? 'Signing in…' : 'Sign in'}
+            </button>
           </form>
+
+          <p className="mt-6 text-center text-sm text-[var(--color-muted)]">
+            Don’t have an account?{' '}
+            <Link to="/signup" className="font-semibold text-[var(--color-secondary)] hover:underline">Sign up</Link>
+          </p>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

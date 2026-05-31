@@ -1,226 +1,572 @@
 @import "tailwindcss";
 
-html,body {
+:root {
+  --color-primary: #0B1F3A;
+  --color-secondary: #D4AF37;
+  --color-accent: #F5DE9A;
+  --color-bg: #08101F;
+  --color-surface: rgba(245, 235, 216, 0.94);
+  --color-surface-dark: rgba(8, 16, 31, 0.78);
+  --color-text: #F7EFE3;
+  --color-muted: #8F9FB7;
+  --color-border: rgba(212, 175, 55, 0.18);
+  --color-shadow: rgba(8, 16, 31, 0.24);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(circle at top, rgba(212, 175, 55, 0.08), transparent 20%),
+    linear-gradient(180deg, #08101f 0%, #0a1f39 42%, #f5e7d2 100%);
+  color: var(--color-text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, .btn, .rounded-2xl, input, textarea {
+  transition: background-color .18s ease, border-color .18s ease, transform .12s ease;
+}
+
+a {
+  color: var(--color-secondary);
+}
+
+.text-muted,
+.text-gray-600 {
+  color: var(--color-muted) !important;
+}
+
+.section-title {
+  color: var(--color-text);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.section-subtitle {
+  color: rgba(247, 239, 227, 0.78);
+}
+
+.card-surface {
+  background: rgba(247, 239, 227, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 20px 60px rgba(8, 16, 31, 0.24);
+  color: var(--color-primary);
+}
+
+.hero-panel,
+.form,
+.bg-surface,
+.bg-surface-alt {
+  background: rgba(8, 16, 31, 0.75);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 70px rgba(8, 16, 31, 0.25);
+}
+
+.btn-primary {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border-radius: 9999px;
+  box-shadow: 0 22px 60px rgba(13, 26, 57, 0.24);
+}
+
+.btn-primary:hover {
+  background: #c8a443;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--color-secondary);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.input-glow {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-primary);
+}
+
+.input-glow:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.14);
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(8, 16, 31, 0.85) 0%, rgba(8, 16, 31, 0.18) 40%, rgba(8, 16, 31, 0.95) 100%);
+}
+
+.hero {
+  font-family: 'Garamond';
+  @apply lg:h-screen h-[90vh] max-w-screen relative text-white overflow-hidden min-w-[400px];
+}
+
+.carousel {
+  @apply h-full w-screen relative;
+}
+
+.heroSlide {
+  @apply relative h-full overflow-hidden;
+}
+
+.heroSlide {
+  @apply relative h-full min-h-[88vh] overflow-hidden rounded-b-[3rem] border-b border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.45)];
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.heroOverlayPanel {
+  @apply absolute left-6 w-[min(520px,88vw)] rounded-[2rem] border border-white/10 p-8 backdrop-blur-xl;
+  top: 24%;
+  transform: translateY(-20%);
+  background: rgba(8, 16, 31, 0.88);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+  padding-bottom: 3rem;
+  animation: fadeInUp 0.9s ease both;
+  text-shadow: 0 22px 56px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 1024px) {
+  .heroOverlayPanel {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 520px);
+    padding: 1.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroOverlayPanel {
+    position: static;
+    transform: none;
     width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
+    margin: 0 auto;
+    top: auto;
+    left: auto;
+    background: rgba(8, 16, 31, 0.88);
+    border-radius: 2rem;
+    padding: 1.5rem;
+  }
+
+  .heroOverlayPanel h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .heroOverlayPanel p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .heroThumbWrap {
+    @apply static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    position: relative;
+    margin-top: 1.5rem;
+    padding: 0 1rem 1rem;
+  }
+
+  .heroThumbCard {
+    min-height: 120px;
+  }
 }
 
-
-.header{
-    font-family: 'Garamond' ;
-    @apply lg:h-screen h-[90vh] max-w-screen relative text-white overflow-hidden
+.heroOverlayPanel .section-title,
+.heroOverlayPanel h1,
+.heroOverlayPanel p,
+.heroOverlayPanel .heroChip,
+.heroOverlayPanel .btn-primary,
+.heroOverlayPanel .btn-secondary {
+  color: #fff;
 }
 
-
-
-
-
-.carousel{
-    @apply h-full w-screen relative  
+.heroChip {
+  @apply px-3 py-1 text-sm uppercase tracking-[0.18em] text-[var(--color-secondary)];
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.container .item{
-    @apply absolute top-0 bottom-0 right-0 left-0
+.heroOverlayPanel h1 {
+  letter-spacing: -0.04em;
 }
 
-.carousel .item:nth-child(1){
-    z-index: 3;
+.heroChip {
+  @apply px-3 py-1 text-sm uppercase tracking-[0.18em] text-[var(--color-secondary)];
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.itemImage{
-    @apply h-full w-full object-cover
+.heroThumbWrap {
+  @apply absolute right-6 bottom-8 grid grid-cols-4 gap-4;
+  width: min(760px, 82vw);
 }
 
-/* next */
-
-.container.next .item:nth-child(1) img {
-   @apply w-[150px] h-[200px] md:w-[250px] md:h-[300px] absolute z-40 rounded-lg top-[60vh] md:top-[47vh] left-[55%] animate-[showItem_0.3s_linear_1_forwards] 
-
+.heroThumbCard {
+  @apply relative overflow-hidden rounded-[1.75rem] border border-white/10 shadow-[0_32px_70px_rgba(0,0,0,0.28)] transition-all duration-300 ease-out;
+  min-height: 140px;
 }
 
-
-@keyframes showItem{
-    to{
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        border-radius: 15px;
-    }
+.heroThumbCard:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(212,175,55,0.45);
 }
 
-
-/* prev */
-
-.container.prev .item:nth-child(2) img{
-    @apply w-screen h-full z-[4] absolute top-0 right-0 left-0 bottom-0 animate-[shrinkItemSmall_0.3s_linear_1_forwards] md:animate-[shrinkItem_0.3s_linear_1_forwards] lg:animate-[shrinkItemLarge_0.3s_linear_1_forwards] rounded-[0]
-
-   
+.heroThumbImage {
+  @apply h-full w-full object-cover;
 }
 
-@keyframes shrinkItemSmall {
-    to{
-        width: 150px;
-        height: 200px;
-        position: absolute;
-        top: 60vh;
-        left: 55%;
-        border-radius: 15px;
-    }
-} 
-@keyframes shrinkItem {
-    to{
-        width: 250px;
-        height: 300px;
-        position: absolute;
-        top: 50vh;
-        left: 55%;
-        border-radius: 15px;
-    }
-} 
-
-@keyframes shrinkItemLarge {
-    to{
-        width: 250px;
-        height: 300px;
-        position: absolute;
-        top: 47vh;
-        left: 55%;
-        border-radius: 15px;
-    }
+.heroThumbMeta {
+  @apply absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 via-black/20 to-transparent;
 }
 
-
-
-.content{
-    font-family: 'Garamond';
-    @apply absolute md:bottom-[20vh] bottom-[12vh] left-[5px] text-white w-[40vw] lg:w-[30vw] flex flex-col items-start gap-[10px] 
-
+.heroNav {
+  @apply absolute right-6 top-1/2 -translate-y-1/2 flex gap-3 z-30;
 }
 
-.itemDestination{
-   
-    @apply text-[1em] md:text-[2.5em] font-medium before:content-[""] before:bg-white before:top-[-15px] before:md:top-0 before:h-[4px] before:w-[50px] before:rounded-lg before:absolute before:left-2 capitalize text-nowrap md:text-wrap
+.heroNavButton {
+  @apply grid place-items-center h-12 w-12 rounded-full border border-white/20 text-[var(--color-text)] transition-all duration-200;
+  background: rgba(10, 18, 39, 0.82);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
-.itemTitle{
-    @apply text-[1.1em] md:text-[3em] font-bold uppercase lg:text-nowrap text-wrap 
+
+.heroNavButton:hover {
+  background: rgba(212, 175, 55, 0.18);
+  transform: translateY(-1px);
 }
-.itemDesc{
-    @apply text-[0.9em] md:text-[1.5em] 
+
+.heroNavButton:hover {
+  background: rgba(212,175,55,0.2);
 }
-.container.next .item:nth-child(1) .content,
-.container.prev .item:nth-child(1) .content{
-    display: none;
-}
-.carousel .container .item:nth-child(1) .itemDestination,
-.carousel .container .item:nth-child(1) .itemTitle,
-.carousel .container .item:nth-child(1) .itemDesc{
-    transform: translateY(150px);
-    filter: blur(20px);
+
+@keyframes fadeInUp {
+  from {
     opacity: 0;
-    animation: showContent 0.5s linear 1 forwards;
-}
-@keyframes showContent{
-    to{
-        transform: translateY(0);
-        filter: blur(0);
-        opacity: 1;
-    }
-}
-.carousel .container .item:nth-child(1) .itemDestination{
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-    animation-delay: 0.5s;
-}
-.carousel .container .item:nth-child(1) .itemTitle{
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-    animation-delay: 0.7s;
-}
-.carousel .container .item:nth-child(1) .itemDesc{
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-    animation-delay: 0.9s;
-    
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
- /* prev card text */
-
-
-.container.prev .item:nth-child(2) .content{
-   z-index: 4;  
+.heroThumbnailRow {
+  @apply absolute right-6 bottom-24 flex gap-4 z-20;
 }
 
-.container.prev .item:nth-child(2) .itemDestination,
-.container.prev .item:nth-child(2) .itemTitle,
-.container.prev .item:nth-child(2) .itemDesc{
-    animation: contentOut 0.5s linear 1 forwards;
+.thumbnailCard {
+  @apply relative overflow-hidden rounded-[1.25rem] border border-white/10 shadow-xl transition-all duration-500 ease-out;
+  width: 140px;
+  height: 98px;
 }
-@keyframes contentOut{
-    to{
-        transform: translateY(150px);
-        filter: blur(20px);
-        opacity: 0;
 
-    }
+.thumbnailCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.thumbnailImage {
+  @apply h-full w-full object-cover;
+}
+
+.thumbnailContent {
+  @apply absolute left-0 bottom-0 w-full p-3 bg-gradient-to-t from-black/80 via-black/0 to-transparent;
+}
+
+.thumbnailDestination {
+  @apply text-[10px] md:text-xs uppercase tracking-[0.25em] text-[var(--color-secondary)];
+}
+
+.thumbnailTitle {
+  @apply text-[11px] md:text-sm font-semibold leading-tight text-[var(--color-text)];
 }
 
 
-.thumbnail{
-    @apply w-max h-[200px] md:h-[300px] flex z-4 absolute bottom-[14vh] lg:bottom-[10vh] gap-[10px] left-[55%] overflow-hidden
-}
-.thumbnail.next{
-    @apply animate-[moveRight_0.3s_linear_1_forwards]
-}
-@keyframes moveRight{
-    from{
-        left: 60%;
-    }
-    to{
-        left: 55%;
-    }
+.heroThumbnailColumn {
+  @apply absolute right-8 top-1/2 z-20 flex flex-col gap-4 transform -translate-y-1/2;
+  width: 160px;
 }
 
-.thumbnail.prev .thumbnailCard:first-child{
-    @apply w-0 md:animate-[prevThumbnail_0.5s_linear_1_forwards] animate-[prevThumbnailSmall_0.5s_linear_1_forwards]
-}
-@keyframes prevThumbnail{
-    to{
-        width: 250px;
-    }
-} 
-@keyframes prevThumbnailSmall{
-    to{
-        width: 150px;
-    }
-}
-.thumbnailCard{
-    @apply h-full w-[150px] md:w-[250px] relative rounded-xl
-}
-.thumbnailImage{
-    @apply h-full w-full rounded-xl
-}
-.thumbnailContent{
-    @apply bottom-[20px] left-1 flex flex-col absolute w-2/3 pl-2
+.galleryThumb {
+  @apply relative overflow-hidden rounded-[1.5rem] border border-white/10 shadow-2xl transition-all duration-300 ease-out;
+  min-height: 120px;
+  width: 160px;
 }
 
+.galleryThumb:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.galleryThumb .thumbnailImage {
+  @apply h-full w-full object-cover;
+}
+
+.thumbnailContent {
+  @apply absolute left-0 bottom-0 w-full p-3 bg-gradient-to-t from-black/90 via-black/20 to-transparent;
+}
+
+.thumbnailDestination {
+  @apply text-[10px] md:text-xs uppercase tracking-[0.25em] text-[var(--color-secondary)];
+}
+
+.thumbnailTitle {
+  @apply text-[11px] md:text-sm font-semibold leading-tight text-[var(--color-text)];
+}
+
+.hotelPage {
+  @apply min-h-screen bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.1),_transparent_28%),_linear-gradient(180deg,_#08101f_0%,_#092148_48%,_#f4e8d2_100%)];
+}
+
+.hotelHeaderSticky {
+  @apply sticky top-0 z-30 bg-[rgba(8,16,31,0.92)] backdrop-blur-xl border-b border-white/10 px-6 py-4;
+}
+
+.hotelHeaderSticky .hotelTitle {
+  @apply text-3xl lg:text-5xl font-bold text-[var(--color-text)];
+}
+
+.hotelHeaderSticky .hotelMeta {
+  @apply text-[var(--color-muted)];
+}
+
+.hotelHeroGrid {
+  @apply grid gap-8 lg:grid-cols-[2fr_1fr] items-start;
+}
+
+.hotelGallery {
+  @apply rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-[rgba(255,255,255,0.04)];
+}
+
+.galleryMain {
+  @apply relative overflow-hidden h-[480px] rounded-[2rem];
+}
+
+.galleryMain img {
+  @apply h-full w-full object-cover;
+}
+
+.wishlistFloat {
+  @apply absolute top-6 right-6 z-20 rounded-full bg-[rgba(8,16,31,0.72)] p-3 text-[var(--color-text)] border border-white/10 shadow-2xl cursor-pointer;
+}
+
+.galleryNav {
+  @apply absolute inset-x-0 bottom-6 flex justify-between px-6 z-20;
+}
+
+.galleryNav button {
+  @apply rounded-full bg-[rgba(0,0,0,0.5)] border border-white/10 px-4 py-3 text-[var(--color-text)] text-sm uppercase tracking-[0.2em] transition-all duration-200;
+}
+
+.galleryNav button:hover {
+  @apply bg-[rgba(212,175,55,0.22)];
+}
+
+.galleryThumbnails {
+  @apply mt-4 grid grid-cols-4 gap-3;
+}
+
+.galleryThumbItem {
+  @apply relative overflow-hidden rounded-3xl border border-white/10 bg-black/20 cursor-pointer transition-all duration-300;
+  height: 90px;
+}
+
+.galleryThumbItem.active,
+.galleryThumbItem:hover {
+  @apply scale-105 border-[var(--color-secondary)];
+}
+
+.galleryThumbItem img {
+  @apply h-full w-full object-cover;
+}
+
+.hotelSummaryCard,
+.hotelRoomCard,
+.hotelReviewCard,
+.hotelSidebar {
+  background: rgba(8, 16, 31, 0.82);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+
+.hotelSummaryCard {
+  @apply rounded-[2rem] p-8;
+}
+
+.amenityItem {
+  @apply flex items-center gap-3 rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.06)] p-4 text-[var(--color-text)];
+}
+
+.iconBadge {
+  @apply inline-flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(212,175,55,0.12)] text-[var(--color-secondary)];
+}
+
+.roomCard {
+  @apply rounded-[2rem] border border-white/10 p-6 transition-all duration-300;
+}
+
+.roomCard.active {
+  @apply border-[var(--color-secondary)] bg-[rgba(212,175,55,0.1)];
+}
+
+.roomCardHeader {
+  @apply flex items-center justify-between gap-4;
+}
+
+.roomAccordion {
+  @apply mt-4 space-y-3 text-[var(--color-muted)];
+}
+
+.availabilityCalendar {
+  @apply rounded-[2rem] border border-white/10 p-6 grid gap-3;
+}
+
+.calendarHeader {
+  @apply flex items-center justify-between gap-3;
+}
+
+.calendarDays {
+  @apply grid grid-cols-7 gap-2 mt-4;
+}
+
+.calendarDay {
+  @apply rounded-2xl border border-white/10 bg-[rgba(255,255,255,0.04)] py-3 text-center text-sm text-[var(--color-text)];
+}
+
+.calendarDay.active {
+  @apply bg-[var(--color-secondary)] text-[var(--color-primary)] border-none;
+}
+
+.mapFrame {
+  @apply rounded-[2rem] border border-white/10 overflow-hidden;
+  min-height: 280px;
+}
+
+.priceBreakdown {
+  @apply rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6;
+}
+
+.priceRow {
+  @apply flex items-center justify-between gap-4 text-[var(--color-text)];
+}
+
+.priceTotal {
+  @apply mt-4 border-t border-white/10 pt-4 text-[var(--color-secondary)] font-semibold;
+}
+
+.rippleButton {
+  @apply relative overflow-hidden rounded-full bg-[var(--color-secondary)] px-6 py-3 text-[var(--color-primary)] font-semibold uppercase tracking-[0.2em] transition-all duration-200;
+}
+
+.rippleButton:hover {
+  @apply scale-105;
+}
+
+.rippleButton:active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.16);
+  animation: rippleEffect 0.6s ease-out;
+}
+
+@keyframes rippleEffect {
+  from { transform: scale(0); opacity: 0.7; }
+  to { transform: scale(2.2); opacity: 0; }
+}
+
+.reviewChart {
+  @apply rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6;
+}
+
+.reviewBar {
+  @apply h-3 rounded-full bg-white/10;
+}
+
+.reviewModalBackdrop {
+  @apply fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center;
+}
+
+.reviewModal {
+  @apply rounded-[2rem] border border-white/10 bg-[rgba(8,16,31,0.96)] p-8 w-[min(95vw,520px)];
+}
+
+.reviewModal h2,
+.reviewModal label {
+  @apply text-[var(--color-text)];
+}
+
+.reviewModal textarea,
+.reviewModal input,
+.reviewModal select {
+  @apply w-full rounded-2xl border border-white/10 bg-[rgba(255,255,255,0.06)] px-4 py-3 text-[var(--color-text)] outline-none;
+}
+
+.reviewModal button {
+  @apply w-full mt-6 rounded-full px-4 py-3 bg-[var(--color-secondary)] text-[var(--color-primary)] font-bold uppercase tracking-[0.18em] shadow-[0_22px_60px_rgba(13,26,57,0.24)];
+}
+
+.itemDestination,
+.itemTitle,
+.itemDesc,
+.thumbnailContent {
+  color: var(--color-text);
+}
+
+.itemDestination {
+  @apply text-base md:text-4xl font-medium capitalize;
+}
+
+.itemTitle {
+  @apply text-xl md:text-6xl font-bold uppercase lg:text-nowrap;
+}
+
+.itemDesc {
+  @apply text-xs md:text-2xl font-light font-sans;
+}
+
+.thumbnailCard {
+  @apply h-full w-[150px] md:w-[250px] relative rounded-xl;
+}
+
+.thumbnailImage {
+  @apply h-full w-full rounded-xl;
+}
+
+.thumbnailContent {
+  @apply bottom-[20px] left-1 flex flex-col absolute w-2/3 pl-2 text-shadow-2xs;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(11, 31, 58, 0.4);
+}
 
 .thumbnailDestination{
-    @apply md:text-[1.3em] lg:text-[0.8em] text-[12px] capitalize text-nowrap
+    @apply md:text-2xl lg:text-base text-xs capitalize text-nowrap
 }
 .thumbnailTitle{
-    @apply md:text-[1.5em] text-[12px] uppercase
+    @apply md:text-2xl text-[10px] uppercase font-medium
 }
 .arrows{
-    @apply absolute bottom-[5vh] lg:bottom-[2vh] right-[20vw] flex gap-[20px] z-5
+    @apply absolute bottom-[5vh] lg:bottom-[2vh] right-[20vw] flex gap-[20px] z-5 text-[var(--color-secondary)]
 }
 .leftArrow{
-    @apply border h-[40px] w-[40px] rounded-[50%] object-cover p-2
+    @apply border w-[30px] h-[30px] lg:h-[40px] lg:w-[40px] rounded-[50%] object-cover p-2
 }
 .rightArrow{
-    @apply border h-[40px] w-[40px] rounded-[50%] rotate-180 object-cover p-2
+    @apply border w-[30px] h-[30px] lg:h-[40px] lg:w-[40px] rounded-[50%] rotate-180 object-cover p-2
 }
 
 .list.next .arrows,
@@ -229,7 +575,7 @@ html,body {
 }
 
 .loadingIndicator{
-    @apply absolute top-0 left-0 z-10 h-[3px] rounded-lg bg-[#ead412]
+    @apply absolute top-0 left-0 z-10 h-[3px] rounded-lg bg-[var(--color-secondary)]
 }
 
 .loadingIndicator.next {
@@ -248,27 +594,28 @@ html,body {
 /* DESTINATION */
 
 .destination{
-    @apply max-w-screen min-w-screen h-[70vh] lg:min-h-screen bg-white flex justify-around gap-10 items-center flex-col relative overflow-hidden bg-center bg-cover
+    @apply max-w-screen min-w-[400px] h-[70vh] lg:min-h-screen bg-white flex justify-around gap-10 items-center flex-col relative overflow-hidden bg-center bg-cover
 }
 
 .destinationHeader{
     font-family: cursive;
-    @apply lg:text-2xl text-xl text-start w-[95vw]
+    @apply lg:text-2xl text-base text-start w-[95vw]
 }
 
 .destinationContainer{
-    @apply w-full h-max flex gap-2  px-3 transition-transform duration-500 ease-in-out text-nowrap
+    @apply w-full h-max min-h-[40vh] flex gap-2  px-3 transition-transform duration-500 ease-in-out text-nowrap
 }
 
+
 .destinationArrows{
-    @apply absolute top-40 lg:top-45 right-[2rem]  flex gap-[20px] z-5 flex-nowrap
+    @apply absolute top-30 lg:top-45 right-[2rem]  flex gap-[20px] z-5 flex-nowrap
 }
 
 .destinationLeftArrow{
-    @apply border h-[40px] w-[40px] rounded-[50%] object-cover p-2  bg-gray-400
+    @apply border h-[30px] w-[30px] lg:h-[40px] lg:w-[40px] rounded-[50%] object-cover p-2  bg-gray-400
 }
 .destinationRightArrow{
-    @apply border h-[40px] w-[40px] rounded-[50%] rotate-180 object-cover p-2  bg-gray-400
+    @apply border w-[30px] h-[30px] lg:h-[40px] lg:w-[40px] rounded-[50%] rotate-180 object-cover p-2  bg-gray-400
 }
 
 .accomodation-container:nth-child(1){
@@ -303,5 +650,49 @@ html,body {
 .signup_link:hover{
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+
+/* Responsive improvements: keep large-image frame intact on lg+, but make forms and cards mobile friendly */
+@media (max-width: 1024px){
+    .form, .w-2\/3 {
+        width: 92% !important;
+        padding: 1rem !important;
+    }
+    .accomodation-button{
+        width: 140px !important;
+    }
+}
+
+@media (max-width: 640px){
+    /* allow the hero to breathe and avoid forcing min widths */
+    html, body {
+        min-width: 0 !important;
+    }
+
+    .header{
+        @apply h-auto;
+    }
+
+    /* Accomodation form full width on small screens */
+    .form{
+        width: 95% !important;
+        padding: 0.75rem !important;
+    }
+
+    .accomodation-container{
+        /* keep rotation but scale down images on small screens */
+        transform-origin: center;
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .thumbnailCard, .thumbnailImage{
+        width: 120px !important;
+        height: 140px !important;
+    }
+
+    .itemTitle{
+        font-size: 1.875rem !important; /* approx text-3xl */
+    }
 }
 

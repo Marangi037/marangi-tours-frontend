@@ -1,55 +1,155 @@
 import React from 'react'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter, FaTiktok } from 'react-icons/fa6'
 
 export const Footer = () => {
-  return (
-    <section className='max-w-screen h-screen lg:h-[60vh] p-[3rem]  lg:flex lg:gap-6 gap-9 bg-black text-white grid grid-cols-2 overflow-x-hidden'>
-        <div className='flex flex-col w-1/2 lg:w-1/5 lg:gap-8 gap-2 lg:px-2 px-0 justify-start items-start'>
-          <h1 className='lg:text-4xl text-[16px]'>we craft bold high-quality and unapologetic self-expression everywhere</h1>
-          <div className='flex w-full h-max gap-2'>
-            <button className='w-[100px] lg:w-[180px] h-[30px] lg:h-[40px] rounded-md uppercase bg-amber-500 text-white text-[10px] px-2 text-nowrap'>book trip</button>
-            <button  className='w-[100px] lg:w-[180px] h-[30px] lg:h-[40px] rounded-md uppercase bg-amber-500 text-white text-nowrap text-[10px] px-2' >book hotel</button>
-          </div> 
-        </div>
-        <div className='w-1/2 lg:w-1/5 flex flex-col gap-4 justify-start items-center'>
-          <h1 className='text-xl lg:text-4xl text-nowrap'>our offices</h1>
-          <ul className='flex flex-col text-[16px] lg:text-2xl font-medium'>
-            <li>nairobi</li>
-            <li>Thika</li>
-            <li>Nakuru</li>
-            <li>Kisumu</li>
-            <li>Mombasa</li>
-          </ul>
-        </div>
-        <div className='flex flex-col w-1/2 lg:w-1/5 gap-4 justify-start items-center'>
-          <h1 className='lg:text-4xl text-xl text-nowrap'>popular</h1>
-          <ul className='flex flex-col gap-2 lg:text-2xl text-[16px]'>
-            <li>Bali</li>
-            <li>Thailand</li>
-            <li>Egypt</li>
-            <li>Maasai Mara</li>
-          </ul>
-        </div>
-        <div className='flex flex-col w-1/2 lg:w-1/5 gap-4 justify-start items-start'>
-          <h1 className='lg:text-4xl text-xl text-nowrap'>contact us</h1>
-            <ul className='flex flex-col font-medium text-[16px] lg:text-2xl gap-3'>
-              <a href="#">+254712345678</a>
-              <a href="#">mrgtourssupport@ac.ke</a>
-              <div className='w-full h-max flex gap-2'>
-                <img className='w-[30px] h-[30px]' src="/tik-tok_white.png" alt="tiktok logo" />
-                <img className='w-[30px] h-[30px]' src="/instagram_bg.png" alt="ig logo" />
-                <img className='w-[30px] h-[30px]' src="/whatsapp_white.png" alt="whatsapp logo" />
-                <img className='w-[30px] h-[30px]' src="/twitter_bg.png" alt="x logo" />
+  const currentYear = new Date().getFullYear()
 
+  const quickLinks = [
+    { label: 'Home', href: '#home' },
+    { label: 'Destinations', href: '#destination' },
+    { label: 'Hotels', href: '#hotels' },
+    { label: 'Reviews', href: '#reviews' },
+    { label: 'Contact', href: '#contact' },
+  ]
+
+  const popularDestinations = [
+    { label: 'Maasai Mara', href: '#destination' },
+    { label: 'Zanzibar', href: '#destination' },
+    { label: 'Serengeti', href: '#destination' },
+    { label: 'Cape Town', href: '#destination' },
+    { label: 'Mount Kilimanjaro', href: '#destination' },
+  ]
+
+  const socialLinks = [
+    { icon: FaTiktok, href: 'https://tiktok.com', label: 'TikTok' },
+    { icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
+    { icon: FaWhatsapp, href: 'https://wa.me/254712345678', label: 'WhatsApp' },
+    { icon: FaXTwitter, href: 'https://x.com', label: 'X (Twitter)' },
+  ]
+
+  const handleScroll = (e, href) => {
+    if (href.startsWith('#')) {
+      e.preventDefault()
+      const el = document.getElementById(href.slice(1))
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <footer className='bg-slate-950 border-t border-white/5'>
+      <div className='mx-auto max-w-[1400px] px-6 lg:px-12 py-16'>
+        <div className='grid gap-10 sm:grid-cols-2 lg:grid-cols-5'>
+
+          {/* Brand */}
+          <div className='space-y-5 lg:col-span-2'>
+            <div className='flex items-center gap-3'>
+              <div className='flex h-10 w-10 items-center justify-center rounded-full bg-teal-500 text-white'>
+                <svg viewBox='0 0 24 24' fill='currentColor' className='w-5 h-5'><path d='M17.5 19c2.48 0 4.5-2.02 4.5-4.5 0-2.3-1.74-4.2-3.95-4.46C17.42 6.55 14.93 4 12 4c-2.4 0-4.48 1.58-5.26 3.79C3.96 8.1 1.5 10.42 1.5 13.5 1.5 16.53 3.97 19 7 19h10.5z'/></svg>
               </div>
+              <span className='text-sm font-bold uppercase tracking-widest text-white'>Marangi Tours</span>
+            </div>
+            <p className='max-w-sm text-sm text-slate-400 leading-relaxed'>
+              Crafting unforgettable journeys with luxury, clarity and care. Every itinerary is designed to feel premium and effortless.
+            </p>
+            <div className='flex items-center gap-4 pt-1'>
+              <a
+                href='#destination'
+                onClick={(e) => handleScroll(e, '#destination')}
+                className='rounded-full bg-teal-500 px-5 py-2.5 text-xs font-semibold text-white uppercase tracking-wider transition-all hover:bg-teal-400 hover:shadow-lg hover:shadow-teal-500/20'
+              >
+                Explore
+              </a>
+              <a
+                href='#hotels'
+                onClick={(e) => handleScroll(e, '#hotels')}
+                className='rounded-full border border-white/15 px-5 py-2.5 text-xs font-semibold text-white uppercase tracking-wider transition-all hover:bg-white/10 hover:border-white/25'
+              >
+                Hotels
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className='space-y-4'>
+            <h3 className='text-sm font-semibold text-white uppercase tracking-wider'>Navigate</h3>
+            <ul className='space-y-2.5'>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleScroll(e, link.href)}
+                    className='text-sm text-slate-400 hover:text-teal-400 transition-colors'
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
-        </div>
-        <div className='flex flex-col w-[100vw] lg:w-1/5 gap-4 lg:justify-start justify-center items-center px-2'>
-          <h1 className='lg:text-2xl text-xl'>subscribe to our newsletter</h1>
-          <div className='flex gap-2'>
-            <input className='w-[100px] lg:w-[150px] h-[40px] rounded-md outline-0 bg-gray-300 px-2 text-black text-[10px] lg:text-2xl' type="text" placeholder='enter your email'/>
-            <button className='w-[100px] lg:w-[150px] h-[40px] rounded-md bg-amber-500'>subscribe</button>
+          </div>
+
+          {/* Popular */}
+          <div className='space-y-4'>
+            <h3 className='text-sm font-semibold text-white uppercase tracking-wider'>Popular</h3>
+            <ul className='space-y-2.5'>
+              {popularDestinations.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleScroll(e, link.href)}
+                    className='text-sm text-slate-400 hover:text-teal-400 transition-colors'
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact + Social */}
+          <div className='space-y-4'>
+            <h3 className='text-sm font-semibold text-white uppercase tracking-wider'>Contact</h3>
+            <div className='space-y-2.5'>
+              <a href='tel:+254712345678' className='block text-sm text-slate-400 hover:text-teal-400 transition-colors'>
+                +254 712 345 678
+              </a>
+              <a href='mailto:hello@marangitours.com' className='block text-sm text-slate-400 hover:text-teal-400 transition-colors'>
+                hello@marangitours.com
+              </a>
+            </div>
+            <div className='flex items-center gap-3 pt-2'>
+              {socialLinks.map((social) => {
+                const Icon = social.icon
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label={social.label}
+                    className='flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/8 text-slate-400 transition-all hover:bg-teal-500/10 hover:text-teal-400 hover:border-teal-500/30'
+                  >
+                    <Icon className='text-sm' />
+                  </a>
+                )
+              })}
+            </div>
           </div>
         </div>
-    </section>
+      </div>
+
+      {/* Bottom bar */}
+      <div className='border-t border-white/5 py-6'>
+        <div className='mx-auto max-w-[1400px] px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3'>
+          <p className='text-xs text-slate-500'>
+            © {currentYear} Marangi Tours. All rights reserved.
+          </p>
+          <div className='flex items-center gap-4'>
+            <a href='#' className='text-xs text-slate-500 hover:text-slate-300 transition-colors'>Privacy</a>
+            <a href='#' className='text-xs text-slate-500 hover:text-slate-300 transition-colors'>Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }

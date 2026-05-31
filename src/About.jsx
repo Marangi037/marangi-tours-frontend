@@ -5,26 +5,50 @@ import { FaHandHolding, FaHandHoldingUsd, FaCertificate } from 'react-icons/fa';
 
 export const About = () => {
   return (
-    <div id='about' className='max-w-screen min-w-screen h-max bg-white flex flex-col justify-around py-[2rem] items-center gap-6'>
-        <h1 className='w-full text-center text-2xl lg:text-3xl capitalize'>why choose <span className='underline underline-offset-2 undr'>marangi tours</span></h1>
-        <div className='w-full h-max flex flex-col justify-around items-center lg:flex-row gap-[4rem] lg:px-[10%]'>
-            <div className='w-full lg:w-1/4 flex flex-col gap-4 items-center px-[1rem]'>
-                <FaHandHolding className='text-5xl lg:text-6xl' color='gold'/>
-                <h2 className='uppercase font-medium text-xl lg:text-3xl text-center'>Trusted</h2>
-                <p className='text-[16px] lg:text-[20px]text-center'>Over <strong>1000+</strong> customers have entrusted us to be their guide to touring the wonders of the word</p>
-            </div>
-            <div className='w-full lg:w-1/4 flex flex-col gap-4 items-center px-[1rem]'>
-                <FaHandHoldingUsd className='text-5xl lg:text-6xl' color='gold'/>
-                <h2 className='uppercase font-medium text-xl lg:text-3xl text-nowrap text-center'>Budget Friendly</h2>
-                <p className='text-[16px] lg:text-[20px]text-center'>Our tour plan are all inclusive and they are pocket friendly.</p>
-            </div>
-            <div className='w-full lg:w-1/4 flex flex-col gap-4 items-center px-[1rem]'>
-                <FaCertificate className='text-5xl lg:text-6xl' color='gold'/>
-                <h2 className='uppercase font-medium text-xl lg:text-3xl text-center'>certified</h2>
-                <p className='text-[16px] lg:text-[16px] text-center'>We hold a certificate for best tourism agency in Kenya and also our business is certified by the Government of Kenya</p>
-            </div>
+    <section id='about' className='w-full bg-[#091323] text-white py-24 px-4 lg:px-10'>
+      <div className='mx-auto max-w-7xl'>
+        <div className='text-center mb-14'>
+          <p className='text-sm uppercase tracking-[0.3em] text-[var(--color-secondary)]'>Why Choose</p>
+          <h1 className='mt-4 text-4xl lg:text-5xl font-semibold tracking-tight'>
+            Marangi Tours
+          </h1>
+          <p className='mt-4 max-w-2xl mx-auto text-[rgba(247,239,227,0.75)] text-base lg:text-lg leading-8'>
+            Enjoy premium tour planning, flexible budgets, and trusted local experiences designed for your next unforgettable journey.
+          </p>
         </div>
 
-    </div>
+        <div className='grid gap-8 md:grid-cols-3'>
+          <div className='rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.06)] p-10 text-center shadow-[0_25px_80px_rgba(0,0,0,0.35)]'>
+            <div className='mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[rgba(212,175,55,0.15)] text-[var(--color-secondary)]'>
+              <FaHandHolding className='text-3xl lg:text-4xl' />
+            </div>
+            <h2 className='mt-8 uppercase text-2xl font-semibold tracking-[0.18em] text-[var(--color-secondary)]'>Trusted</h2>
+            <p className='mt-4 text-[rgba(247,239,227,0.78)] text-sm lg:text-base leading-7'>
+              Over <strong>1,000</strong> travelers trust us to deliver seamless safaris, luxury stays, and unforgettable local adventures.
+            </p>
+          </div>
+
+          <div className='rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.06)] p-10 text-center shadow-[0_25px_80px_rgba(0,0,0,0.35)]'>
+            <div className='mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[rgba(212,175,55,0.15)] text-[var(--color-secondary)]'>
+              <FaHandHoldingUsd className='text-3xl lg:text-4xl' />
+            </div>
+            <h2 className='mt-8 uppercase text-2xl font-semibold tracking-[0.18em] text-[var(--color-secondary)]'>Budget Friendly</h2>
+            <p className='mt-4 text-[rgba(247,239,227,0.78)] text-sm lg:text-base leading-7'>
+              Carefully curated tour packages keep your trip luxurious yet affordable, with transparent pricing and flexible payment options.
+            </p>
+          </div>
+
+          <div className='rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.06)] p-10 text-center shadow-[0_25px_80px_rgba(0,0,0,0.35)]'>
+            <div className='mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[rgba(212,175,55,0.15)] text-[var(--color-secondary)]'>
+              <FaCertificate className='text-3xl lg:text-4xl' />
+            </div>
+            <h2 className='mt-8 uppercase text-2xl font-semibold tracking-[0.18em] text-[var(--color-secondary)]'>Certified</h2>
+            <p className='mt-4 text-[rgba(247,239,227,0.78)] text-sm lg:text-base leading-7'>
+              Fully licensed and locally certified, our agency is recognized for excellence in tourism services across Kenya.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
