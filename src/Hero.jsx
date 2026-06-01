@@ -96,7 +96,7 @@ export const Hero = () => {
       {/* ── Content ── */}
       <div className="relative mx-auto flex min-h-screen max-w-[1400px] flex-col px-6 pt-28 pb-10 lg:px-12 font-body">
 
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
 
           {/* ── Left: Text ── */}
           <div className="flex flex-col justify-center space-y-5 z-10 max-w-xl">
@@ -108,7 +108,7 @@ export const Hero = () => {
               </p>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.1]">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight md:leading-[1.08]">
               Your Next
               <span className="block text-teal-400 italic mt-1">Adventure</span>
               <span className="block mt-1">Starts Here</span>
@@ -137,8 +137,28 @@ export const Hero = () => {
             </div>
           </div>
 
-          {/* ── Right: Carousel ── */}
-          <div className="relative flex flex-col justify-center h-full pt-6 lg:pt-0">
+          {/* Mobile: horizontal swipeable slider (stacked under text) */}
+          <div className="md:hidden w-full">
+            <div className="-mx-6 px-6">
+              <div className="flex gap-4 snap-x snap-mandatory overflow-x-auto w-full scrollbar-none scroll-smooth py-4">
+                {slides.map((slide, index) => (
+                  <div key={slide.label} className="w-full shrink-0 snap-center">
+                    <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-2xl">
+                      <img src={slide.image} alt={`${slide.label} – ${slide.subtitle}`} className="h-full w-full object-cover" loading={index < 3 ? 'eager' : 'lazy'} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <p className="text-2xl font-bold text-white tracking-wide font-display">{slide.label}</p>
+                        <p className="text-xs text-white/60 tracking-wider mt-1 font-medium font-body">{slide.subtitle}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Right: Carousel (desktop / md+) ── */}
+          <div className="hidden md:relative md:flex md:flex-col md:justify-center h-full pt-6 md:pt-0">
 
             {/* Cards */}
             <div className="relative h-[380px] sm:h-[420px]">

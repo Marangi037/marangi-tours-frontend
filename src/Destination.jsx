@@ -98,7 +98,7 @@ export const Destination = () => {
       {/* Subtle grid texture */}
       <div className='absolute inset-0 opacity-[0.02]' style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
-      <div className='relative w-full px-6 lg:px-12 max-w-[1400px] mx-auto'>
+      <div className='relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 
         {/* Header */}
         <div className='mb-10 max-w-2xl'>
@@ -114,11 +114,11 @@ export const Destination = () => {
 
         {/* Filters */}
         <div className='rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm p-5 mb-10'>
-          <div className='grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
+          <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
             <select
               value={selectedContinent}
               onChange={(e) => setSelectedContinent(e.target.value)}
-              className='rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
+              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
             >
               {continents.map((continent) => (
                 <option key={continent} value={continent} className='bg-slate-900 text-white'>
@@ -130,7 +130,7 @@ export const Destination = () => {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className='rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
+              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
             >
               {categories.map((category) => (
                 <option key={category} value={category} className='bg-slate-900 text-white'>
@@ -142,7 +142,7 @@ export const Destination = () => {
             <select
               value={selectedMood}
               onChange={(e) => setSelectedMood(e.target.value)}
-              className='rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
+              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
             >
               {moods.map((mood) => (
                 <option key={mood} value={mood} className='bg-slate-900 text-white'>
@@ -154,7 +154,7 @@ export const Destination = () => {
             <select
               value={selectedCountryId}
               onChange={(e) => setSelectedCountryId(e.target.value)}
-              className='rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
+              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
             >
               <option value='All' className='bg-slate-900 text-white'>Country: All</option>
               {destinationCountries.map((country) => (
@@ -168,7 +168,7 @@ export const Destination = () => {
               <button
                 type='button'
                 onClick={resetFilters}
-                className='rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-teal-400/50'
+                className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-teal-400/50'
               >
                 ✕ Reset
               </button>
@@ -183,7 +183,7 @@ export const Destination = () => {
         </div>
 
         {/* Cards grid */}
-        <div className='grid gap-5 sm:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {filteredLocations.slice(0, 9).map((location) => (
             <article
               key={location.id}

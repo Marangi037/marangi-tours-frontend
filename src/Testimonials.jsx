@@ -94,7 +94,7 @@ export const Testimonials = ({ testimonials }) => {
       {/* Subtle background texture */}
       <div className='absolute inset-0 opacity-[0.03]' style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
-      <div className='relative mx-auto max-w-[1400px] px-6 lg:px-12'>
+      <div className='relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 
         {/* Header */}
         <div className='mb-16 max-w-2xl'>
@@ -109,7 +109,7 @@ export const Testimonials = ({ testimonials }) => {
         </div>
 
         {/* Content grid */}
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center'>
 
           {/* Left: Image */}
           <div className='relative h-[350px] sm:h-[420px] lg:h-[500px] rounded-2xl overflow-hidden group'>

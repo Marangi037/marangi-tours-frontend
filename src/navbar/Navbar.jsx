@@ -108,7 +108,7 @@ export const Navbar = () => {
           </div>
 
           {/* Center: Navigation */}
-          <nav className='hidden lg:flex items-center justify-center gap-6 xl:gap-8 text-xs font-semibold tracking-widest'>
+          <nav className='hidden md:flex items-center justify-center gap-6 xl:gap-8 text-xs font-semibold tracking-widest'>
             {navLinks.map((link) => (
               <a
                 key={link.id}
@@ -211,15 +211,15 @@ export const Navbar = () => {
               )}
             </button>
 
-            <Link to='/login' className='hidden sm:block text-xs font-semibold tracking-widest text-white/80 hover:text-white transition'>LOGIN</Link>
-            <Link to='/signup' className='hidden sm:block rounded-full bg-teal-600 px-4 sm:px-5 py-2 text-xs font-semibold tracking-widest text-white transition hover:bg-teal-500'>
+            <Link to='/login' className='hidden md:block text-xs font-semibold tracking-widest text-white/80 hover:text-white transition'>LOGIN</Link>
+            <Link to='/signup' className='hidden md:block rounded-full bg-teal-600 px-4 sm:px-5 py-2 text-xs font-semibold tracking-widest text-white transition hover:bg-teal-500'>
               SIGN UP
             </Link>
 
             {/* Mobile menu toggle */}
             <button
               onClick={() => setIsMenu(!isMenu)}
-              className='lg:hidden flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white'
+              className='md:hidden flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white'
               aria-label='Menu'
             >
               {isMenu ? <FaTimes /> : (
@@ -230,30 +230,46 @@ export const Navbar = () => {
             </button>
           </div>
         </div>
+        {/* Mobile drawer (animated) */}
+        <div className='md:hidden'>
+          <div className={`fixed inset-0 z-50 transition-opacity duration-300 ${isMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+            <div className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${isMenu ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenu(false)} />
 
-        {/* Mobile nav */}
-        {isMenu && (
-          <div className='lg:hidden mt-2 border-t border-white/10 px-4 sm:px-6 py-4 bg-slate-950/95 backdrop-blur-lg'>
-            <nav className='flex flex-col gap-3'>
-              {navLinks.map((link) => (
-                <a
-                  key={link.id}
-                  onClick={() => handleClick(link.id)}
-                  href={`#${link.id}`}
-                  className={`text-sm font-semibold tracking-wider py-2 ${
-                    activeLink === link.id ? 'text-teal-400' : 'text-white/70'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
-              <div className='flex gap-3 pt-2 border-t border-white/10'>
-                <Link to='/login' onClick={() => setIsMenu(false)} className='text-sm font-semibold text-white/80'>LOGIN</Link>
-                <Link to='/signup' onClick={() => setIsMenu(false)} className='text-sm font-semibold text-teal-400'>SIGN UP</Link>
+            <div className={`absolute left-0 top-0 h-full w-4/5 max-w-sm bg-slate-900 border-r border-white/10 shadow-2xl overflow-y-auto transform transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-full'}`}>
+              <div className='p-4 border-b border-white/10 flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-teal-900">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M17.5 19c2.48 0 4.5-2.02 4.5-4.5 0-2.3-1.74-4.2-3.95-4.46C17.42 6.55 14.93 4 12 4c-2.4 0-4.48 1.58-5.26 3.79C3.96 8.1 1.5 10.42 1.5 13.5 1.5 16.53 3.97 19 7 19h10.5z"/></svg>
+                  </div>
+                  <span className='text-sm font-semibold uppercase tracking-widest text-white'>YOUR LOGO</span>
+                </div>
+                <button onClick={() => setIsMenu(false)} className='text-white/80 p-2'>
+                  <FaTimes />
+                </button>
               </div>
-            </nav>
+
+              <nav className='flex flex-col gap-3 p-4'>
+                {navLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    onClick={() => handleClick(link.id)}
+                    href={`#${link.id}`}
+                    className={`text-sm font-semibold tracking-wider py-2 ${
+                      activeLink === link.id ? 'text-teal-400' : 'text-white/70'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+
+                <div className='mt-4 pt-4 border-t border-white/10 flex flex-col gap-3'>
+                  <Link to='/login' onClick={() => setIsMenu(false)} className='text-sm font-semibold text-white/80'>LOGIN</Link>
+                  <Link to='/signup' onClick={() => setIsMenu(false)} className='text-sm font-semibold text-teal-400'>SIGN UP</Link>
+                </div>
+              </nav>
+            </div>
           </div>
-        )}
+        </div>
       </header>
 
       {/* Wishlist Slide-out Panel */}
