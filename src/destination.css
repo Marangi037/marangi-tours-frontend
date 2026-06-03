@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+
+.cardDiv{
+    @apply absolute bottom-1 left-2 text-white uppercase text-2xl
+}
+
+/* the errors for the hotel should be displayed at the bottom of the search of the div but if there are search results that's when you redirect to new page also i want the locals sections remove the background image that has the map i want it to have different locations and put price there like Here's a clean, ready-to-use prompt for your LLM:
+
+---
+
+## 🎯 LLM PROMPT: Destination Discovery Page
+
+```
+Create a SINGLE destination discovery page for my travel booking website portfolio. This is one page that showcases multiple destinations creatively. Use Unsplash images for all visuals.
+
+## PAGE CONCEPT
+A visually stunning destination discovery page that inspires travelers. Instead of a boring grid, make it creative and immersive. The page should feel like flipping through a luxury travel magazine.
+
+## DESIGN REQUIREMENTS
+
+### Hero Section
+- Full-screen background: https://images.unsplash.com/photo-1488646953014-85cb44e25828 (beach paradise)
+- Large heading: "Discover Your Paradise"
+- Subtitle: "Handpicked destinations for your next unforgettable journey"
+- Animated scroll indicator
+- Floating search bar with glass morphism effect:
+  - "Where would you like to go?" input
+  - Quick filter pills: Beach, Mountains, City, Culture, Adventure
+
+### Destinations Showcase (Main Section)
+
+Display these 8 destinations in a CREATIVE layout (not just cards):
+
+**1. Bali, Indonesia**
+- Hero image: https://images.unsplash.com/photo-1537996194471-e657df975ab4 (Bali temple)
+- Gallery images:
+  - https://images.unsplash.com/photo-1555400038-63f5ba517a47 (Rice terraces)
+  - https://images.unsplash.com/photo-1518548419970-58e3b4079ab2 (Beach)
+  - https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8 (Waterfall)
+- Temperature: 27-32°C
+- Best time to visit: April - October
+- Starting price: $599/person
+- Rating: 4.8 ⭐
+- Tags: Beach, Culture, Nature
+- Color theme: Emerald Green (#059669)
+
+**2. Santorini, Greece**
+- Hero image: https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e (Santorini blue domes)
+- Gallery images:
+  - https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff (Sunset)
+  - https://images.unsplash.com/photo-1612690669207-fed642192c40 (White buildings)
+  - https://images.unsplash.com/photo-1605640840605-14ac67e58aa7 (Oia streets)
+- Temperature: 24-29°C
+- Best time to visit: June - September
+- Starting price: $899/person
+- Rating: 4.9 ⭐
+- Tags: Romantic, Island, Sunsets
+- Color theme: Deep Blue (#1e40af)
+
+**3. Tokyo, Japan**
+- Hero image: https://images.unsplash.com/photo-1540959733332-eab4deabeeaf (Tokyo street)
+- Gallery images:
+  - https://images.unsplash.com/photo-1536098561742-ca998e48cbcc (Shibuya crossing)
+  - https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e (Cherry blossoms)
+  - https://images.unsplash.com/photo-1549693578-d683be217e58 (Temple)
+- Temperature: 15-28°C
+- Best time to visit: March - May (Cherry Blossoms)
+- Starting price: $1,099/person
+- Rating: 4.7 ⭐
+- Tags: City, Culture, Food
+- Color theme: Cherry Red (#dc2626)
+
+**4. Maldives**
+- Hero image: https://images.unsplash.com/photo-1514282401047-d79a71a590e8 (Overwater villas)
+- Gallery images:
+  - https://images.unsplash.com/photo-1573843981267-be1999ff37cd (Aerial view)
+  - https://images.unsplash.com/photo-1540202404-a2f29016b523 (Underwater)
+  - https://images.unsplash.com/photo-1578922746465-3a80a228f223 (Beach villa)
+- Temperature: 26-31°C
+- Best time to visit: November - April
+- Starting price: $1,499/person
+- Rating: 4.9 ⭐
+- Tags: Luxury, Beach, Honeymoon
+- Color theme: Turquoise (#0891b2)
+
+**5. Swiss Alps, Switzerland**
+- Hero image: https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99 (Alps panorama)
+- Gallery images:
+  - https://images.unsplash.com/photo-1506905925346-21bda4d32df4 (Mountain peak)
+  - https://images.unsplash.com/photo-1531366936337-7c912a4589a7 (Village)
+  - https://images.unsplash.com/photo-1464822759023-fed622ff2c3b (Hiking trail)
+- Temperature: 10-25°C
+- Best time to visit: December - April (Skiing) / June - September (Hiking)
+- Starting price: $799/person
+- Rating: 4.8 ⭐
+- Tags: Mountains, Adventure, Nature
+- Color theme: Ice Blue (#7dd3fc)
+
+**6. Marrakech, Morocco**
+- Hero image: https://images.unsplash.com/photo-1597212618440-806262de4f6b (Medina)
+- Gallery images:
+  - https://images.unsplash.com/photo-1509392143981-38b88c6f3c42 (Riad)
+  - https://images.unsplash.com/photo-1489749798305-4fea3ae63d43 (Souk market)
+  - https://images.unsplash.com/photo-1571896349842-33c89424de2d (Desert)
+- Temperature: 18-35°C
+- Best time to visit: March - May / September - November
+- Starting price: $449/person
+- Rating: 4.6 ⭐
+- Tags: Culture, Markets, Desert
+- Color theme: Terracotta (#c2410c)
+
+**7. Queenstown, New Zealand**
+- Hero image: https://images.unsplash.com/photo-1507699622108-4be3abd695ad (Lake and mountains)
+- Gallery images:
+  - https://images.unsplash.com/photo-1469521669194-babb45599def (Bungee jumping)
+  - https://images.unsplash.com/photo-1589411980264-4c8a5c5a4c38 (Milford Sound)
+  - https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd (Skiing)
+- Temperature: 8-22°C
+- Best time to visit: December - February (Summer) / June - August (Winter sports)
+- Starting price: $949/person
+- Rating: 4.8 ⭐
+- Tags: Adventure, Nature, Extreme Sports
+- Color theme: Forest Green (#166534)
+
+**8. Dubai, UAE**
+- Hero image: https://images.unsplash.com/photo-1512453979798-5ea266f8880c (Dubai skyline)
+- Gallery images:
+  - https://images.unsplash.com/photo-1546412414-e1885259563a (Burj Khalifa)
+  - https://images.unsplash.com/photo-1473571134542-66f4a77d7987 (Desert safari)
+  - https://images.unsplash.com/photo-1506126279646-a697353d3166 (Palm Jumeirah)
+- Temperature: 20-41°C
+- Best time to visit: November - March
+- Starting price: $699/person
+- Rating: 4.5 ⭐
+- Tags: Luxury, Shopping, Modern
+- Color theme: Gold (#ca8a04)
+
+## CREATIVE LAYOUT IDEAS (Choose 2-3 and implement):
+
+### Option A: Magazine-Style Masonry Grid
+- Uneven grid like Pinterest
+- Some cards are larger (featured destinations)
+- Smooth hover animations with image zoom
+- Overlay gradients with destination name and price
+
+### Option B: Horizontal Scroll Sections
+- Each destination gets a full-width horizontal strip
+- Parallax scrolling effect on images
+- Content slides in from the side
+- Navigation dots at bottom
+
+### Option C: Interactive World Map
+- Beautiful illustrated world map as background
+- Pulsing dots on each destination location
+- Click a dot to expand into a full card
+- Smooth zoom animation to location
+
+### Option D: Bento Grid Layout
+- Apple-style bento box design
+- Different sized cards arranged creatively
+- Some cards show image only, others have info
+- Smooth hover states with content reveal
+
+### Option E: Split Screen Cards
+- Each destination is a full-viewport card
+- Left side: Stunning full-bleed image
+- Right side: All information with elegant typography
+- Snap scrolling between destinations
+
+## CARD DESIGN (Each destination card must show):
+
+```
+┌─────────────────────────────────────┐
+│                                     │
+│     [DESTINATION IMAGE]             │
+│     With gradient overlay           │
+│                                     │
+│     ♥ Save to Wishlist (corner)     │
+│                                     │
+├─────────────────────────────────────┤
+│  CITY NAME, COUNTRY                 │
+│  ⭐ 4.8 (12.5K reviews)             │
+│                                     │
+│  🌡️ 27-32°C  📅 Best: Apr-Oct     │
+│                                     │
+│  Tags: [Beach] [Culture] [Nature]   │
+│                                     │
+│  From $599/person                   │
+│  [Explore Destination →]            │
+└─────────────────────────────────────┘
+```
+
+## INTERACTIVE FEATURES:
+
+1. **Image Gallery on Hover**
+   - When hovering over a destination card, smoothly cycle through 3 gallery images
+   - Use a subtle crossfade animation (2 seconds per image)
+   - Show dots indicator for which image is showing
+
+2. **Wishlist Heart Button**
+   - Floating heart icon in top-right corner of each card
+   - Click to save/unsave with a heart-filling animation
+   - Show toast notification "Added to Wishlist"
+
+3. **Quick View Modal**
+   - Click "Explore" to open a beautiful modal
+   - Shows all details, image carousel, and "View Hotels" CTA
+   - Smooth scale animation on open
+
+4. **Filter System** (Top of page, sticky)
+   - Filter by type: All | Beach | Mountain | City | Culture | Adventure
+   - Filter by budget: All | Budget (<$500) | Mid ($500-1000) | Luxury ($1000+)
+   - Filter by temperature: All | Hot (>25°C) | Mild (15-25°C) | Cool (<15°C)
+   - Filter by best time: Current Season | Spring | Summer | Fall | Winter
+   - Animated filter pills with smooth filtering animation
+
+5. **Sort Options**
+   - Sort by: Popularity | Price: Low-High | Price: High-Low | Rating | Name A-Z
+   - Custom dropdown with smooth animation
+
+6. **Search with Autocomplete**
+   - Type to filter destinations in real-time
+   - Show suggestions dropdown with destination name and thumbnail
+   - Debounced search for smooth performance
+
+## ANIMATIONS (Use Framer Motion):
+
+- Cards animate in on scroll (staggered entrance)
+- Image zoom on hover (scale: 1.05)
+- Heart button fill animation (spring physics)
+- Filter pills morph on click
+- Modal scale and fade animation
+- Price tag slide-in animation
+- Rating stars count-up animation
+- Skeleton loading shimmer effect
+- Smooth layout animation when filtering
+
+## TECHNICAL REQUIREMENTS:
+
+```javascript
+// Tech Stack
+- React with Vite
+- Tailwind CSS for styling
+- Framer Motion for animations
+- React Intersection Observer for scroll animations
+- React Hot Toast for notifications
+- Heroicons or Lucide React for icons
+
+// Component Structure
+src/
+├── pages/
+│   └── Destinations.jsx (main page)
+├── components/
+│   ├── destinations/
+│   │   ├── DestinationHero.jsx
+│   │   ├── DestinationCard.jsx
+│   │   ├── DestinationModal.jsx
+│   │   ├── FilterBar.jsx
+│   │   ├── SearchBar.jsx
+│   │   └── SortDropdown.jsx
+│   └── ui/
+│       ├── WishlistButton.jsx
+│       ├── StarRating.jsx
+│       ├── ImageGallery.jsx
+│       └── Toast.jsx
+├── data/
+│   └── destinations.js (mock data)
+├── hooks/
+│   ├── useWishlist.js
+│   └── useScrollAnimation.js
+└── context/
+    └── WishlistContext.jsx
+```
+
+## STATES TO HANDLE:
+
+1. **Loading**: Skeleton cards with shimmer animation while images load
+2. **Empty**: "No destinations match your filters" with illustration and reset button
+3. **Error**: Friendly error message with retry button if images fail to load
+4. **Success**: Full animated grid with all destinations
+
+## PERFORMANCE:
+- Lazy load images with Intersection Observer
+- Use WebP format if available
+- Add blur placeholder while images load (use low-quality image preview technique)
+- Debounce search input
+- Memoize filtered results
+
+## MOBILE RESPONSIVENESS:
+- Single column on mobile
+- Horizontal scroll for filter pills
+- Touch-friendly tap targets
+- Swipeable image gallery on mobile
+- Bottom sheet modal instead of centered modal
+
+## BONUS FEATURES:
+- Dark mode toggle with smooth transition
+- Share button on each card (copy link)
+- "Surprise Me" button that picks random destination with fun animation
+- Animated price comparison chart
+- "My Dream List" counter in header showing wishlist count
+
+Please generate this complete page with all 8 destinations, their Unsplash images, interactive features, and animations. Make it a showstopper for my portfolio. Focus on making the UI absolutely stunning with attention to every detail, smooth animations, and a premium feel.
+ */

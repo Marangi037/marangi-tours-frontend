@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/a2d9b979f4.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      .font-condensed {
+        font-family: 'Oswald', sans-serif;
+      }
+      .hero-background {
+        background-image: url('https://source.unsplash.com/random/1600x900?sunset+beach');
+      }
+      .dot-grid {
+        background-image: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
+        background-size: 10px 10px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-white">
+    <main class="relative min-h-screen overflow-hidden">
+      <div class="hero-background absolute inset-0 bg-cover bg-center"></div>
+      <div class="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-950/70 via-slate-950/30 to-transparent"></div>
+
+      <div class="relative mx-auto flex min-h-screen max-w-[1600px] flex-col px-6 py-6 lg:px-10 lg:py-8">
+        <header class="flex items-center justify-between gap-4 border-b border-white/10 pb-5 pt-2 text-sm text-white/90 lg:text-base">
+          <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-3xl border border-white/20 bg-white/10 text-white shadow-[0_20px_80px_rgba(255,255,255,0.08)]">
+              <i class="fas fa-cloud text-lg"></i>
+            </div>
+            <span class="font-semibold uppercase tracking-[0.35em]">YOUR LOGO</span>
+          </div>
+
+          <nav class="hidden items-center gap-8 uppercase tracking-[0.35em] md:flex">
+            <a href="#" class="transition duration-200 hover:text-white">HOME</a>
+            <a href="#" class="transition duration-200 hover:text-white">TOURS</a>
+            <a href="#" class="transition duration-200 hover:text-white">EXPLORE</a>
+            <a href="#" class="transition duration-200 hover:text-white">ABOUT US</a>
+            <a href="#" class="transition duration-200 hover:text-white">CONTACT</a>
+          </nav>
+
+          <div class="flex items-center gap-4 text-white/90">
+            <button class="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 transition hover:bg-white/20">
+              <i class="fas fa-search"></i>
+            </button>
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 transition hover:bg-white/20">
+                <i class="fab fa-facebook-f"></i>
+              </span>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 transition hover:bg-white/20">
+                <i class="fab fa-instagram"></i>
+              </span>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 transition hover:bg-white/20">
+                <i class="fab fa-twitter"></i>
+              </span>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 transition hover:bg-white/20">
+                <i class="fab fa-linkedin-in"></i>
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <section class="grid flex-1 gap-8 py-10 md:grid-cols-[0.45fr_0.55fr] lg:gap-12">
+          <div class="flex flex-col justify-center gap-8">
+            <div class="max-w-xl space-y-6">
+              <p class="text-sm uppercase tracking-[0.5em] text-sky-200">Travel website</p>
+              <h1 class="font-condensed text-5xl font-bold uppercase leading-none tracking-[-0.04em] text-slate-100 sm:text-6xl lg:text-7xl">
+                NEVER STOP EXPLORING THE WORLD.
+              </h1>
+              <p class="max-w-xl text-base leading-8 text-slate-200 sm:text-lg">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.
+              </p>
+              <button class="inline-flex rounded-full bg-teal-700 px-8 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-[0_20px_50px_rgba(4,77,73,0.35)] transition hover:bg-teal-600">
+                LEARN MORE
+              </button>
+            </div>
+          </div>
+
+          <div class="relative flex items-end justify-center">
+            <div class="absolute top-0 left-0 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+            <div class="absolute top-10 left-10 hidden h-24 w-24 dot-grid md:block opacity-90" />
+            <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-3">
+              <div class="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-5 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.18)]">
+                <div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.2),transparent_55%)]"></div>
+                <img
+                  src="https://source.unsplash.com/random/500x700?beach"
+                  alt="Beach"
+                  class="h-[320px] w-full rounded-[1.75rem] object-cover"
+                />
+                <div class="absolute bottom-6 left-6">
+                  <span class="text-3xl font-bold uppercase tracking-[0.15em] text-white">BEACH</span>
+                </div>
+              </div>
+              <div class="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-5 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.18)]">
+                <img
+                  src="https://source.unsplash.com/random/500x700?jungle"
+                  alt="Nature"
+                  class="h-[320px] w-full rounded-[1.75rem] object-cover"
+                />
+                <div class="absolute bottom-6 left-6">
+                  <span class="text-3xl font-bold uppercase tracking-[0.15em] text-white">NATURE</span>
+                </div>
+              </div>
+              <div class="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-5 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.18)]">
+                <img
+                  src="https://source.unsplash.com/random/500x700?resort"
+                  alt="Hotel"
+                  class="h-[320px] w-full rounded-[1.75rem] object-cover"
+                />
+                <div class="absolute bottom-6 left-6">
+                  <span class="text-3xl font-bold uppercase tracking-[0.15em] text-white">HOTEL</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute bottom-4 right-0 flex w-full items-center justify-between gap-4 px-4 sm:px-6">
+              <div class="flex items-center gap-3">
+                <button class="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+              <div class="flex flex-1 items-center gap-4">
+                <div class="h-px flex-1 bg-white/50"></div>
+                <span class="text-3xl font-thin uppercase tracking-[0.3em] text-white">01</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
