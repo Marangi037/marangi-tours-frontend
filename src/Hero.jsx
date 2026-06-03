@@ -95,7 +95,7 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950/80 via-slate-950/50 to-slate-950/70" />
 
       {/* ── Content ── */}
-      <div className="relative mx-auto flex h-full max-w-[1400px] flex-col px-6 pt-24 pb-8 lg:px-12 font-body justify-center">
+      <div className="relative mx-auto flex h-full max-w-[1400px] flex-col px-6 pt-24 pb-20 md:pb-8 lg:px-12 font-body justify-center">
 
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
 
@@ -139,7 +139,7 @@ export const Hero = () => {
           </div>
 
           {/* Mobile: 3-item carousel */}
-          <div className="md:hidden relative w-full h-[320px] mt-6 flex justify-center items-center overflow-hidden touch-pan-y">
+          <div className="md:hidden relative w-full h-[220px] mt-4 flex justify-center items-center overflow-hidden touch-pan-y">
             <AnimatePresence initial={false}>
               {slides.map((slide, index) => {
                 const pos = visibleIndices.indexOf(index);
@@ -160,13 +160,13 @@ export const Hero = () => {
                   zIndex = 30;
                   opacity = 1;
                 } else if (isLeft) {
-                  translateX = -130;
+                  translateX = -100;
                   scale = 0.85;
                   zIndex = 20;
                   opacity = 0.5;
                   rotate = -3;
                 } else {
-                  translateX = 130;
+                  translateX = 100;
                   scale = 0.85;
                   zIndex = 20;
                   opacity = 0.5;
@@ -196,7 +196,7 @@ export const Hero = () => {
                       if (!isCenter) manual(() => goTo(index));
                     }}
                   >
-                    <div className={`relative w-[210px] h-[280px] rounded-2xl overflow-hidden shadow-2xl group ${isCenter ? 'ring-2 ring-teal-400/40' : ''}`}>
+                    <div className={`relative w-[160px] h-[210px] rounded-2xl overflow-hidden shadow-2xl group ${isCenter ? 'ring-2 ring-teal-400/40' : ''}`}>
                       <img
                         src={slide.image}
                         alt={`${slide.label} – ${slide.subtitle}`}
@@ -204,9 +204,9 @@ export const Hero = () => {
                         loading={index < 3 ? 'eager' : 'lazy'}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <p className="text-xl font-bold text-white tracking-wide font-display">{slide.label}</p>
-                        <p className="text-xs text-white/60 tracking-wider mt-1 font-medium font-body">{slide.subtitle}</p>
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <p className="text-base font-bold text-white tracking-wide font-display">{slide.label}</p>
+                        <p className="text-[10px] text-white/60 tracking-wider mt-0.5 font-medium font-body">{slide.subtitle}</p>
                       </div>
                     </div>
                   </motion.div>
