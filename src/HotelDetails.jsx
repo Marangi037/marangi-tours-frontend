@@ -167,7 +167,7 @@ export const HotelDetails = () => {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
               <div className="flex flex-wrap gap-3 items-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-secondary)] bg-[rgba(212,175,55,0.12)] px-4 py-2 text-sm text-[var(--color-secondary)]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-secondary bg-[rgba(212,175,55,0.12)] px-4 py-2 text-sm text-secondary">
                   <FaMapMarkerAlt /> {hotel.location?.city || hotelAddress}
                 </span>
               </div>
@@ -175,7 +175,7 @@ export const HotelDetails = () => {
               <div className="flex flex-wrap gap-3 items-center text-[var(--color-muted)]">
                 <div className="flex items-center gap-2">
                   {Array.from({ length: Math.round(hotel.rating || 4) }).map((_, index) => (
-                    <FaStar key={index} className="text-[var(--color-secondary)] animate-pulse" />
+                    <FaStar key={index} className="text-secondary animate-pulse" />
                   ))}
                 </div>
                 <span>{hotel.reviewCount || reviews.length} reviews</span>
@@ -185,7 +185,7 @@ export const HotelDetails = () => {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="text-right">
                 <p className="text-sm text-[var(--color-muted)]">From</p>
-                <p className="text-3xl font-bold text-[var(--color-secondary)]">${hotel.pricePerNight}</p>
+                <p className="text-3xl font-bold text-secondary">${hotel.pricePerNight}</p>
               </div>
               <button onClick={handleBooking} className="rippleButton flex items-center justify-center gap-2">
                 <FaHeart /> Book Now
@@ -226,7 +226,7 @@ export const HotelDetails = () => {
 
           <aside className="hotelSummaryCard sticky top-28 space-y-6">
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-[var(--color-secondary)]">
+              <div className="flex items-center gap-3 text-secondary">
                 <FaMapMarkerAlt />
                 <span>{hotel.location?.city || 'Prime location'}</span>
               </div>
@@ -234,7 +234,7 @@ export const HotelDetails = () => {
             </div>
 
             <div className="amenitiesGrid space-y-4">
-              <h2 className="text-2xl font-bold text-[var(--color-primary)]">Highlights</h2>
+              <h2 className="text-2xl font-bold text-primary">Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {(hotel.amenities || ['Pool', 'Spa', 'Gym', 'Restaurant']).slice(0, 4).map((amenity) => (
                   <div key={amenity} className="amenityItem">
@@ -260,7 +260,7 @@ export const HotelDetails = () => {
 
         <section className="space-y-10">
           <div className="hotelSummaryCard p-8">
-            <h2 className="text-3xl font-bold text-[var(--color-primary)] mb-6">Room Options</h2>
+            <h2 className="text-3xl font-bold text-primary mb-6">Room Options</h2>
             <div className="space-y-5">
               {roomTypes.map((room) => (
                 <div key={room.id} className={`roomCard ${selectedRoomId === room.id ? 'active' : ''}`}>
@@ -283,7 +283,7 @@ export const HotelDetails = () => {
                     <div className="flex flex-wrap gap-3">
                       {room.amenities.slice(0, 4).map((feature) => (
                         <span key={feature} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[rgba(255,255,255,0.05)] px-4 py-2 text-sm text-[var(--color-text)]">
-                          <FaCheck className="text-[var(--color-secondary)]" />
+                          <FaCheck className="text-secondary" />
                           {feature}
                         </span>
                       ))}
@@ -302,7 +302,7 @@ export const HotelDetails = () => {
 
           <div className="hotelSummaryCard p-8 grid gap-8 lg:grid-cols-[2fr_1fr]">
             <div>
-              <h2 className="text-3xl font-bold text-[var(--color-primary)] mb-4">Availability</h2>
+              <h2 className="text-3xl font-bold text-primary mb-4">Availability</h2>
               <div className="calendarHeader">
                 <span className="text-[var(--color-text)]">Choose your travel window</span>
                 <span className="text-[var(--color-muted)]">{nightCount} night stay</span>
@@ -350,7 +350,7 @@ export const HotelDetails = () => {
           <div className="hotelSummaryCard p-8">
             <div className="flex items-center justify-between gap-4 mb-6">
               <div>
-                <h2 className="text-3xl font-bold text-[var(--color-primary)]">Traveler Reviews</h2>
+                <h2 className="text-3xl font-bold text-primary">Traveler Reviews</h2>
                 <p className="text-[var(--color-muted)]">Insightful feedback from recent guests.</p>
               </div>
               <button onClick={() => setShowReviewModal(true)} className="rippleButton">
@@ -382,11 +382,11 @@ export const HotelDetails = () => {
                   <div className="flex flex-col sm:flex-row justify-between gap-4">
                     <div>
                       <h3 className="text-xl font-semibold text-[var(--color-text)]">{review.title}</h3>
-                      <p className="text-[var(--color-secondary)]">{review.user.firstName} {review.user.lastName}</p>
+                      <p className="text-secondary">{review.user.firstName} {review.user.lastName}</p>
                     </div>
                     <div className="text-[var(--color-muted)]">{new Date(review.createdAt).toLocaleDateString()}</div>
                   </div>
-                  <div className="flex gap-1 mt-3 text-[var(--color-secondary)]">
+                  <div className="flex gap-1 mt-3 text-secondary">
                     {Array.from({ length: review.rating }).map((_, idx) => (<FaStar key={idx} />))}
                   </div>
                   <p className="mt-4 text-[var(--color-text)]">{review.comment}</p>

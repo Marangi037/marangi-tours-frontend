@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext.jsx';
-import { FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaCheck } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaCheck, FaChevronLeft } from 'react-icons/fa';
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export const Signup = () => {
 
     try {
       await register(email, password, firstName, lastName);
-      navigate('/');
+      navigate('/verify-email', { state: { email } });
     } catch (err) {
       setFormError(err.response?.data?.error || 'Unable to sign up. Please try again.');
     }
@@ -53,8 +53,11 @@ export const Signup = () => {
 
   return (
     <section className="h-screen w-full flex flex-col items-center bg-slate-950 px-4 pt-[80px] pb-6 overflow-y-auto relative">
+      <Link to="/" className="absolute top-6 left-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-all z-20">
+        <FaChevronLeft className="text-sm" />
+      </Link>
       <div className='absolute inset-0 opacity-[0.03]' style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-      <div className="absolute top-1/2 left-3/4 w-[500px] h-[500px] bg-[var(--color-secondary)]/5 rounded-full blur-[150px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/2 left-3/4 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
 
       <div className="w-full max-w-[800px] my-auto bg-[rgba(8,16,31,0.85)] border border-white/10 rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.5)] backdrop-blur-xl relative z-10 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-5 h-full">
@@ -63,8 +66,7 @@ export const Signup = () => {
           <div className="md:col-span-2 bg-white/5 border-r border-white/10 p-8 flex-col justify-between hidden md:flex">
             <div>
               <div className='flex items-center gap-3 mb-2'>
-                <span className='h-px w-6 bg-[var(--color-secondary)]' />
-                <p className='text-[10px] font-bold tracking-[0.2em] text-[var(--color-secondary)] uppercase'>Join Us</p>
+                <p className='text-[10px] font-bold tracking-[0.2em] text-secondary uppercase'>Join Us</p>
               </div>
               <h1 className="text-3xl font-bold mb-4 text-white leading-snug">Create<br/>Account</h1>
               <p className="text-sm text-slate-400">Sign up to start booking hotels, saving trips, and managing reservations.</p>
@@ -107,7 +109,7 @@ export const Signup = () => {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-[var(--color-secondary)] transition-all text-sm"
+                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                     placeholder="First name"
                   />
                 </div>
@@ -117,7 +119,7 @@ export const Signup = () => {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-[var(--color-secondary)] transition-all text-sm"
+                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                     placeholder="Last name"
                   />
                 </div>
@@ -129,7 +131,7 @@ export const Signup = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-[var(--color-secondary)] transition-all text-sm"
+                  className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                   placeholder="you@example.com"
                 />
                 <div className="flex gap-1 mt-2">
@@ -145,13 +147,13 @@ export const Signup = () => {
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-[var(--color-secondary)] transition-all text-sm"
+                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                       placeholder="Password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[var(--color-secondary)] transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-secondary transition-colors"
                     >
                       {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
@@ -171,16 +173,16 @@ export const Signup = () => {
                       type={showConfirmPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-[var(--color-secondary)] transition-all text-sm"
+                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                       placeholder="Confirm"
                     />
                     {passwordsMatch ? (
-                      <FaCheck className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-secondary)]" />
+                      <FaCheck className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary" />
                     ) : (
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[var(--color-secondary)] transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-secondary transition-colors"
                       >
                         {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                       </button>
@@ -191,8 +193,8 @@ export const Signup = () => {
 
               <button
                 type="submit"
-                disabled={loading}
-                className="w-full h-[44px] mt-2 rounded-xl bg-[var(--color-secondary)] text-[var(--color-primary)] text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
+                disabled={loading || !firstName || !lastName || !email || !password || !confirmPassword}
+                className="w-full h-[44px] mt-2 rounded-xl bg-secondary text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
               >
                 {loading ? 'Creating account…' : 'Create account'}
               </button>
@@ -223,7 +225,7 @@ export const Signup = () => {
 
             <p className="mt-4 text-center md:text-left text-sm text-slate-400">
               Already have an account?{' '}
-              <Link to="/login" className="font-semibold text-[var(--color-secondary)] hover:text-white transition-colors">Login</Link>
+              <Link to="/login" className="font-semibold text-secondary hover:text-white transition-colors">Login</Link>
             </p>
           </div>
         </div>

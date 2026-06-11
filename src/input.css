@@ -1,21 +1,30 @@
 @import "tailwindcss";
 
-:root {
+@theme {
   --color-primary: #0B1F3A;
   --color-secondary: #D4AF37;
   --color-accent: #F5DE9A;
   --color-bg: #08101F;
   --color-surface: rgba(245, 235, 216, 0.94);
   --color-surface-dark: rgba(8, 16, 31, 0.78);
+  --color-surface-darker: #0a0f18;
+  --color-surface-card: #0f1923;
+  --color-surface-accent: #0a1628;
   --color-text: #F7EFE3;
   --color-muted: #8F9FB7;
   --color-border: rgba(212, 175, 55, 0.18);
   --color-shadow: rgba(8, 16, 31, 0.24);
+
+  --font-garamond: 'Garamond', serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-dmsans: 'DM Sans', sans-serif;
 }
 
 html, body {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -196,7 +205,7 @@ a {
 }
 
 .heroChip {
-  @apply px-3 py-1 text-sm uppercase tracking-[0.18em] text-[var(--color-secondary)];
+  @apply px-3 py-1 text-sm uppercase tracking-[0.18em] text-secondary;
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -205,7 +214,7 @@ a {
 }
 
 .heroChip {
-  @apply px-3 py-1 text-sm uppercase tracking-[0.18em] text-[var(--color-secondary)];
+  @apply px-3 py-1 text-sm uppercase tracking-[0.18em] text-secondary;
   background: rgba(255, 255, 255, 0.06);
 }
 
@@ -286,7 +295,7 @@ a {
 }
 
 .thumbnailDestination {
-  @apply text-[10px] md:text-xs uppercase tracking-[0.25em] text-[var(--color-secondary)];
+  @apply text-[10px] md:text-xs uppercase tracking-[0.25em] text-secondary;
 }
 
 .thumbnailTitle {
@@ -319,7 +328,7 @@ a {
 }
 
 .thumbnailDestination {
-  @apply text-[10px] md:text-xs uppercase tracking-[0.25em] text-[var(--color-secondary)];
+  @apply text-[10px] md:text-xs uppercase tracking-[0.25em] text-secondary;
 }
 
 .thumbnailTitle {
@@ -385,7 +394,7 @@ a {
 
 .galleryThumbItem.active,
 .galleryThumbItem:hover {
-  @apply scale-105 border-[var(--color-secondary)];
+  @apply scale-105 border-secondary;
 }
 
 .galleryThumbItem img {
@@ -410,7 +419,7 @@ a {
 }
 
 .iconBadge {
-  @apply inline-flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(212,175,55,0.12)] text-[var(--color-secondary)];
+  @apply inline-flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(212,175,55,0.12)] text-secondary;
 }
 
 .roomCard {
@@ -418,7 +427,7 @@ a {
 }
 
 .roomCard.active {
-  @apply border-[var(--color-secondary)] bg-[rgba(212,175,55,0.1)];
+  @apply border-secondary bg-[rgba(212,175,55,0.1)];
 }
 
 .roomCardHeader {
@@ -446,7 +455,7 @@ a {
 }
 
 .calendarDay.active {
-  @apply bg-[var(--color-secondary)] text-[var(--color-primary)] border-none;
+  @apply bg-secondary text-primary border-none;
 }
 
 .mapFrame {
@@ -463,11 +472,11 @@ a {
 }
 
 .priceTotal {
-  @apply mt-4 border-t border-white/10 pt-4 text-[var(--color-secondary)] font-semibold;
+  @apply mt-4 border-t border-white/10 pt-4 text-secondary font-semibold;
 }
 
 .rippleButton {
-  @apply relative overflow-hidden rounded-full bg-[var(--color-secondary)] px-6 py-3 text-[var(--color-primary)] font-semibold uppercase tracking-[0.2em] transition-all duration-200;
+  @apply relative overflow-hidden rounded-full bg-secondary px-6 py-3 text-primary font-semibold uppercase tracking-[0.2em] transition-all duration-200;
 }
 
 .rippleButton:hover {
@@ -515,7 +524,7 @@ a {
 }
 
 .reviewModal button {
-  @apply w-full mt-6 rounded-full px-4 py-3 bg-[var(--color-secondary)] text-[var(--color-primary)] font-bold uppercase tracking-[0.18em] shadow-[0_22px_60px_rgba(13,26,57,0.24)];
+  @apply w-full mt-6 rounded-full px-4 py-3 bg-secondary text-primary font-bold uppercase tracking-[0.18em] shadow-[0_22px_60px_rgba(13,26,57,0.24)];
 }
 
 .itemDestination,
@@ -561,7 +570,7 @@ textarea::placeholder {
     @apply md:text-2xl text-[10px] uppercase font-medium
 }
 .arrows{
-    @apply absolute bottom-[5vh] lg:bottom-[2vh] right-[20vw] flex gap-[20px] z-5 text-[var(--color-secondary)]
+    @apply absolute bottom-[5vh] lg:bottom-[2vh] right-[20vw] flex gap-[20px] z-5 text-secondary
 }
 .leftArrow{
     @apply border w-[30px] h-[30px] lg:h-[40px] lg:w-[40px] rounded-[50%] object-cover p-2
@@ -576,7 +585,7 @@ textarea::placeholder {
 }
 
 .loadingIndicator{
-    @apply absolute top-0 left-0 z-10 h-[3px] rounded-lg bg-[var(--color-secondary)]
+    @apply absolute top-0 left-0 z-10 h-[3px] rounded-lg bg-secondary
 }
 
 .loadingIndicator.next {

@@ -60,7 +60,7 @@ export const Settings = () => {
     <section className='min-h-screen bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.08),_transparent_20%),linear-gradient(180deg,_#08101f_0%,_#0d203b_45%,_#f4e8d2_100%)] pt-32 pb-16 px-4'>
       <div className='mx-auto max-w-5xl'>
         <div className='mb-10'>
-          <p className='text-sm uppercase tracking-[0.3em] text-[var(--color-secondary)]'>Your Account</p>
+          <p className='text-sm uppercase tracking-[0.3em] text-secondary'>Your Account</p>
           <h1 className='mt-3 text-4xl font-semibold text-[var(--color-text)]'>Settings & Profile</h1>
         </div>
 

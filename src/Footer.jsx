@@ -37,9 +37,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className='space-y-6 lg:col-span-2'>
             <div className='flex items-center gap-3'>
-              <div className='flex h-10 w-10 items-center justify-center rounded-full bg-teal-500 text-white'>
-                <svg viewBox='0 0 24 24' fill='currentColor' className='w-5 h-5'><path d='M17.5 19c2.48 0 4.5-2.02 4.5-4.5 0-2.3-1.74-4.2-3.95-4.46C17.42 6.55 14.93 4 12 4c-2.4 0-4.48 1.58-5.26 3.79C3.96 8.1 1.5 10.42 1.5 13.5 1.5 16.53 3.97 19 7 19h10.5z'/></svg>
-              </div>
+              <img src="/travel-agency.png" alt="Travel Agency Logo" className="h-10 w-auto object-contain" />
               <span className='text-sm font-bold uppercase tracking-widest text-white'>Marangi Tours</span>
             </div>
             <p className='max-w-sm text-sm text-slate-400 leading-relaxed'>
@@ -103,7 +101,7 @@ export const Footer = () => {
       <div className='border-t border-white/5 py-6'>
         <div className='mx-auto max-w-[1400px] px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3'>
           <p className='text-xs text-slate-500'>
-            © {currentYear} Marangi Tours. All rights reserved.
+            © {currentYear} Marangi Tours. All rights reserved. Logo by gravisio.
           </p>
           <div className='flex items-center gap-4'>
             <a href='#' className='text-xs text-slate-500 hover:text-slate-300 transition-colors'>Privacy</a>

@@ -39,48 +39,48 @@ export const Signup = () => {
             )}
             <div className='flex w-[80%] h-max gap-2'>
                 <div className='w-[50%] h-max flex flex-col'>
-                  <label className='text-2xl text-[var(--color-secondary)]' htmlFor="firstName">firstname</label>
+                  <label className='text-2xl text-secondary' htmlFor="firstName">firstname</label>
                   <input 
                     type="text" 
                     id="firstName"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className='w-full h-[40px] px-4 text-[var(--color-primary)] bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
+                    className='w-full h-[40px] px-4 text-primary bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
                     required
                   />
               </div>
               <div className='w-[50%] h-max flex flex-col'>
-                <label className='text-2xl text-[var(--color-secondary)]' htmlFor="lastName">lastname</label>
+                <label className='text-2xl text-secondary' htmlFor="lastName">lastname</label>
                 <input 
                   type="text" 
                   id="lastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className='w-full h-[40px] px-4 text-[var(--color-primary)] bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
+                  className='w-full h-[40px] px-4 text-primary bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
                   required
                 />
               </div>
             </div>
             
             <div className='w-[80%] h-max flex flex-col'>
-              <label className='text-2xl text-[var(--color-secondary)]' htmlFor="email">email</label>
+              <label className='text-2xl text-secondary' htmlFor="email">email</label>
               <input 
                 type="email" 
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='w-full h-[40px] px-4 text-[var(--color-primary)] bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
+                className='w-full h-[40px] px-4 text-primary bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
                 required
               />
             </div>
             <div className='w-[80%] h-max flex flex-col'>
-              <label className='text-2xl text-[var(--color-secondary)]' htmlFor="password">password</label>
+              <label className='text-2xl text-secondary' htmlFor="password">password</label>
               <input 
                 type="password" 
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className='w-full h-[40px] px-4 text-[var(--color-primary)] bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
+                className='w-full h-[40px] px-4 text-primary bg-[rgba(255,255,255,0.92)] rounded-2xl outline-0'
                 required
               />
             </div>

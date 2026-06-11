@@ -24,7 +24,7 @@ export const MyBookings = () => {
   return (
     <div className="min-h-screen bg-[var(--color-bg)] py-10 text-[var(--color-text)]">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-[var(--color-primary)]">My Bookings</h1>
+        <h1 className="text-4xl font-bold mb-8 text-primary">My Bookings</h1>
 
         {error && (
           <div className="bg-red-100 text-red-700 p-4 rounded mb-6">
@@ -51,7 +51,7 @@ export const MyBookings = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div>
                     <p className="text-[var(--color-muted)] text-sm">Booking Number</p>
-                    <p className="font-semibold text-lg text-[var(--color-primary)]">{booking.bookingNumber}</p>
+                    <p className="font-semibold text-lg text-primary">{booking.bookingNumber}</p>
                   </div>
                   <div>
                     <p className="text-[var(--color-muted)] text-sm">Hotel</p>
@@ -62,7 +62,7 @@ export const MyBookings = () => {
                     <p className={`font-semibold ${
                       booking.status === 'confirmed' ? 'text-emerald-400' :
                       booking.status === 'cancelled' ? 'text-rose-400' :
-                      'text-[var(--color-secondary)]'
+                      'text-secondary'
                     }`}>
                       {booking.status?.toUpperCase()}
                     </p>
@@ -88,7 +88,7 @@ export const MyBookings = () => {
                   </div>
                   <div>
                     <p className="text-sm">Total Price</p>
-                    <p className="font-semibold text-[var(--color-secondary)]">${booking.totalPrice}</p>
+                    <p className="font-semibold text-secondary">${booking.totalPrice}</p>
                   </div>
                 </div>
 

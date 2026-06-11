@@ -98,9 +98,8 @@ export const Testimonials = ({ testimonials }) => {
 
         {/* Header */}
         <div className='mb-16 max-w-2xl'>
-          <div className='flex items-center gap-3 mb-4'>
-            <span className='h-px w-8 bg-teal-400' />
-            <p className='text-xs font-semibold tracking-[0.2em] text-teal-400 uppercase'>Traveller Stories</p>
+          <div className='flex items-center justify-center gap-3 mb-4'>
+            <p className='text-xs font-semibold tracking-[0.2em] text-teal-400 uppercase'>What Travelers Say</p>
           </div>
           <h2 className='text-3xl font-bold text-white sm:text-4xl lg:text-5xl leading-tight'>
             Real experiences,<br />

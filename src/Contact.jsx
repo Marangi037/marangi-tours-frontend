@@ -12,6 +12,7 @@ export const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     setSuccess(true)
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', message: '' })
     setTimeout(() => setSuccess(false), 5000)
   }
 
@@ -38,8 +39,7 @@ export const Contact = () => {
             {/* Header */}
             <div className='mb-8'>
               <div className='flex items-center gap-3 mb-4'>
-                <span className='h-px w-8 bg-teal-400' />
-                <p className='text-xs font-semibold tracking-[0.2em] text-teal-400 uppercase'>Get in Touch</p>
+                <p className='text-xs font-semibold tracking-[0.2em] text-teal-400 uppercase'>Get In Touch</p>
               </div>
               <h2 className='text-3xl font-bold text-white sm:text-4xl lg:text-5xl leading-tight'>
                 Let's plan your<br />

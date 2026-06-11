@@ -48,12 +48,12 @@ export const DestinationCard = ({ id, imageUrl, name, country, rating, price, te
       <div className={`absolute bottom-4 left-4 right-4 rounded-[1.5rem] bg-[rgba(8,16,31,0.92)] border border-white/10 p-5 transition-transform duration-300 ${hovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-95'}`}>
         <div className='flex items-center justify-between gap-4'>
           <div>
-            <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-secondary)]'>{country}</p>
+            <p className='text-sm uppercase tracking-[0.2em] text-secondary'>{country}</p>
             <h2 className='text-2xl font-semibold text-[var(--color-text)]'>{name}</h2>
           </div>
-          <div className='flex items-center gap-1 text-[var(--color-secondary)]'>
+          <div className='flex items-center gap-1 text-secondary'>
             {Array.from({ length: rating }).map((_, index) => (
-              <FaStar key={index} className='text-[var(--color-secondary)]' />
+              <FaStar key={index} className='text-secondary' />
             ))}
           </div>
         </div>

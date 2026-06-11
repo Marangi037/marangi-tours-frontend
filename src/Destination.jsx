@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { FaMapMarkerAlt, FaStar, FaHeart, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { FaMapMarkerAlt, FaStar, FaHeart, FaChevronLeft, FaChevronRight, FaChevronDown } from 'react-icons/fa'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { destinationCountries } from './destinationData.js'
 import { useCart } from './context/CartContext.jsx'
 import { useImageOverrides } from './context/ImageOverrideContext.jsx'
@@ -45,6 +45,16 @@ export const Destination = () => {
   const [selectedMood, setSelectedMood] = useState('All')
   const [selectedCountryId, setSelectedCountryId] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
+
+  const locationUrl = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(locationUrl.search);
+    const country = params.get('country');
+    if (country) {
+      setSelectedCountryId(country);
+    }
+  }, [locationUrl.search]);
 
   useEffect(() => {
     setCurrentPage(1)
@@ -101,8 +111,10 @@ export const Destination = () => {
   const totalPages = Math.ceil(filteredLocations.length / itemsPerPage)
   const currentLocations = filteredLocations.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
+  const getSelectClass = (value) => `w-full h-12 md:h-auto rounded-xl border pl-4 pr-10 py-3 text-sm outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer appearance-none ${value !== 'All' ? 'bg-teal-500/10 border-teal-400 text-teal-400 font-bold' : 'border-white/10 bg-white/5 text-white font-medium'}`
+
   return (
-    <section id='destination' className='relative bg-slate-950 py-16 lg:py-24 w-full overflow-hidden'>
+    <section id='destination' className='relative bg-slate-950 py-16 lg:py-24 w-full overflow-hidden scroll-mt-20 sm:scroll-mt-24'>
 
       {/* Subtle grid texture */}
       <div className='absolute inset-0 opacity-[0.02]' style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
@@ -112,7 +124,6 @@ export const Destination = () => {
         {/* Header */}
         <div className='mb-10 max-w-2xl'>
           <div className='flex items-center gap-3 mb-4'>
-            <span className='h-px w-8 bg-teal-400' />
             <p className='text-xs font-semibold tracking-[0.2em] text-teal-400 uppercase'>Destination Discovery</p>
           </div>
           <h2 className='text-3xl font-bold text-white sm:text-4xl lg:text-5xl leading-tight'>
@@ -122,73 +133,85 @@ export const Destination = () => {
         </div>
 
         {/* Filters */}
-        <div className='rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm p-5 mb-10'>
+        <div className='rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm p-5 mb-6'>
           <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
-            <select
-              value={selectedContinent}
-              onChange={(e) => setSelectedContinent(e.target.value)}
-              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
-            >
-              {continents.map((continent) => (
-                <option key={continent} value={continent} className='bg-slate-900 text-white'>
-                  Continent: {continent}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
-            >
-              {categories.map((category) => (
-                <option key={category} value={category} className='bg-slate-900 text-white'>
-                  Style: {category}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={selectedMood}
-              onChange={(e) => setSelectedMood(e.target.value)}
-              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
-            >
-              {moods.map((mood) => (
-                <option key={mood} value={mood} className='bg-slate-900 text-white'>
-                  Mood: {mood}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={selectedCountryId}
-              onChange={(e) => setSelectedCountryId(e.target.value)}
-              className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400/30 transition-all cursor-pointer'
-            >
-              <option value='All' className='bg-slate-900 text-white'>Country: All</option>
-              {destinationCountries.map((country) => (
-                <option key={country.id} value={country.id} className='bg-slate-900 text-white'>
-                  {country.flag} {country.name}
-                </option>
-              ))}
-            </select>
-
-            {activeFilter && (
-              <button
-                type='button'
-                onClick={resetFilters}
-                className='w-full md:w-auto h-12 md:h-auto rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-teal-400/50'
+            <div className='relative'>
+              <select
+                value={selectedContinent}
+                onChange={(e) => setSelectedContinent(e.target.value)}
+                className={getSelectClass(selectedContinent)}
               >
-                ✕ Reset
-              </button>
-            )}
-          </div>
+                {continents.map((continent) => (
+                  <option key={continent} value={continent} className='bg-slate-900 text-white font-medium'>
+                    Continent: {continent}
+                  </option>
+                ))}
+              </select>
+              <FaChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-xs ${selectedContinent !== 'All' ? 'text-teal-400' : 'text-slate-400'}`} />
+            </div>
 
-          <div className='mt-4 flex items-center justify-between'>
-            <p className='text-sm font-medium text-slate-400'>
-              <span className='text-teal-400 font-bold'>{filteredLocations.length}</span> destinations found
-            </p>
+            <div className='relative'>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className={getSelectClass(selectedCategory)}
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category} className='bg-slate-900 text-white font-medium'>
+                    Style: {category}
+                  </option>
+                ))}
+              </select>
+              <FaChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-xs ${selectedCategory !== 'All' ? 'text-teal-400' : 'text-slate-400'}`} />
+            </div>
+
+            <div className='relative'>
+              <select
+                value={selectedMood}
+                onChange={(e) => setSelectedMood(e.target.value)}
+                className={getSelectClass(selectedMood)}
+              >
+                {moods.map((mood) => (
+                  <option key={mood} value={mood} className='bg-slate-900 text-white font-medium'>
+                    Mood: {mood}
+                  </option>
+                ))}
+              </select>
+              <FaChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-xs ${selectedMood !== 'All' ? 'text-teal-400' : 'text-slate-400'}`} />
+            </div>
+
+            <div className='relative'>
+              <select
+                value={selectedCountryId}
+                onChange={(e) => setSelectedCountryId(e.target.value)}
+                className={getSelectClass(selectedCountryId)}
+              >
+                <option value='All' className='bg-slate-900 text-white font-medium'>Country: All</option>
+                {destinationCountries.map((country) => (
+                  <option key={country.id} value={country.id} className='bg-slate-900 text-white font-medium'>
+                    {country.flag} {country.name}
+                  </option>
+                ))}
+              </select>
+              <FaChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-xs ${selectedCountryId !== 'All' ? 'text-teal-400' : 'text-slate-400'}`} />
+            </div>
           </div>
+        </div>
+
+        {/* Results Info & Clear All */}
+        <div id="destination-results" className='mb-8 flex items-center justify-between px-2 scroll-mt-28'>
+          <p className='text-sm font-medium text-slate-400'>
+            <span className='text-teal-400 font-bold'>{filteredLocations.length}</span> destinations found
+          </p>
+          {activeFilter && (
+            <button
+              type='button'
+              onClick={resetFilters}
+              className='h-10 rounded-lg px-4 text-sm font-semibold text-teal-400 hover:text-teal-300 transition-all hover:bg-teal-500/10'
+            >
+              Clear all
+            </button>
+          )}
         </div>
 
         {/* Cards grid */}

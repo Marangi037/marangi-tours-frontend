@@ -33,6 +33,10 @@ const API_ENDPOINTS = {
     CREATE_INTENT: '/payments/create-intent',
     CONFIRM: '/payments/confirm',
   },
+  SEARCH: {
+    LOG: '/search/log',
+    TRENDING: '/search/trending',
+  },
 };
 
 // Auth Services
@@ -162,4 +166,21 @@ export const paymentService = {
     });
     return response.data;
   },
+};
+
+// Search Services
+export const searchService = {
+  logSearch: async (query, locale = 'en') => {
+    try {
+      await axiosInstance.post(API_ENDPOINTS.SEARCH.LOG, { query, locale });
+    } catch (e) {
+      // Fire and forget, ignore errors
+      console.warn('Failed to log search', e);
+    }
+  },
+  
+  getTrending: async (locale = 'en') => {
+    const response = await axiosInstance.get(API_ENDPOINTS.SEARCH.TRENDING, { params: { locale } });
+    return response.data;
+  }
 };

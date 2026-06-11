@@ -4,6 +4,7 @@ import { FaArrowLeft, FaCalendarAlt, FaCheck, FaHeart, FaMapMarkerAlt, FaPlus, F
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from './context/CartContext.jsx'
 import { getAttractionById, getSimilarAttractions } from './destinationData.js'
+import { Breadcrumbs } from './components/Breadcrumbs.jsx'
 
 export const AttractionDetail = () => {
   const { attractionId } = useParams()
@@ -39,9 +40,7 @@ export const AttractionDetail = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [attractionId])
+  // Removed duplicate scrollTo as App.jsx handles instant scroll on route change
 
   const isSaved = isInWishlist(attraction?.id)
   const totalVisitors = Math.max(1, adults + children)
@@ -50,7 +49,7 @@ export const AttractionDetail = () => {
   if (!attraction) {
     return (
       <div className='min-h-screen bg-slate-950 flex items-center justify-center px-4'>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className='max-w-lg w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-10 text-center shadow-2xl'
@@ -58,10 +57,10 @@ export const AttractionDetail = () => {
           <div className='text-6xl mb-6'>🔍</div>
           <h2 className='text-3xl font-bold text-white'>Attraction Not Found</h2>
           <p className='mt-4 text-slate-400 leading-relaxed'>We couldn't find this destination. Let's get you back to exploring amazing places.</p>
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/')} 
+            onClick={() => navigate('/')}
             className='mt-8 rounded-xl bg-teal-500 px-8 py-4 text-white font-semibold shadow-lg shadow-teal-500/20 hover:bg-teal-400 transition-all'
           >
             Explore Destinations
@@ -86,7 +85,7 @@ export const AttractionDetail = () => {
     }
     setError('')
     const ref = `EXP-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
-    
+
     navigate(`/checkout/attr-${ref}`, {
       state: {
         type: 'attraction',
@@ -115,22 +114,6 @@ export const AttractionDetail = () => {
 
   return (
     <div className='min-h-screen bg-slate-950'>
-      {/* Floating Back Button */}
-      <motion.div 
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        className='fixed top-6 left-6 z-40'
-      >
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/')} 
-          className='flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/80 backdrop-blur-lg px-5 py-3 text-sm font-semibold text-white shadow-lg hover:bg-slate-800 hover:border-teal-500/30 transition-all'
-        >
-          <FaArrowLeft className='text-sm' /> Back
-        </motion.button>
-      </motion.div>
-
       {/* Scroll to top */}
       <AnimatePresence>
         {showScrollTop && (
@@ -146,27 +129,35 @@ export const AttractionDetail = () => {
         )}
       </AnimatePresence>
 
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-16'>
+      <div className='mx-auto max-w-7xl 2xl:max-w-[1600px] px-4 sm:px-6 lg:px-8 2xl:px-12 pt-[100px] md:pt-[120px] lg:pt-[140px] 2xl:pt-[160px] pb-16 2xl:pb-24'>
+
+        <div className="mb-6">
+          <Breadcrumbs crumbs={[
+            { label: 'Destinations', link: '/#destination' },
+            { label: attraction.name }
+          ]} />
+        </div>
+
         {/* Hero Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className='grid gap-8 lg:grid-cols-[1.3fr_1fr]'
+          className='grid gap-8 lg:grid-cols-[1.3fr_1fr] 2xl:gap-12'
         >
           {/* Image Gallery */}
           <div className='space-y-4'>
             <div className='relative overflow-hidden rounded-2xl bg-slate-800 shadow-2xl group'>
-              <motion.img 
+              <motion.img
                 key={selectedImage}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                src={galleryImages[selectedImage]} 
-                alt={attraction.name} 
+                src={galleryImages[selectedImage]}
+                alt={attraction.name}
                 className='h-[300px] sm:h-[400px] lg:h-[500px] w-full object-cover cursor-pointer'
                 onClick={() => setShowLightbox(true)}
               />
-              
+
               {/* Image Navigation */}
               <button onClick={prevImage} className='absolute left-4 top-1/2 -translate-y-1/2 rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-slate-800 shadow-lg'>
                 <FaChevronLeft />
@@ -177,18 +168,18 @@ export const AttractionDetail = () => {
 
               {/* Wishlist & Share */}
               <div className='absolute top-4 right-4 flex gap-2'>
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={handleWishlist} 
+                  onClick={handleWishlist}
                   className='rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 shadow-lg hover:bg-slate-800 transition-all'
                 >
                   <FaHeart className={`text-lg ${isSaved ? 'text-red-500' : 'text-white/50'}`} />
                 </motion.button>
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={handleShare} 
+                  onClick={handleShare}
                   className='rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 shadow-lg hover:bg-slate-800 transition-all'
                 >
                   <FaShareAlt className='text-lg text-white/50' />
@@ -209,9 +200,8 @@ export const AttractionDetail = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSelectedImage(index)}
-                  className={`flex-shrink-0 h-20 w-20 sm:h-24 sm:w-24 rounded-xl overflow-hidden border-2 transition-all ${
-                    selectedImage === index ? 'border-teal-400 shadow-lg shadow-teal-400/25' : 'border-transparent opacity-60 hover:opacity-100'
-                  }`}
+                  className={`flex-shrink-0 h-20 w-20 sm:h-24 sm:w-24 rounded-xl overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-teal-400 shadow-lg shadow-teal-400/25' : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
                 >
                   <img src={image} alt={`${attraction.name} ${index + 1}`} className='h-full w-full object-cover' />
                 </motion.button>
@@ -220,7 +210,7 @@ export const AttractionDetail = () => {
           </div>
 
           {/* Quick Info Card */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
@@ -234,9 +224,9 @@ export const AttractionDetail = () => {
                 <FaStar className='text-amber-400' /> {attraction.rating}
               </span>
             </div>
-            
+
             <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-white mt-3'>{attraction.name}</h1>
-            
+
             <div className='flex items-center gap-2 mt-3 text-slate-400'>
               <FaMapMarkerAlt className='text-teal-400' />
               <span className='font-medium'>{attraction.city}, {attraction.country}</span>
@@ -441,28 +431,28 @@ export const AttractionDetail = () => {
             className='fixed inset-0 z-50 bg-black/95 flex items-center justify-center'
             onClick={() => setShowLightbox(false)}
           >
-            <button 
+            <button
               onClick={() => setShowLightbox(false)}
               className='absolute top-6 right-6 text-white text-3xl hover:text-slate-300 transition-all z-10'
             >
               <FaTimes />
             </button>
-            <button 
+            <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
               className='absolute left-6 text-white text-3xl hover:text-slate-300 transition-all'
             >
               <FaChevronLeft />
             </button>
-            <motion.img 
+            <motion.img
               key={selectedImage}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              src={galleryImages[selectedImage]} 
-              alt={attraction.name} 
+              src={galleryImages[selectedImage]}
+              alt={attraction.name}
               className='max-h-[85vh] max-w-[90vw] object-contain rounded-2xl'
               onClick={(e) => e.stopPropagation()}
             />
-            <button 
+            <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
               className='absolute right-6 text-white text-3xl hover:text-slate-300 transition-all'
             >

@@ -36,11 +36,7 @@ export const AuthProvider = ({ children }) => {
         lastName,
       });
 
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      setUser(response.user);
-      setIsAuthenticated(true);
-
+      // We no longer auto-login here. The user must verify their email first.
       return response;
     } catch (err) {
       const errorMsg = err.response?.data?.error || err.message;
