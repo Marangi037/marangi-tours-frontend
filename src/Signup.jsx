@@ -44,12 +44,12 @@ export const Signup = () => {
   };
 
   const handleGoogleSignup = () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://marangi-tours-backend.onrender.com/api';
     window.location.href = `${apiUrl}/auth/google`;
   };
 
   const handleFacebookSignup = () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://marangi-tours-backend.onrender.com/api';
     window.location.href = `${apiUrl}/auth/facebook`;
   };
 
