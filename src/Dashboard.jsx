@@ -4,7 +4,7 @@ import { FaArrowLeft, FaImage, FaGlobeAfrica, FaMapMarkerAlt, FaStar, FaCheck, F
 import { destinationCountries } from './destinationData.js'
 import { useImageOverrides } from './context/ImageOverrideContext.jsx'
 
-const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80&auto=format&fit=crop'
+const FALLBACK_IMAGE = '/images/photo-1488085061387-422e29b40080.jpg'
 
 export const Dashboard = () => {
   const { overrides, getImageUrl, setImageOverride, clearOverride, clearAllOverrides } = useImageOverrides()

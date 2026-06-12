@@ -3,10 +3,10 @@ import { FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const MOCK_ATTRACTIONS = [
-  { id: '1', name: 'Nairobi National Park', category: 'Nature', distance: '3.2', image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80' },
-  { id: '2', name: 'Giraffe Centre', category: 'Wildlife', distance: '5.8', image: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=800&q=80' },
-  { id: '3', name: 'Karen Blixen Museum', category: 'Culture', distance: '7.1', image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&q=80' },
-  { id: '4', name: 'Bomas of Kenya', category: 'Culture', distance: '8.5', image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=80' },
+  { id: '1', name: 'Nairobi National Park', category: 'Nature', distance: '3.2', image: '/images/photo-1547471080-7cc2caa01a7e.jpg' },
+  { id: '2', name: 'Giraffe Centre', category: 'Wildlife', distance: '5.8', image: '/images/photo-1590523277543-a94d2e4eb00b.jpg' },
+  { id: '3', name: 'Karen Blixen Museum', category: 'Culture', distance: '7.1', image: '/images/photo-1580060839134-75a5edca2e99.jpg' },
+  { id: '4', name: 'Bomas of Kenya', category: 'Culture', distance: '8.5', image: '/images/photo-1516026672322-bc52d61a55d5.jpg' },
 ];
 
 export const NearbyAttractions = ({ city = 'the city' }) => {
@@ -23,9 +23,10 @@ export const NearbyAttractions = ({ city = 'the city' }) => {
 
       <div className="flex overflow-x-auto gap-5 snap-x snap-mandatory no-scrollbar pb-6">
         {MOCK_ATTRACTIONS.map((attraction) => (
-          <div 
+          <Link 
             key={attraction.id} 
-            className="shrink-0 w-[280px] md:w-[320px] rounded-2xl bg-surface-card border border-white/8 overflow-hidden snap-start hover:border-teal-400/30 hover:shadow-lg hover:-translate-y-1 transition-all group"
+            to={`/attraction/${attraction.id}`}
+            className="shrink-0 w-[280px] md:w-[320px] rounded-2xl bg-surface-card border border-white/8 overflow-hidden snap-start hover:border-teal-400/30 hover:shadow-lg hover:-translate-y-1 transition-all group block"
           >
             <div className="relative h-48 w-full overflow-hidden">
               <img 
@@ -46,7 +47,7 @@ export const NearbyAttractions = ({ city = 'the city' }) => {
                 <span>{attraction.distance} km from hotel</span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       

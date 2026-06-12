@@ -1,11 +1,45 @@
 import axiosInstance from './axiosInstance.js';
+import axios from 'axios';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+
+const adminAxiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+adminAxiosInstance.interceptors.request.use(
+  (config) => {
+    const adminToken = localStorage.getItem('adminToken');
+    if (adminToken) {
+      config.headers['X-Admin-Token'] = adminToken;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+adminAxiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Don't redirect to /login here so AdminLayout can handle it
+      localStorage.removeItem('adminToken');
+      sessionStorage.removeItem('admin_verified');
+    }
+    return Promise.reject(error);
+  }
+);
 
 const API_ENDPOINTS = {
   AUTH: {
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
     GET_PROFILE: '/auth/me',
-    UPDATE_PROFILE: '/auth/profile',
+    UPDATE_PROFILE: '/users/me',
+    LOGOUT: '/auth/logout',
   },
   HOTELS: {
     SEARCH: '/hotels/search',
@@ -15,6 +49,7 @@ const API_ENDPOINTS = {
   BOOKINGS: {
     CREATE: '/bookings',
     GET_ALL: '/bookings',
+    GET_MY: '/bookings/my',
     GET_BY_ID: (id) => `/bookings/${id}`,
     CANCEL: (id) => `/bookings/${id}/cancel`,
   },
@@ -32,6 +67,9 @@ const API_ENDPOINTS = {
   PAYMENTS: {
     CREATE_INTENT: '/payments/create-intent',
     CONFIRM: '/payments/confirm',
+    MPESA_INITIATE: '/payments/mpesa/initiate',
+    PAYPAL_CREATE_ORDER: '/payments/paypal/create-order',
+    PAYPAL_CAPTURE_ORDER: '/payments/paypal/capture-order',
   },
   SEARCH: {
     LOG: '/search/log',
@@ -60,13 +98,19 @@ export const authService = {
   },
 
   updateProfile: async (data) => {
-    const response = await axiosInstance.put(API_ENDPOINTS.AUTH.UPDATE_PROFILE, data);
+    const response = await axiosInstance.patch(API_ENDPOINTS.AUTH.UPDATE_PROFILE, data);
     return response.data;
   },
 
-  logout: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  logout: async () => {
+    try {
+      await axiosInstance.post(API_ENDPOINTS.AUTH.LOGOUT);
+    } catch (err) {
+      console.error('Logout request failed', err);
+    } finally {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    }
   },
 };
 
@@ -98,6 +142,11 @@ export const bookingService = {
   getAllBookings: async () => {
     const response = await axiosInstance.get(API_ENDPOINTS.BOOKINGS.GET_ALL);
     return response.data;
+  },
+
+  getMyBookings: async () => {
+    const response = await axiosInstance.get(API_ENDPOINTS.BOOKINGS.GET_MY);
+    return response.data.data; // Return just the array
   },
 
   getBookingById: async (id) => {
@@ -166,6 +215,24 @@ export const paymentService = {
     });
     return response.data;
   },
+
+  initiateMpesa: async (data) => {
+    // data: { booking_id, phone_number, amount }
+    const response = await axiosInstance.post(API_ENDPOINTS.PAYMENTS.MPESA_INITIATE, data);
+    return response.data;
+  },
+
+  createPaypalOrder: async (data) => {
+    // data: { booking_id, amount, currency }
+    const response = await axiosInstance.post(API_ENDPOINTS.PAYMENTS.PAYPAL_CREATE_ORDER, data);
+    return response.data;
+  },
+
+  capturePaypalOrder: async (data) => {
+    // data: { orderID, booking_id }
+    const response = await axiosInstance.post(API_ENDPOINTS.PAYMENTS.PAYPAL_CAPTURE_ORDER, data);
+    return response.data;
+  },
 };
 
 // Search Services
@@ -181,6 +248,74 @@ export const searchService = {
   
   getTrending: async (locale = 'en') => {
     const response = await axiosInstance.get(API_ENDPOINTS.SEARCH.TRENDING, { params: { locale } });
+    return response.data;
+  }
+};
+
+// Admin Services
+export const adminService = {
+  verifyPassword: async (password) => {
+    const response = await adminAxiosInstance.post('/admin/verify-password', { password });
+    return response.data;
+  },
+  forgotPassword: async () => {
+    const response = await adminAxiosInstance.post('/admin/forgot-password');
+    return response.data;
+  },
+  resetPassword: async (code, newPassword) => {
+    const response = await adminAxiosInstance.post('/admin/reset-password', { code, newPassword });
+    return response.data;
+  },
+  getStats: async () => {
+    const response = await adminAxiosInstance.get('/admin/stats');
+    return response.data;
+  },
+  getBookings: async () => {
+    const response = await adminAxiosInstance.get('/admin/bookings');
+    return response.data;
+  },
+  getUsers: async () => {
+    const response = await adminAxiosInstance.get('/admin/users');
+    return response.data;
+  },
+  getDestinations: async () => {
+    const response = await adminAxiosInstance.get('/admin/destinations');
+    return response.data;
+  },
+  addDestination: async (data) => {
+    const response = await adminAxiosInstance.post('/admin/destinations', data);
+    return response.data;
+  },
+  getHotels: async () => {
+    const response = await adminAxiosInstance.get('/admin/hotels');
+    return response.data;
+  },
+  addHotel: async (data) => {
+    const response = await adminAxiosInstance.post('/admin/hotels', data);
+    return response.data;
+  },
+  getBlogs: async () => {
+    const response = await adminAxiosInstance.get('/admin/blogs');
+    return response.data;
+  },
+  addBlog: async (data) => {
+    const response = await adminAxiosInstance.post('/admin/blogs', data);
+    return response.data;
+  },
+  getTestimonials: async () => {
+    const response = await adminAxiosInstance.get('/admin/testimonials');
+    return response.data;
+  },
+  addTestimonial: async (data) => {
+    const response = await adminAxiosInstance.post('/admin/testimonials', data);
+    return response.data;
+  },
+  getContacts: async () => {
+    const response = await adminAxiosInstance.get('/admin/contacts');
+    return response.data;
+  },
+  getPayments: async () => {
+    const response = await adminAxiosInstance.get('/admin/payments');
     return response.data;
   }
 };

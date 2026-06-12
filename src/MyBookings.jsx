@@ -7,6 +7,7 @@ export const MyBookings = () => {
   const { isAuthenticated } = useAuth();
   const { bookings, getMyBookings, cancelBooking, loading, error } = useBooking();
   const navigate = useNavigate();
+  const [bookingToCancel, setBookingToCancel] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -22,7 +23,7 @@ export const MyBookings = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] py-10 text-[var(--color-text)]">
+    <div className="min-h-screen bg-[var(--color-bg)] pt-[100px] lg:pt-[120px] pb-20 text-[var(--color-text)]">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8 text-primary">My Bookings</h1>
 
@@ -73,18 +74,18 @@ export const MyBookings = () => {
                   <div>
                     <p className="text-sm">Check-in</p>
                     <p className="font-semibold text-[var(--color-text)]">
-                      {new Date(booking.checkInDate).toLocaleDateString()}
+                      {new Date(booking.checkIn).toLocaleDateString()}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm">Check-out</p>
                     <p className="font-semibold text-[var(--color-text)]">
-                      {new Date(booking.checkOutDate).toLocaleDateString()}
+                      {new Date(booking.checkOut).toLocaleDateString()}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm">Guests</p>
-                    <p className="font-semibold text-[var(--color-text)]">{booking.numberOfGuests}</p>
+                    <p className="font-semibold text-[var(--color-text)]">{booking.guests}</p>
                   </div>
                   <div>
                     <p className="text-sm">Total Price</p>
@@ -101,11 +102,7 @@ export const MyBookings = () => {
                   </button>
                   {booking.status !== 'cancelled' && (
                     <button
-                      onClick={() => {
-                        if (window.confirm('Are you sure you want to cancel this booking?')) {
-                          cancelBooking(booking._id, 'User cancelled');
-                        }
-                      }}
+                      onClick={() => setBookingToCancel(booking._id)}
                       className="bg-rose-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-rose-400"
                     >
                       Cancel Booking
@@ -116,7 +113,35 @@ export const MyBookings = () => {
             ))}
           </div>
         )}
+
       </div>
+
+      {/* Custom Cancel Confirmation Modal */}
+      {bookingToCancel && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <div className="bg-[#08101f] border border-white/10 rounded-2xl shadow-[0_30px_70px_rgba(0,0,0,0.5)] p-6 max-w-sm w-full animate-in zoom-in-95 duration-200">
+            <h3 className="text-xl font-bold text-white mb-2">Cancel Booking</h3>
+            <p className="text-slate-400 text-sm mb-6">Are you sure you want to cancel this booking? This action cannot be undone.</p>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setBookingToCancel(null)}
+                className="flex-1 h-11 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-xl transition-colors"
+              >
+                Go back
+              </button>
+              <button 
+                onClick={() => {
+                  cancelBooking(bookingToCancel, 'User cancelled');
+                  setBookingToCancel(null);
+                }}
+                className="flex-1 h-11 bg-rose-500 hover:bg-rose-400 text-white font-semibold rounded-xl transition-colors shadow-[0_0_15px_rgba(244,63,94,0.3)]"
+              >
+                Cancel Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

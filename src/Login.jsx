@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from './context/AuthContext.jsx';
-import { FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaChevronLeft } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaChevronLeft, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +12,14 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [toastMessage, setToastMessage] = useState(location.state?.toastMessage || '');
+
+  React.useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(''), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const hasMinLength = password.length >= 8;
@@ -36,11 +44,13 @@ export const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Google login placeholder");
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+    window.location.href = `${apiUrl}/auth/google`;
   };
 
   const handleFacebookLogin = () => {
-    console.log("Facebook login placeholder");
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+    window.location.href = `${apiUrl}/auth/facebook`;
   };
 
   return (
@@ -76,7 +86,7 @@ export const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+              className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
               placeholder="you@example.com"
             />
             <div className="flex gap-1 mt-2">
@@ -91,7 +101,7 @@ export const Login = () => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-full bg-white/5 border border-white/10 rounded-xl pl-4 pr-12 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+                className="w-full h-full bg-white/5 border border-white/10 rounded-xl pl-4 pr-12 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                 placeholder="Enter password"
               />
               <button
@@ -117,7 +127,7 @@ export const Login = () => {
           <button
             type="submit"
             disabled={loading || !isEmailValid || !hasMinLength || !hasNumber || !hasSpecialChar}
-            className="w-full h-[44px] mt-2 rounded-xl bg-secondary text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
+            className="w-full h-[44px] mt-2 rounded-xl bg-white text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
@@ -149,6 +159,16 @@ export const Login = () => {
           <Link to="/signup" className="font-semibold text-secondary hover:text-white transition-colors">Sign up</Link>
         </p>
       </div>
+
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 bg-teal-500 text-slate-950 px-6 py-4 rounded-xl shadow-[0_10px_40px_rgba(45,212,191,0.3)] font-bold text-sm animate-in slide-in-from-bottom-8 fade-in duration-500 z-[100] flex items-center gap-3">
+          <FaInfoCircle className="text-lg" />
+          {toastMessage}
+          <button onClick={() => setToastMessage('')} className="ml-4 text-slate-950/60 hover:text-slate-950 transition-colors">
+            <FaTimes />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

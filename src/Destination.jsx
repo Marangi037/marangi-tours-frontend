@@ -5,7 +5,7 @@ import { destinationCountries } from './destinationData.js'
 import { useCart } from './context/CartContext.jsx'
 import { useImageOverrides } from './context/ImageOverrideContext.jsx'
 
-const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80&auto=format&fit=crop'
+const FALLBACK_IMAGE = '/images/photo-1488085061387-422e29b40080.jpg'
 
 const continentLookup = {
   india: 'Asia',
@@ -27,7 +27,7 @@ const continentLookup = {
   uae: 'Asia',
 }
 
-export const Destination = () => {
+export const Destination = ({ isHomeSection = false }) => {
   const navigate = useNavigate()
   const { isInWishlist, addToWishlist, removeFromWishlist } = useCart()
   const { getImageUrl } = useImageOverrides()
@@ -107,7 +107,7 @@ export const Destination = () => {
     setSelectedCountryId('All')
   }
 
-  const itemsPerPage = 9
+  const itemsPerPage = isHomeSection ? 3 : 9
   const totalPages = Math.ceil(filteredLocations.length / itemsPerPage)
   const currentLocations = filteredLocations.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
@@ -133,8 +133,9 @@ export const Destination = () => {
         </div>
 
         {/* Filters */}
-        <div className='rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm p-5 mb-6'>
-          <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
+        {!isHomeSection && (
+          <div className='rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm p-5 mb-6'>
+            <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
             <div className='relative'>
               <select
                 value={selectedContinent}
@@ -197,10 +198,12 @@ export const Destination = () => {
             </div>
           </div>
         </div>
+        )}
 
         {/* Results Info & Clear All */}
-        <div id="destination-results" className='mb-8 flex items-center justify-between px-2 scroll-mt-28'>
-          <p className='text-sm font-medium text-slate-400'>
+        {!isHomeSection && (
+          <div id="destination-results" className='mb-8 flex items-center justify-between px-2 scroll-mt-28'>
+            <p className='text-sm font-medium text-slate-400'>
             <span className='text-teal-400 font-bold'>{filteredLocations.length}</span> destinations found
           </p>
           {activeFilter && (
@@ -213,6 +216,7 @@ export const Destination = () => {
             </button>
           )}
         </div>
+        )}
 
         {/* Cards grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -300,46 +304,59 @@ export const Destination = () => {
           ))}
         </div>
 
-        {totalPages > 1 && (
-          <div className="mt-12 flex justify-center items-center gap-2">
-            <button 
-              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="p-3 rounded-xl bg-white/5 border border-white/10 text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
-            >
-              <FaChevronLeft className="text-sm" />
-            </button>
-            
-            <div className="flex gap-2 flex-wrap justify-center">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-xl text-sm font-semibold transition-all border ${
-                    currentPage === page 
-                      ? 'bg-teal-500 border-teal-400 text-white shadow-lg shadow-teal-500/20' 
-                      : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
-                  }`}
+        {!isHomeSection ? (
+          <>
+            {totalPages > 1 && (
+              <div className="mt-12 flex justify-center items-center gap-2">
+                <button 
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="p-3 rounded-xl bg-white/5 border border-white/10 text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
                 >
-                  {page}
+                  <FaChevronLeft className="text-sm" />
                 </button>
-              ))}
-            </div>
+                
+                <div className="flex gap-2 flex-wrap justify-center">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-xl text-sm font-semibold transition-all border ${
+                        currentPage === page 
+                          ? 'bg-teal-500 border-teal-400 text-white shadow-lg shadow-teal-500/20' 
+                          : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
 
-            <button 
-              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="p-3 rounded-xl bg-white/5 border border-white/10 text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
+                <button 
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="p-3 rounded-xl bg-white/5 border border-white/10 text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/10 transition-all"
+                >
+                  <FaChevronRight className="text-sm" />
+                </button>
+              </div>
+            )}
+
+            {filteredLocations.length === 0 && (
+              <div className='rounded-2xl border border-dashed border-white/15 bg-white/5 p-12 text-center'>
+                <p className='text-lg font-bold text-white'>No matches yet.</p>
+                <p className='mt-2 text-sm text-slate-400'>Try different filters to discover destinations.</p>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => navigate('/destinations')}
+              className="rounded-xl border border-teal-500 text-teal-400 px-8 py-3 font-semibold uppercase tracking-widest text-sm hover:bg-teal-500 hover:text-white transition-all shadow-[0_0_15px_rgba(20,184,166,0.1)] hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]"
             >
-              <FaChevronRight className="text-sm" />
+              View More Destinations
             </button>
-          </div>
-        )}
-
-        {filteredLocations.length === 0 && (
-          <div className='rounded-2xl border border-dashed border-white/15 bg-white/5 p-12 text-center'>
-            <p className='text-lg font-bold text-white'>No matches yet.</p>
-            <p className='mt-2 text-sm text-slate-400'>Try different filters to discover destinations.</p>
           </div>
         )}
       </div>

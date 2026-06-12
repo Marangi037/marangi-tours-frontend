@@ -28,7 +28,7 @@ export const BookingProvider = ({ children }) => {
     try {
       setError(null);
       setLoading(true);
-      const response = await bookingService.getAllBookings();
+      const response = await bookingService.getMyBookings();
       setBookings(response);
       return response;
     } catch (err) {
@@ -92,6 +92,42 @@ export const BookingProvider = ({ children }) => {
     }
   };
 
+  const initiateMpesa = async (data) => {
+    try {
+      setError(null);
+      const response = await paymentService.initiateMpesa(data);
+      return response;
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || err.message;
+      setError(errorMsg);
+      throw err;
+    }
+  };
+
+  const createPaypalOrder = async (data) => {
+    try {
+      setError(null);
+      const response = await paymentService.createPaypalOrder(data);
+      return response;
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || err.message;
+      setError(errorMsg);
+      throw err;
+    }
+  };
+
+  const capturePaypalOrder = async (data) => {
+    try {
+      setError(null);
+      const response = await paymentService.capturePaypalOrder(data);
+      return response;
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || err.message;
+      setError(errorMsg);
+      throw err;
+    }
+  };
+
   return (
     <BookingContext.Provider
       value={{
@@ -104,6 +140,9 @@ export const BookingProvider = ({ children }) => {
         cancelBooking,
         createPaymentIntent,
         confirmPayment,
+        initiateMpesa,
+        createPaypalOrder,
+        capturePaypalOrder,
       }}
     >
       {children}

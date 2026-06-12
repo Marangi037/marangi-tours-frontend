@@ -150,7 +150,9 @@ export const Navbar = () => {
     setIsSearchOpen(false);
     setIsMenu(false);
     setSearchQuery('');
-    window.scrollTo(0, 0);
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, [location.pathname]);
 
   return (
@@ -456,7 +458,7 @@ export const Navbar = () => {
                     to="/login"
                     onClick={() => setIsMenu(false)}
                     onMouseEnter={() => window.scrollTo(0, 0)}
-                    className='flex-1 rounded-xl py-3.5 text-center text-sm font-bold tracking-widest transition-all hover:scale-105 uppercase bg-secondary text-primary'
+                    className='flex-1 rounded-xl py-3.5 text-center text-sm font-bold tracking-widest transition-all hover:scale-105 uppercase bg-white text-primary'
                   >
                     Sign In
                   </Link>
@@ -466,7 +468,7 @@ export const Navbar = () => {
                   to="/settings"
                   onClick={() => setIsMenu(false)}
                   onMouseEnter={() => window.scrollTo(0, 0)}
-                  className='flex items-center justify-center gap-2 w-full rounded-xl py-3.5 text-sm font-bold tracking-widest transition-all hover:scale-105 uppercase bg-secondary text-primary'
+                  className='flex items-center justify-center gap-2 w-full rounded-xl py-3.5 text-sm font-bold tracking-widest transition-all hover:scale-105 uppercase bg-white text-primary'
                 >
                   <FaUserCog /> Profile Settings
                 </Link>
@@ -518,7 +520,7 @@ export const Navbar = () => {
                         navigate('/#destination');
                       }
                     }}
-                    className='rounded-full bg-teal-500 px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-lg shadow-teal-500/20 hover:bg-teal-400 hover:scale-105 transition-all inline-block'
+                    className='rounded-full bg-teal-500 px-6 py-2.5 text-sm font-semibold !text-white shadow-lg shadow-teal-500/20 hover:bg-teal-400 hover:scale-105 transition-all inline-block'
                   >
                     Explore Destinations
                   </a>

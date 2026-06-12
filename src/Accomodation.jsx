@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaStar, FaShieldAlt, FaCalendarCheck } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 
 export const Accomodation = () => {
   const navigate = useNavigate();
@@ -40,14 +40,7 @@ export const Accomodation = () => {
                 Book a Hotel
               </button>
               
-              <div className="flex items-center gap-4 text-white/50 text-sm">
-                <div className="flex items-center gap-2">
-                  <FaShieldAlt className="text-teal-400" /> Secure
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaCalendarCheck className="text-teal-400" /> Flexible
-                </div>
-              </div>
+
             </div>
           </div>
 
@@ -57,12 +50,12 @@ export const Accomodation = () => {
             {/* Main Image Container */}
             <div className="relative w-full h-[500px] sm:h-[600px] lg:h-[75vh] max-h-[700px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/5">
               <img 
-                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" 
+                src="/images/photo-1566073771259-6a8506099945.jpg" 
                 alt="Luxury Hotel" 
                 className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80";
+                  e.target.src = "/images/photo-1582719478250-c89cae4dc85b.jpg";
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-surface-darker via-transparent to-transparent opacity-80" />

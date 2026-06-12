@@ -17,7 +17,7 @@ export const BlogPage = () => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useCart()
   const { getImageUrl } = useImageOverrides()
 
-  const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80&auto=format&fit=crop'
+  const FALLBACK_IMAGE = '/images/photo-1488085061387-422e29b40080.jpg'
 
   const handleWishlistToggle = (location) => {
     if (isInWishlist(location.id)) {

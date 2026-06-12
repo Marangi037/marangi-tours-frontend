@@ -6,7 +6,7 @@ export const blogPosts = [
     category: "Safari",
     readTime: "8 min read",
     date: "June 2, 2026",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
+    image: "/images/photo-1464822759023-fed622ff2c3b.jpg",
     relatedLocations: ["Kenya", "Tanzania", "Rwanda"]
   },
   {
@@ -16,7 +16,7 @@ export const blogPosts = [
     category: "Culture",
     readTime: "6 min read",
     date: "May 18, 2026",
-    image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800",
+    image: "/images/photo-1501854140801-50d01698950b.jpg",
     relatedLocations: ["Cambodia", "Laos", "Myanmar"]
   },
   {
@@ -26,7 +26,7 @@ export const blogPosts = [
     category: "Adventure",
     readTime: "5 min read",
     date: "May 5, 2026",
-    image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800",
+    image: "/images/photo-1470770841072-f978cf4d019e.jpg",
     relatedLocations: ["Argentina", "Chile", "Uruguay"]
   }
 ];

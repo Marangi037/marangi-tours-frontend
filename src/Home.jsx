@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <section className="w-full h-full box-border m-0 p-0 overflow-x-hidden">
       <Hero />
-      <Destination />
+      <Destination isHomeSection={true} />
       <Accomodation />
       <About />
       <Testimonials />

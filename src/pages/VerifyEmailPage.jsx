@@ -102,7 +102,7 @@ export const VerifyEmailPage = () => {
           <button
             type="submit"
             disabled={loading || code.join('').length < 6}
-            className="w-full h-[44px] mt-2 rounded-xl bg-secondary text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100 flex items-center justify-center"
+            className="w-full h-[44px] mt-2 rounded-xl bg-white text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100 flex items-center justify-center"
           >
             {loading ? (
               <>

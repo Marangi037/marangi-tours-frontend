@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 export const HotelCard = ({ hotel, isFullyBooked = false }) => {
   const navigate = useNavigate();
   
-  // Dummy data generation since amadeus might not give all fields directly
-  const image = hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80';
-  const rating = hotel.rating || 4.5;
-  const reviewsCount = hotel.reviewsCount || Math.floor(Math.random() * 200) + 50;
-  const price = hotel.price || (hotel.offers?.[0]?.price?.total) || '150';
-  const badge = hotel.badge || 'GREAT VALUE';
+  // Database data mapping
+  const image = hotel.photoUrls?.[0] || hotel.images?.[0] || hotel.image || '/images/photo-1566073771259-6a8506099945.jpg';
+  const rating = hotel.reviewScore || hotel.stars || hotel.rating || 4.5;
+  const reviewsCount = hotel.reviewCount || hotel.reviewsCount || Math.floor(Math.random() * 200) + 50;
+  const price = hotel.pricePerNight || hotel.price || (hotel.offers?.[0]?.price?.total) || '150';
+  const badge = hotel.badge || (rating >= 4.8 ? 'TOP RATED' : 'GREAT VALUE');
   
   // Amadeus returns amenities, we map them if they exist
   const amenities = hotel.amenities || ['Free WiFi', 'Pool', 'Breakfast'];
@@ -109,7 +109,7 @@ export const HotelCard = ({ hotel, isFullyBooked = false }) => {
 
           <button 
             disabled={isFullyBooked}
-            onClick={() => navigate(`/hotel/${hotel.hotelId || hotel.id || 'demo'}`)}
+            onClick={() => navigate(`/hotel/${hotel._id || hotel.id || 'demo'}`)}
             className={`w-full h-11 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${
               isFullyBooked 
               ? 'bg-white/5 text-white/30 cursor-not-allowed border border-white/10' 

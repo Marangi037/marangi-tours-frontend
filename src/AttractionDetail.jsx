@@ -133,7 +133,7 @@ export const AttractionDetail = () => {
 
         <div className="mb-6">
           <Breadcrumbs crumbs={[
-            { label: 'Destinations', link: '/#destination' },
+            { label: 'Destinations', link: '/destinations' },
             { label: attraction.name }
           ]} />
         </div>
@@ -348,14 +348,14 @@ export const AttractionDetail = () => {
                       <div className='flex items-center justify-between'>
                         <button
                           onClick={() => setAdults(Math.max(1, adults - 1))}
-                          className='h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-white/10 text-teal-400 border border-white/10 flex items-center justify-center hover:bg-white/15 transition-all'
+                          className='h-8 w-8 sm:h-12 sm:w-12 rounded-xl bg-white/10 text-teal-400 border border-white/10 flex items-center justify-center hover:bg-white/15 transition-all'
                         >
                           <FaMinus />
                         </button>
-                        <span className='text-xl sm:text-2xl font-bold text-white'>{adults}</span>
+                        <span className='text-lg sm:text-2xl font-bold text-white'>{adults}</span>
                         <button
                           onClick={() => setAdults(adults + 1)}
-                          className='h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-teal-500 text-white flex items-center justify-center hover:bg-teal-400 transition-all'
+                          className='h-8 w-8 sm:h-12 sm:w-12 rounded-xl bg-teal-500 text-white flex items-center justify-center hover:bg-teal-400 transition-all'
                         >
                           <FaPlus />
                         </button>
@@ -367,14 +367,14 @@ export const AttractionDetail = () => {
                       <div className='flex items-center justify-between'>
                         <button
                           onClick={() => setChildren(Math.max(0, children - 1))}
-                          className='h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-white/10 text-teal-400 border border-white/10 flex items-center justify-center hover:bg-white/15 transition-all'
+                          className='h-8 w-8 sm:h-12 sm:w-12 rounded-xl bg-white/10 text-teal-400 border border-white/10 flex items-center justify-center hover:bg-white/15 transition-all'
                         >
                           <FaMinus />
                         </button>
-                        <span className='text-xl sm:text-2xl font-bold text-white'>{children}</span>
+                        <span className='text-lg sm:text-2xl font-bold text-white'>{children}</span>
                         <button
                           onClick={() => setChildren(children + 1)}
-                          className='h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-teal-500 text-white flex items-center justify-center hover:bg-teal-400 transition-all'
+                          className='h-8 w-8 sm:h-12 sm:w-12 rounded-xl bg-teal-500 text-white flex items-center justify-center hover:bg-teal-400 transition-all'
                         >
                           <FaPlus />
                         </button>

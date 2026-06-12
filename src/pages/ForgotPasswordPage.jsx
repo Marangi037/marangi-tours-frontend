@@ -62,7 +62,7 @@ export const ForgotPasswordPage = () => {
                 setEmail(e.target.value);
                 setError('');
               }}
-              className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+              className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
               placeholder="you@example.com"
             />
             <div className="flex gap-1 mt-2">
@@ -73,7 +73,7 @@ export const ForgotPasswordPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-[44px] mt-2 rounded-xl bg-secondary text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100 flex items-center justify-center"
+            className="w-full h-[44px] mt-2 rounded-xl bg-white text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100 flex items-center justify-center"
           >
             {loading ? (
               <>

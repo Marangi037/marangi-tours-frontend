@@ -8,7 +8,7 @@ export const Hero = () => {
     {
       label: 'KENYA',
       subtitle: 'Maasai Mara Safari',
-      image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1920&q=80&auto=format&fit=crop',
+      image: '/images/photo-1547471080-7cc2caa01a7e.jpg',
       location: 'Kenya, East Africa',
       description: 'Wild savannahs teeming with lions, elephants, and beautifully endless skies.',
       slug: 'kenya',
@@ -26,7 +26,7 @@ export const Hero = () => {
     {
       label: 'ZANZIBAR',
       subtitle: 'Pristine Beaches',
-      image: 'https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=1920&q=80&auto=format&fit=crop',
+      image: '/images/photo-1586861635167-e5223aadc9fe.jpg',
       location: 'Zanzibar, Tanzania',
       description: 'Pristine white sand beaches meeting crystal clear turquoise ocean waters.',
       slug: 'zanzibar',
@@ -35,7 +35,7 @@ export const Hero = () => {
     {
       label: 'MOMBASA',
       subtitle: 'Coastal Paradise',
-      image: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80&auto=format&fit=crop',
+      image: '/images/photo-1590523277543-a94d2e4eb00b.jpg',
       location: 'Mombasa, Kenya',
       description: 'Beautiful coastal paradise featuring historic sites and sunny tropical beaches.',
       slug: 'mombasa',
@@ -44,7 +44,7 @@ export const Hero = () => {
     {
       label: 'SERENGETI',
       subtitle: 'Great Migration',
-      image: 'https://images.unsplash.com/photo-1549366021-9f761d450615?w=1920&q=80&auto=format&fit=crop',
+      image: '/images/photo-1549366021-9f761d450615.jpg',
       location: 'Serengeti, Tanzania',
       description: 'Witness the spectacular great migration across vast endless golden plains.',
       slug: 'serengeti',
@@ -53,7 +53,7 @@ export const Hero = () => {
     {
       label: 'CAPE TOWN',
       subtitle: 'Mountain & Ocean',
-      image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1920&q=80&auto=format&fit=crop',
+      image: '/images/photo-1580060839134-75a5edca2e99.jpg',
       location: 'Cape Town, South Africa',
       description: 'Stunning coastal city surrounded by dramatic mountains and rolling vineyards.',
       slug: 'cape-town',
@@ -88,19 +88,7 @@ export const Hero = () => {
     timerRef.current = setInterval(next, 5000);
   };
 
-  const touchStartX = useRef(0);
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const handleTouchEnd = (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const delta = touchEndX - touchStartX.current;
-    if (delta > 50) {
-      manual(prev);
-    } else if (delta < -50) {
-      manual(next);
-    }
-  };
+
 
   /* Visible cards: show 3 cards around the current one */
   const getVisibleSlides = () => {
@@ -112,16 +100,7 @@ export const Hero = () => {
 
   const handleExploreClick = (e, slide) => {
     e.preventDefault();
-    navigate(`/?country=${slide.countryId}#destination-results`);
-    setTimeout(() => {
-      const el = document.getElementById('destination-results');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        const destEl = document.getElementById('destination');
-        if (destEl) destEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
+    navigate(`/destinations?country=${slide.countryId}`);
   };
 
   return (
@@ -187,9 +166,9 @@ export const Hero = () => {
 
                   <div className="flex items-center gap-4 pt-2">
                     <a
-                      href={`/?country=${slides[current].countryId}#destination`}
+                      href={`/destinations?country=${slides[current].countryId}`}
                       onClick={(e) => handleExploreClick(e, slides[current])}
-                      className="group inline-flex items-center gap-2 rounded-full bg-teal-500 px-7 py-3 text-sm font-semibold text-white transition-all hover:bg-teal-400 hover:shadow-lg hover:shadow-teal-500/25"
+                      className="group inline-flex items-center gap-2 rounded-full bg-teal-500 px-7 py-3 text-sm font-semibold !text-white transition-all hover:bg-teal-400 hover:shadow-lg hover:shadow-teal-500/25"
                     >
                       Explore {slides[current].label}
                       <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -244,18 +223,7 @@ export const Hero = () => {
               {/* Mobile: 3-item carousel */}
               <div 
                 className="relative w-full h-[220px] flex justify-center items-center overflow-hidden touch-pan-y shrink-0"
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
               >
-                {/* Mobile Floating Prev Arrow */}
-                <button
-                  onClick={() => manual(prev)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white z-40 active:bg-black/60 transition-colors"
-                  aria-label="Previous slide"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" /></svg>
-                </button>
-
                 <AnimatePresence initial={false}>
               {slides.map((slide, index) => {
                 const pos = visibleIndices.indexOf(index);
@@ -300,10 +268,10 @@ export const Hero = () => {
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={0.2}
                     onDragEnd={(e, { offset, velocity }) => {
-                      const swipe = offset.x * velocity.x;
-                      if (swipe < -1000) {
+                      const swipe = offset.x;
+                      if (swipe < -50) {
                         manual(next);
-                      } else if (swipe > 1000) {
+                      } else if (swipe > 50) {
                         manual(prev);
                       }
                     }}
@@ -330,22 +298,14 @@ export const Hero = () => {
               })}
             </AnimatePresence>
 
-                {/* Mobile Floating Next Arrow */}
-                <button
-                  onClick={() => manual(next)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white z-40 active:bg-black/60 transition-colors"
-                  aria-label="Next slide"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" /></svg>
-                </button>
               </div>
 
               {/* Mobile CTA Button */}
               <div className="flex justify-center mt-6 z-10 w-full">
                 <a
-                  href={`/?country=${slides[current].countryId}#destination`}
+                  href={`/destinations?country=${slides[current].countryId}`}
                   onClick={(e) => handleExploreClick(e, slides[current])}
-                  className="group inline-flex items-center gap-2 rounded-full bg-teal-500 px-7 py-3 text-sm font-semibold text-white transition-all hover:bg-teal-400 hover:shadow-lg hover:shadow-teal-500/25"
+                  className="group inline-flex items-center gap-2 rounded-full bg-teal-500 px-7 py-3 text-sm font-semibold !text-white transition-all hover:bg-teal-400 hover:shadow-lg hover:shadow-teal-500/25"
                 >
                   Explore {slides[current].label}
                   <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

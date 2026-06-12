@@ -82,21 +82,21 @@ a {
 }
 
 .btn-primary {
-  background: var(--color-secondary);
+  background: white;
   color: var(--color-primary);
   border-radius: 9999px;
   box-shadow: 0 22px 60px rgba(13, 26, 57, 0.24);
 }
 
 .btn-primary:hover {
-  background: #c8a443;
+  background: #f8f9fa;
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: rgba(212, 175, 55, 0.12);
-  color: var(--color-secondary);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .input-glow {
@@ -476,7 +476,7 @@ a {
 }
 
 .rippleButton {
-  @apply relative overflow-hidden rounded-full bg-secondary px-6 py-3 text-primary font-semibold uppercase tracking-[0.2em] transition-all duration-200;
+  @apply relative overflow-hidden rounded-full bg-white px-6 py-3 text-primary font-semibold uppercase tracking-[0.2em] transition-all duration-200;
 }
 
 .rippleButton:hover {
@@ -524,7 +524,7 @@ a {
 }
 
 .reviewModal button {
-  @apply w-full mt-6 rounded-full px-4 py-3 bg-secondary text-primary font-bold uppercase tracking-[0.18em] shadow-[0_22px_60px_rgba(13,26,57,0.24)];
+  @apply w-full mt-6 rounded-full px-4 py-3 bg-white text-primary font-bold uppercase tracking-[0.18em] shadow-[0_22px_60px_rgba(13,26,57,0.24)];
 }
 
 .itemDestination,
@@ -558,10 +558,7 @@ a {
   @apply bottom-[20px] left-1 flex flex-col absolute w-2/3 pl-2 text-shadow-2xs;
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: rgba(11, 31, 58, 0.4);
-}
+
 
 .thumbnailDestination{
     @apply md:text-2xl lg:text-base text-xs capitalize text-nowrap
@@ -704,5 +701,60 @@ textarea::placeholder {
     .itemTitle{
         font-size: 1.875rem !important; /* approx text-3xl */
     }
+}
+
+/* =========================================
+   ADMIN DASHBOARD THEME (NEUROBANK STYLE)
+========================================= */
+
+.admin-theme {
+  /* Light Mode (NeuroBank Style) */
+  --admin-bg: #F4F7FE; /* Soft light gray/blue background */
+  --admin-sidebar: #FFFFFF;
+  --admin-card: #FFFFFF;
+  --admin-text-main: #1B254B; /* Deep navy text */
+  --admin-text-muted: #A3AED0; /* Muted grayish blue */
+  --admin-border: #E9EDF7;
+  --admin-accent: #4318FF; /* Primary vibrant blue */
+  --admin-accent-hover: #3311DB;
+  --admin-danger: #EE5D50;
+  --admin-success: #01B574;
+}
+
+.admin-theme.dark {
+  /* Dark Mode (Travel App Deep Colors) */
+  --admin-bg: #08101F;
+  --admin-sidebar: #0B172A;
+  --admin-card: #0A1628;
+  --admin-text-main: #FFFFFF;
+  --admin-text-muted: #8F9FB7;
+  --admin-border: #1E293B;
+  --admin-accent: #4318FF;
+  --admin-accent-hover: #7551FF;
+  --admin-danger: #E94E4E;
+  --admin-success: #05CD99;
+}
+
+/* Global resets specifically for admin wrappers */
+.admin-theme {
+  background-color: var(--admin-bg);
+  color: var(--admin-text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-card {
+  background-color: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 1.25rem; /* rounded-2xl */
+  box-shadow: 0px 18px 40px rgba(112, 144, 176, 0.08);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.admin-theme.dark .admin-card {
+  box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.admin-text-muted {
+  color: var(--admin-text-muted);
 }
 

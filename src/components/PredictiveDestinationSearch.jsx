@@ -134,7 +134,7 @@ export const PredictiveDestinationSearch = () => {
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-lg overflow-hidden shrink-0 shadow-md">
                       <img 
-                        src={destination.imageUrl || 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=100&q=80'} 
+                        src={destination.imageUrl || '/images/photo-1488085061387-422e29b40080.jpg'} 
                         alt={destination.name}
                         className="w-full h-full object-cover"
                       />

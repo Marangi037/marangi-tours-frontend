@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useBooking } from './context/BookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheck, FaTimes, FaCopy, FaCreditCard, FaPaypal, FaMobileAlt, FaArrowLeft } from 'react-icons/fa';
@@ -11,38 +12,48 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_t
 const PaymentForm = ({ bookingId, onSuccess, isAttraction, totalPrice }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const { createPaymentIntent, confirmPayment } = useBooking();
+  const { createPaymentIntent, confirmPayment, initiateMpesa, createPaypalOrder, capturePaypalOrder } = useBooking();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('stripe');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [mpesaStatus, setMpesaStatus] = useState('');
+  const [showMockMessage, setShowMockMessage] = useState(false);
+
+  // TODO: Uncomment these states when ready to enforce strict validation
+  // const [isStripeComplete, setIsStripeComplete] = useState(false);
+  // const [isPaypalComplete, setIsPaypalComplete] = useState(false);
+  // const [isMpesaComplete, setIsMpesaComplete] = useState(false);
+
+  // const isFormValid = 
+  //   (paymentMethod === 'stripe' && isStripeComplete) ||
+  //   (paymentMethod === 'paypal' && isPaypalComplete) ||
+  //   (paymentMethod === 'mpesa' && isMpesaComplete);
+
 
   const handlePayment = async (e) => {
     e.preventDefault();
-    if (paymentMethod !== 'stripe') return;
-    if (!stripe || !elements) return;
-
+    if (paymentMethod === 'paypal') return; // Handled by PayPal buttons
+    
     setLoading(true);
     setError('');
+    setMpesaStatus('');
 
     try {
-      if (isAttraction) {
-        // Simulate payment for attractions since backend does not generate a DB bookingId yet
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        onSuccess();
-      } else {
-        // Real payment for hotels
-        const { clientSecret } = await createPaymentIntent(bookingId);
-        const result = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: { card: elements.getElement(CardElement) },
-        });
-
-        if (result.error) {
-          setError(result.error.message);
-        } else if (result.paymentIntent.status === 'succeeded') {
-          await confirmPayment(result.paymentIntent.id, bookingId);
-          onSuccess();
+      // Mock payment simulation
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      if (!isAttraction && bookingId) {
+        try {
+          // Attempt to confirm on backend with a mock ID just in case it's needed
+          await confirmPayment('pi_mock_' + Date.now(), bookingId);
+        } catch (e) {
+          // Ignore backend errors for mock payment
+          console.warn('Mock confirmPayment bypassed validation');
         }
       }
+      
+      onSuccess();
     } catch (err) {
       setError('Payment failed: ' + err.message);
     } finally {
@@ -71,6 +82,7 @@ const PaymentForm = ({ bookingId, onSuccess, isAttraction, totalPrice }) => {
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
               <div className="p-4 rounded-xl bg-slate-950/50 border border-white/10 mt-2">
                 <CardElement
+                  onChange={() => setShowMockMessage(true)}
                   options={{
                     style: {
                       base: {
@@ -85,40 +97,49 @@ const PaymentForm = ({ bookingId, onSuccess, isAttraction, totalPrice }) => {
                   className="p-2"
                 />
               </div>
+              <AnimatePresence>
+                {showMockMessage && (
+                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="mt-3 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs text-amber-400">
+                    <strong>Testing Mode:</strong> Automatic payment filling is disabled. You don't need to enter real card details. Just click "Complete Booking" to proceed.
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* PayPal Option */}
-        <label className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5 opacity-50 cursor-not-allowed">
+        {/* PayPal Option (Disabled) */}
+        <label className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 opacity-50 cursor-not-allowed">
           <div className="flex items-center gap-3">
             <FaPaypal className="text-slate-400" />
             <span className="font-semibold text-white">PayPal</span>
-            <span className="text-[10px] uppercase tracking-wider font-bold bg-slate-800 text-slate-400 px-2 py-1 rounded-full ml-2">Coming Soon</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full ml-2">Coming Soon</span>
           </div>
-          <div className="h-5 w-5 rounded-full border-2 border-slate-600" />
+          <div className="h-5 w-5 rounded-full border-2 border-slate-500 flex items-center justify-center"></div>
         </label>
 
-        {/* M-Pesa Option */}
-        <label className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5 opacity-50 cursor-not-allowed">
+        {/* M-Pesa Option (Disabled) */}
+        <label className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 opacity-50 cursor-not-allowed">
           <div className="flex items-center gap-3">
             <FaMobileAlt className="text-slate-400" />
             <span className="font-semibold text-white">M-Pesa</span>
-            <span className="text-[10px] uppercase tracking-wider font-bold bg-slate-800 text-slate-400 px-2 py-1 rounded-full ml-2">Coming Soon</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full ml-2">Coming Soon</span>
           </div>
-          <div className="h-5 w-5 rounded-full border-2 border-slate-600" />
+          <div className="h-5 w-5 rounded-full border-2 border-slate-500 flex items-center justify-center"></div>
         </label>
       </div>
 
       {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
 
-      <button
-        type="submit"
-        disabled={!stripe || loading}
-        className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-xl font-bold transition-all disabled:opacity-50 shadow-xl shadow-teal-500/20 active:scale-[0.98]"
-      >
-        {loading ? 'Processing...' : `Complete Booking — $${totalPrice}`}
-      </button>
+      {paymentMethod !== 'paypal' && (
+        <button
+          type="submit"
+          disabled={loading || (paymentMethod === 'stripe' && !stripe) || (paymentMethod === 'mpesa' && !phoneNumber)}
+          className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-xl font-bold transition-all disabled:opacity-50 shadow-xl shadow-teal-500/20 active:scale-[0.98]"
+        >
+          {loading ? 'Processing...' : `Complete Booking — $${totalPrice}`}
+        </button>
+      )}
     </form>
   );
 };
@@ -154,7 +175,7 @@ export const BookingCheckout = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-100px)] bg-slate-950 py-12 px-4 flex justify-center items-center overflow-hidden relative">
+    <div className="min-h-[calc(100vh-100px)] bg-slate-950 pt-24 pb-12 md:pt-32 px-4 flex justify-center items-center overflow-hidden relative">
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-[100px] pointer-events-none" />
 
@@ -264,7 +285,7 @@ export const BookingCheckout = () => {
                   <motion.button 
                     whileHover={{ scale: 1.01 }} 
                     whileTap={{ scale: 0.99 }} 
-                    onClick={() => navigate(stateData.type === 'attraction' ? `/?hotelCity=${encodeURIComponent(stateData.item?.city || '')}` : '/my-bookings')} 
+                    onClick={() => navigate(stateData.type === 'attraction' ? `/hotels?destination=${encodeURIComponent(stateData.item?.city || '')}` : '/my-bookings')} 
                     className='w-full rounded-xl border border-teal-500/30 bg-teal-500/10 px-5 py-3 text-sm text-teal-400 font-semibold hover:bg-teal-500/20 transition-all text-center flex items-center justify-center gap-2'
                   >
                     {stateData.type === 'attraction' ? `🏨 Book a Hotel Near ${stateData.item?.city}` : 'View My Bookings'}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { hotelService } from '../services/api.js';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useBooking } from '../context/BookingContext.jsx';
 import { PhotoGallery } from '../components/PhotoGallery.jsx';
 import { NearbyAttractions } from '../components/NearbyAttractions.jsx';
 import { FaStar, FaMapMarkerAlt, FaWifi, FaSwimmingPool, FaParking, FaCoffee, FaSpa, FaDumbbell, FaSnowflake, FaCar, FaChevronDown, FaChevronUp, FaShieldAlt, FaCheckCircle, FaCalendarCheck } from 'react-icons/fa';
@@ -8,14 +10,20 @@ import { Breadcrumbs } from '../components/Breadcrumbs.jsx';
 
 export const HotelDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { createBooking } = useBooking();
   const [hotel, setHotel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isBooking, setIsBooking] = useState(false);
 
   // Booking Card State
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
+  const [dateError, setDateError] = useState(false);
+  const [bookingError, setBookingError] = useState('');
 
   // Accordion state
   const [openRoom, setOpenRoom] = useState(0);
@@ -53,11 +61,11 @@ export const HotelDetailPage = () => {
     price: 450,
     photos: [
       'https://images.unsplash.com/photo-1542314831-c6a4d27ece11?w=1920&q=80',
-      'https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=800&q=80',
-      'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+      '/images/photo-1586861635167-e5223aadc9fe.jpg',
+      '/images/photo-1566073771259-6a8506099945.jpg',
       'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=80',
       'https://images.unsplash.com/photo-1551882547-ff40c0d139f9?w=800&q=80',
-      'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=800&q=80',
+      '/images/photo-1590523277543-a94d2e4eb00b.jpg',
     ],
     rooms: [
       { id: 1, name: 'Savannah Tent', beds: '1 King Bed', sqm: 45, price: 450 },
@@ -85,17 +93,64 @@ export const HotelDetailPage = () => {
     { icon: <FaCar />, label: 'Airport Transfer' },
   ];
 
-  const priceVal = parseFloat(hotel.price || hotel.offers?.[0]?.price?.total || 450);
-  const nights = 3; // Hardcoded for demo breakdown
+  const priceVal = parseFloat(hotel.pricePerNight || hotel.price || hotel.offers?.[0]?.price?.total || 450);
+  const nights = (checkIn && checkOut) ? Math.max(1, Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24))) : 3;
   const taxes = Math.floor(priceVal * nights * 0.15);
   const total = (priceVal * nights) + taxes;
+
+  const handleBooking = async (roomName, roomPrice) => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { toastMessage: 'Please login to continue your booking.' } });
+      return;
+    }
+    if (!checkIn || !checkOut) {
+      setDateError(true);
+      return;
+    }
+    setDateError(false);
+    
+    const calculatedNights = Math.max(1, Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)));
+    const calculatedTotal = (roomPrice * calculatedNights) + Math.floor(roomPrice * calculatedNights * 0.15);
+
+    try {
+      setIsBooking(true);
+      setBookingError('');
+      const bookingData = {
+        hotel: hotel._id || hotel.id,
+        room: roomName,
+        checkIn,
+        checkOut,
+        guests: parseInt(adults) + parseInt(children),
+        totalPrice: calculatedTotal
+      };
+      const res = await createBooking(bookingData);
+      const bookingId = res?.booking?._id || res?.booking?.id || res?._id || res?.id;
+      if (bookingId) {
+        navigate(`/checkout/${bookingId}`);
+      } else {
+        setBookingError("Booking response didn't contain an ID.");
+      }
+    } catch (err) {
+      console.error(err);
+      setBookingError(err?.response?.data?.message || err.message || "Failed to create booking.");
+    } finally {
+      setIsBooking(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-surface-darker text-white font-inter pt-[100px] lg:pt-[120px] pb-20">
       
       {/* 1. PHOTO GALLERY (Full Width) */}
       <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-8 pt-6 pb-10">
-        <PhotoGallery photos={hotel.photos || [hotel.image || 'https://images.unsplash.com/photo-1542314831-c6a4d27ece11?w=1920&q=80']} />
+        <PhotoGallery 
+          photos={
+            (hotel.photoUrls && hotel.photoUrls.length > 0) ? hotel.photoUrls :
+            (hotel.images && hotel.images.length > 0) ? hotel.images :
+            (hotel.photos && hotel.photos.length > 0) ? hotel.photos :
+            [hotel.image || 'https://images.unsplash.com/photo-1542314831-c6a4d27ece11?w=1920&q=80']
+          } 
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 lg:px-8 flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -166,7 +221,7 @@ export const HotelDetailPage = () => {
             <h3 className="text-xl font-bold font-playfair mb-6">Available Rooms</h3>
             <div className="space-y-4">
               {hotel.rooms?.map((room, idx) => (
-                <div key={room.id} className="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-all duration-300">
+                <div key={room._id || room.id || idx} className="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-all duration-300">
                   <button 
                     onClick={() => setOpenRoom(openRoom === idx ? -1 : idx)}
                     className="w-full px-6 py-5 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -189,8 +244,12 @@ export const HotelDetailPage = () => {
                         <p className="text-sm text-white/60 max-w-sm">
                           Spacious and elegantly furnished with authentic local touches. Includes en-suite bathroom with luxury toiletries and a private viewing deck.
                         </p>
-                        <button className="w-full sm:w-auto px-6 py-3 rounded-xl bg-teal-500 text-surface-darker text-sm font-bold uppercase tracking-widest hover:bg-teal-400 hover:shadow-lg transition-all">
-                          Book This Room
+                        <button 
+                          disabled={isBooking}
+                          onClick={() => handleBooking(room.type || room.name, room.price)}
+                          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-teal-500 text-surface-darker text-sm font-bold uppercase tracking-widest hover:bg-teal-400 hover:shadow-lg transition-all"
+                        >
+                          {isBooking ? 'Booking...' : 'Book This Room'}
                         </button>
                       </div>
                     </div>
@@ -259,7 +318,7 @@ export const HotelDetailPage = () => {
                   type="date" 
                   className="w-full bg-transparent text-white text-sm outline-none [color-scheme:dark]"
                   value={checkIn}
-                  onChange={(e) => setCheckIn(e.target.value)}
+                  onChange={(e) => { setCheckIn(e.target.value); setDateError(false); }}
                 />
               </div>
               <div className="p-3 bg-white/5">
@@ -268,11 +327,21 @@ export const HotelDetailPage = () => {
                   type="date" 
                   className="w-full bg-transparent text-white text-sm outline-none [color-scheme:dark]"
                   value={checkOut}
-                  onChange={(e) => setCheckOut(e.target.value)}
+                  onChange={(e) => { setCheckOut(e.target.value); setDateError(false); }}
                 />
               </div>
             </div>
-            <div className="p-3 bg-white/5 border border-white/20 border-t-0 rounded-b-xl mb-6">
+            
+            {/* Inline Error Message */}
+            {dateError && (
+              <div className="bg-red-500/10 border-x border-b border-red-500/20 px-3 py-2">
+                <p className="text-red-400 text-[11px] font-bold uppercase tracking-wider text-center">
+                  ⚠️ Please select Check-in and Check-out dates
+                </p>
+              </div>
+            )}
+
+            <div className={`p-3 bg-white/5 border border-white/20 border-t-0 rounded-b-xl mb-6 ${dateError ? 'border-t border-white/20' : ''}`}>
               <label className="block text-[10px] font-bold uppercase tracking-widest text-teal-400 mb-1">Guests</label>
               <div className="flex items-center justify-between text-sm text-white">
                 <span>{adults} Adults, {children} Children</span>
@@ -297,8 +366,21 @@ export const HotelDetailPage = () => {
               <span className="text-2xl font-bold text-teal-400">${total}</span>
             </div>
 
-            <button className="w-full h-14 bg-teal-500 rounded-xl text-surface-darker font-bold text-sm uppercase tracking-widest hover:bg-teal-400 hover:shadow-lg hover:-translate-y-0.5 transition-all mb-4">
-              Book Now
+            {/* General Booking Error Message */}
+            {bookingError && (
+              <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">
+                <p className="text-red-400 text-xs font-medium text-center">
+                  ⚠️ {bookingError}
+                </p>
+              </div>
+            )}
+
+            <button 
+              disabled={isBooking}
+              onClick={() => handleBooking(hotel.rooms?.[0]?.type || hotel.rooms?.[0]?.name || 'Standard Room', priceVal)}
+              className="w-full h-14 bg-teal-500 rounded-xl text-surface-darker font-bold text-sm uppercase tracking-widest hover:bg-teal-400 hover:shadow-lg hover:-translate-y-0.5 transition-all mb-4"
+            >
+              {isBooking ? 'Booking...' : 'Book Now'}
             </button>
 
             <button className="w-full h-12 bg-transparent border border-white/20 rounded-xl text-white font-bold text-sm hover:bg-white/5 transition-all mb-6">

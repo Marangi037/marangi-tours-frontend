@@ -63,8 +63,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
     setIsAuthenticated(false);
     setError(null);
@@ -74,8 +74,8 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       const response = await authService.updateProfile(data);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      setUser(response.user);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setUser(response.data);
       return response;
     } catch (err) {
       const errorMsg = err.response?.data?.error || err.message;

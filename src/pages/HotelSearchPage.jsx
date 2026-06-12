@@ -9,7 +9,7 @@ const FILTERS = ['All', 'Budget', 'Mid-range', 'Luxury', '5 Star', 'Pool', 'Free
 
 export const HotelSearchPage = () => {
   const [searchParams] = useSearchParams();
-  const initialDestination = searchParams.get('destination') || 'Nairobi';
+  const initialDestination = searchParams.get('destination') || '';
   const checkIn = searchParams.get('checkIn') || '';
   const checkOut = searchParams.get('checkOut') || '';
 
@@ -29,14 +29,11 @@ export const HotelSearchPage = () => {
     const fetchHotels = async () => {
       setIsLoading(true);
       try {
-        // Amadeus API requires cityCode, we approximate by passing searchInput
-        // In real app, we need to map city name to IATA code if not already
-        const cityCode = searchInput.slice(0, 3).toUpperCase(); // Hack for demo if no real mapping
-        
+        // Use the exact search input for the DB query
         const res = await hotelService.searchHotels({ 
-          cityCode: cityCode, 
-          checkInDate: checkIn || new Date().toISOString().slice(0, 10), 
-          checkOutDate: checkOut || new Date(Date.now() + 86400000*2).toISOString().slice(0, 10) 
+          city: searchInput, 
+          checkInDate: checkIn || new Date(Date.now() + 86400000).toISOString().slice(0, 10), 
+          checkOutDate: checkOut || new Date(Date.now() + 86400000 * 2).toISOString().slice(0, 10) 
         });
         
         const payload = res?.data || res;
@@ -62,18 +59,18 @@ export const HotelSearchPage = () => {
   }, [searchInput, checkIn, checkOut]);
 
   const filteredHotels = hotels.filter(h => {
-    const p = parseFloat(h.price || (h.offers?.[0]?.price?.total) || 0);
+    const p = parseFloat(h.pricePerNight || h.price || (h.offers?.[0]?.price?.total) || 0);
     return p >= minPrice && p <= maxPrice;
   });
 
   const sortedHotels = [...filteredHotels].sort((a, b) => {
-    const priceA = parseFloat(a.price || (a.offers?.[0]?.price?.total) || 0);
-    const priceB = parseFloat(b.price || (b.offers?.[0]?.price?.total) || 0);
+    const priceA = parseFloat(a.pricePerNight || a.price || (a.offers?.[0]?.price?.total) || 0);
+    const priceB = parseFloat(b.pricePerNight || b.price || (b.offers?.[0]?.price?.total) || 0);
     
     switch (sortBy) {
       case 'Price: Low to High': return priceA - priceB;
       case 'Price: High to Low': return priceB - priceA;
-      case 'Rating: High to Low': return (b.rating || 0) - (a.rating || 0);
+      case 'Rating: High to Low': return (b.reviewScore || b.rating || 0) - (a.reviewScore || a.rating || 0);
       default: return 0; // Recommended
     }
   });
@@ -86,7 +83,7 @@ export const HotelSearchPage = () => {
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=1920&q=80" 
+            src="/images/photo-1496417263034-38ec4f0b665a.jpg" 
             alt="City Background" 
             className="w-full h-full object-cover blur-sm scale-105"
           />
@@ -98,12 +95,12 @@ export const HotelSearchPage = () => {
           <div className="mb-4">
             <Breadcrumbs crumbs={[
               { label: 'Destinations', link: '/destinations' },
-              { label: searchInput, link: `/hotels?destination=${searchInput}` },
+              ...(searchInput ? [{ label: searchInput, link: `/hotels?destination=${searchInput}` }] : []),
               { label: 'Hotels' }
             ]} className="!text-white/50" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white font-playfair mb-2">
-            Hotels in {searchInput}
+            {searchInput ? `Hotels in ${searchInput}` : 'All Hotels'}
           </h1>
           <p className="text-white/60 text-sm">
             {isLoading ? 'Searching...' : `${filteredHotels.length} hotels available for your dates`}
@@ -215,7 +212,7 @@ export const HotelSearchPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {sortedHotels.map((hotel, i) => (
                 <HotelCard 
-                  key={hotel.hotelId || i} 
+                  key={hotel._id || hotel.hotelId || i} 
                   hotel={hotel} 
                   isFullyBooked={hotel.isFullyBooked} 
                 />

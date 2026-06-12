@@ -10,7 +10,7 @@ const defaultTestimonials = [
     review:
       'From the moment we arrived, every detail felt curated for a once-in-a-lifetime escape. The room overlooked the plains, the service was refined but warm, and the dining experience felt like a story told through taste.',
     image:
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80',
+      '/images/photo-1505693416388-ac5ce068fe85.jpg',
     rating: 5,
   },
   {
@@ -22,7 +22,7 @@ const defaultTestimonials = [
     review:
       'This stay was a graceful blend of calm architecture and true hospitality. Each sunrise on the balcony felt cinematic, and the quiet moments in the spa made the whole journey memorable.',
     image:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80',
+      '/images/photo-1506744038136-46273834b3fb.jpg',
     rating: 5,
   },
   {
@@ -34,7 +34,7 @@ const defaultTestimonials = [
     review:
       'Every corner of the property felt deliberately beautiful. The view, the curated service, and the luxury touches made the stay feel effortless yet unforgettable.',
     image:
-      'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1400&q=80',
+      '/images/photo-1496417263034-38ec4f0b665a.jpg',
     rating: 5,
   },
 ]

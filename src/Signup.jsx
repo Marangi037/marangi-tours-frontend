@@ -44,11 +44,13 @@ export const Signup = () => {
   };
 
   const handleGoogleSignup = () => {
-    console.log("Google signup placeholder");
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+    window.location.href = `${apiUrl}/auth/google`;
   };
 
   const handleFacebookSignup = () => {
-    console.log("Facebook signup placeholder");
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://localhost:5000/api';
+    window.location.href = `${apiUrl}/auth/facebook`;
   };
 
   return (
@@ -109,7 +111,7 @@ export const Signup = () => {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                     placeholder="First name"
                   />
                 </div>
@@ -119,7 +121,7 @@ export const Signup = () => {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+                    className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                     placeholder="Last name"
                   />
                 </div>
@@ -131,7 +133,7 @@ export const Signup = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+                  className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                   placeholder="you@example.com"
                 />
                 <div className="flex gap-1 mt-2">
@@ -147,7 +149,7 @@ export const Signup = () => {
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                       placeholder="Password"
                     />
                     <button
@@ -173,7 +175,7 @@ export const Signup = () => {
                       type={showConfirmPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-white/30 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
+                      className="w-full h-[44px] bg-white/5 border border-white/10 rounded-xl pl-4 pr-10 text-white placeholder-slate-400 outline-none focus:bg-white/10 focus:border-secondary transition-all text-sm"
                       placeholder="Confirm"
                     />
                     {passwordsMatch ? (
@@ -194,7 +196,7 @@ export const Signup = () => {
               <button
                 type="submit"
                 disabled={loading || !firstName || !lastName || !email || !password || !confirmPassword}
-                className="w-full h-[44px] mt-2 rounded-xl bg-secondary text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
+                className="w-full h-[44px] mt-2 rounded-xl bg-white text-primary text-sm font-bold uppercase tracking-[0.1em] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:hover:scale-100"
               >
                 {loading ? 'Creating account…' : 'Create account'}
               </button>
