@@ -141,9 +141,18 @@ export const Navbar = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    document.body.style.overflow = isMenu ? 'hidden' : 'auto';
-    return () => { document.body.style.overflow = 'auto'; };
-  }, [isMenu]);
+    if (isMenu || isSearchOpen || isWishlistOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    return () => { 
+      document.body.style.overflow = ''; 
+      document.documentElement.style.overflow = '';
+    };
+  }, [isMenu, isSearchOpen, isWishlistOpen]);
 
   // Close menus and scroll to top on route change
   useEffect(() => {
