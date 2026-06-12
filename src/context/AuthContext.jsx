@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       // We no longer auto-login here. The user must verify their email first.
       return response;
     } catch (err) {
-      const errorMsg = err.response?.data?.error || err.message;
+      const errorMsg = err.response?.data?.message || 'Sign up failed. Please try again.';
       setError(errorMsg);
       throw err;
     }
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
       return response;
     } catch (err) {
-      const errorMsg = err.response?.data?.error || err.message;
+      const errorMsg = err.response?.data?.message || 'Login failed. Please try again.';
       setError(errorMsg);
       throw err;
     }
