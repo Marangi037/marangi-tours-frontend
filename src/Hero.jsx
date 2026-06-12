@@ -137,7 +137,7 @@ export const Hero = () => {
 
             <div className="flex items-center gap-3">
               <p className="text-xs font-semibold tracking-[0.2em] text-teal-400 uppercase">
-                Discover Africa & Beyond
+                Discover
               </p>
             </div>
 
@@ -198,7 +198,7 @@ export const Hero = () => {
                     {/* Eyebrow */}
                     <div className="flex items-center gap-2">
                       <p className="text-[10px] font-semibold tracking-[0.2em] text-teal-400 uppercase">
-                        Discover Africa & Beyond
+                        Discover
                       </p>
                     </div>
 
