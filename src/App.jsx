@@ -33,6 +33,7 @@ const AdminBlogs = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => (
 const AdminTestimonials = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminTestimonials })));
 const AdminContacts = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminContacts })));
 const AdminPayments = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminPayments })));
+const NotFound = lazy(() => import("./NotFound.jsx").then(m => ({ default: m.NotFound })));
 
 const ProtectedRoute = ({ element, requireAuth = false }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -120,6 +121,9 @@ function App() {
               <Route path="contacts" element={<AdminContacts />} />
               <Route path="payments" element={<AdminPayments />} />
             </Route>
+            
+            {/* Catch-all 404 Route */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         {!hideNavbarAndFooter && <Footer />}
