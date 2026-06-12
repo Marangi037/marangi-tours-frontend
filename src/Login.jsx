@@ -7,10 +7,13 @@ export const Login = () => {
   const navigate = useNavigate();
   const { login, error: authError, loading } = useAuth();
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const urlError = searchParams.get('error');
+
   const [successMessage, setSuccessMessage] = useState(location.state?.message || '');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [formError, setFormError] = useState('');
+  const [formError, setFormError] = useState(urlError || '');
   const [showPassword, setShowPassword] = useState(false);
   const [toastMessage, setToastMessage] = useState(location.state?.toastMessage || '');
 
@@ -39,7 +42,7 @@ export const Login = () => {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setFormError(err.response?.data?.error || 'Unable to log in. Please try again.');
+      setFormError(err.response?.data?.message || 'Unable to log in. Please try again.');
     }
   };
 

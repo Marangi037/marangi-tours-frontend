@@ -39,7 +39,12 @@ export const Signup = () => {
       await register(email, password, firstName, lastName);
       navigate('/verify-email', { state: { email } });
     } catch (err) {
-      setFormError(err.response?.data?.error || 'Unable to sign up. Please try again.');
+      const errorMsg = err.response?.data?.message || 'Unable to sign up. Please try again.';
+      if (errorMsg === 'Email already registered') {
+        navigate('/login', { state: { toastMessage: 'Account already exists. Please sign in.' } });
+      } else {
+        setFormError(errorMsg);
+      }
     }
   };
 
