@@ -17,6 +17,7 @@ const Settings = lazy(() => import("./Settings.jsx").then(m => ({ default: m.Set
 const Navbar = lazy(() => import("./navbar/Navbar.jsx").then(m => ({ default: m.Navbar })));
 const Footer = lazy(() => import("./Footer.jsx").then(m => ({ default: m.Footer })));
 const ScrollToTopButton = lazy(() => import("./components/ScrollToTopButton.jsx").then(m => ({ default: m.ScrollToTopButton })));
+const ConciergeChat = lazy(() => import("./components/ConciergeChat.jsx").then(m => ({ default: m.ConciergeChat })));
 const BlogPage = lazy(() => import("./pages/BlogPage.jsx").then(m => ({ default: m.BlogPage })));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage.jsx").then(m => ({ default: m.ForgotPasswordPage })));
 const VerifyResetCodePage = lazy(() => import("./pages/VerifyResetCodePage.jsx").then(m => ({ default: m.VerifyResetCodePage })));
@@ -129,6 +130,7 @@ function App() {
         </main>
         {!hideNavbarAndFooter && <Footer />}
         {!hideNavbarAndFooter && <ScrollToTopButton />}
+        {!hideNavbarAndFooter && <ConciergeChat />}
       </Suspense>
     </div>
   );
