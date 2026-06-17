@@ -105,11 +105,7 @@ export const Hero = () => {
 
   return (
     <section id="home" className="relative h-screen min-h-[600px] overflow-hidden bg-slate-950 text-white">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
-        .font-display { font-family: 'Playfair Display', Georgia, serif; }
-        .font-body { font-family: 'Inter', system-ui, sans-serif; }
-      `}</style>
+
 
       {/* ── Full-bleed background that crossfades with current slide ── */}
       {slides.map((slide, i) => (

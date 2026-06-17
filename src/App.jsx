@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext.jsx";
 import { LoadingScreen } from "./components/LoadingScreen.jsx";
 
-const Home = lazy(() => import("./Home.jsx").then(m => ({ default: m.Home })));
+import { Home } from "./Home.jsx";
 const Signup = lazy(() => import("./Signup.jsx").then(m => ({ default: m.Signup })));
 const Login = lazy(() => import("./Login.jsx").then(m => ({ default: m.Login })));
 const HotelSearchPage = lazy(() => import("./pages/HotelSearchPage.jsx").then(m => ({ default: m.HotelSearchPage })));
