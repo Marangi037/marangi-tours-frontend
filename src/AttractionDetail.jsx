@@ -159,12 +159,8 @@ export const AttractionDetail = () => {
               />
 
               {/* Image Navigation */}
-              <button onClick={prevImage} className='absolute left-4 top-1/2 -translate-y-1/2 rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-slate-800 shadow-lg'>
-                <FaChevronLeft />
-              </button>
-              <button onClick={nextImage} className='absolute right-4 top-1/2 -translate-y-1/2 rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-slate-800 shadow-lg'>
-                <FaChevronRight />
-              </button>
+              <button aria-label="Icon button" onClick={prevImage} className='absolute left-4 top-1/2 -translate-y-1/2 rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-slate-800 shadow-lg'><FaChevronLeft /></button>
+              <button aria-label="Icon button" onClick={nextImage} className='absolute right-4 top-1/2 -translate-y-1/2 rounded-xl bg-slate-900/80 backdrop-blur-sm p-3 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-slate-800 shadow-lg'><FaChevronRight /></button>
 
               {/* Wishlist & Share */}
               <div className='absolute top-4 right-4 flex gap-2'>
@@ -203,7 +199,7 @@ export const AttractionDetail = () => {
                   className={`flex-shrink-0 h-20 w-20 sm:h-24 sm:w-24 rounded-xl overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-teal-400 shadow-lg shadow-teal-400/25' : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                 >
-                  <img src={image} alt={`${attraction.name} ${index + 1}`} className='h-full w-full object-cover' />
+                  <img width="800" height="600" loading="lazy" src={image} alt={`${attraction.name} ${index + 1}`} className='h-full w-full object-cover' />
                 </motion.button>
               ))}
             </div>
@@ -310,7 +306,7 @@ export const AttractionDetail = () => {
                           onClick={() => navigate(`/attraction/${rec.id}`)}
                           className='cursor-pointer rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/8 hover:border-white/15 transition-all'
                         >
-                          <img src={rec.imageUrl} alt={rec.name} className='h-28 sm:h-40 w-full object-cover' />
+                          <img width="800" height="600" loading="lazy" src={rec.imageUrl} alt={rec.name} className='h-28 sm:h-40 w-full object-cover' />
                           <div className='p-3 sm:p-4'>
                             <p className='font-semibold text-white text-sm truncate'>{rec.name}</p>
                             <p className='text-xs text-slate-500 mt-1'>{rec.city}, {rec.country}</p>

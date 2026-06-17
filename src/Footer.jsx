@@ -37,7 +37,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className='space-y-6 lg:col-span-2'>
             <div className='flex items-center gap-3'>
-              <img src="/travel-agency.png" alt="Travel Agency Logo" className="h-10 w-auto object-contain" />
+              <img width="800" height="600" loading="lazy" src="/travel-agency.png" alt="Travel Agency Logo" className="h-10 w-auto object-contain" />
               <span className='text-sm font-bold uppercase tracking-widest text-white'>Marangi Tours</span>
             </div>
             <p className='max-w-sm text-sm text-slate-400 leading-relaxed'>

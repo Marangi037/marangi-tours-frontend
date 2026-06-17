@@ -109,7 +109,7 @@ export const BlogPage = () => {
 
       {/* Hero Banner */}
       <div className="relative w-full h-[65vh] min-h-[400px]">
-        <img 
+        <img width="800" height="600" 
           src={post.image} 
           alt={post.title} 
           className="absolute inset-0 w-full h-full object-cover"
@@ -157,7 +157,7 @@ export const BlogPage = () => {
               >
                 {/* Image */}
                 <div className='relative h-56 overflow-hidden bg-slate-800'>
-                  <img
+                  <img width="800" height="600"
                     src={getImageUrl(location.id, location.imageUrl) || FALLBACK_IMAGE}
                     alt={location.name}
                     className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'

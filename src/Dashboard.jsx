@@ -171,7 +171,7 @@ export const Dashboard = () => {
                 >
                   {/* Image preview */}
                   <div className='relative h-40 sm:h-48 overflow-hidden bg-slate-800'>
-                    <img
+                    <img width="800" height="600" loading="lazy"
                       src={isEditing && previewUrl ? previewUrl : currentImage || FALLBACK_IMAGE}
                       alt={attraction.name}
                       className='h-full w-full object-cover'

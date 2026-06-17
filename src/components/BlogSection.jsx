@@ -32,7 +32,7 @@ export const BlogSection = () => {
               className="group relative h-[380px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-teal-500/10"
             >
               {/* Background Image */}
-              <img 
+              <img width="800" height="600" 
                 src={post.image} 
                 alt={post.title}
                 loading="lazy"

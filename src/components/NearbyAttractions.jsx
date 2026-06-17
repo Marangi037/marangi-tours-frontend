@@ -29,7 +29,7 @@ export const NearbyAttractions = ({ city = 'the city' }) => {
             className="shrink-0 w-[280px] md:w-[320px] rounded-2xl bg-surface-card border border-white/8 overflow-hidden snap-start hover:border-teal-400/30 hover:shadow-lg hover:-translate-y-1 transition-all group block"
           >
             <div className="relative h-48 w-full overflow-hidden">
-              <img 
+              <img width="800" height="600" loading="lazy" 
                 src={attraction.image} 
                 alt={attraction.name} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"

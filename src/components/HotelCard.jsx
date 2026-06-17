@@ -41,7 +41,7 @@ export const HotelCard = ({ hotel, isFullyBooked = false }) => {
 
       {/* Image Area */}
       <div className="relative w-full aspect-video rounded-t-2xl overflow-hidden bg-slate-800 shrink-0">
-        <img 
+        <img width="800" height="600" loading="lazy" 
           src={image} 
           alt={hotel.name} 
           className={`w-full h-full object-cover transition-transform duration-700 ${isFullyBooked ? 'grayscale brightness-50' : ''}`}
@@ -55,9 +55,7 @@ export const HotelCard = ({ hotel, isFullyBooked = false }) => {
         )}
 
         {/* Top-right Wishlist */}
-        <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-darker/40 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-red-400 hover:bg-surface-darker/60 transition-colors z-10">
-          <FaHeart className="text-sm" />
-        </button>
+        <button aria-label="Icon button" className="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-darker/40 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-red-400 hover:bg-surface-darker/60 transition-colors z-10"><FaHeart className="text-sm" /></button>
       </div>
 
       {/* Card Body */}

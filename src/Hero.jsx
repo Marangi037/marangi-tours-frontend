@@ -281,7 +281,7 @@ export const Hero = () => {
                     }}
                   >
                     <div className={`relative w-[160px] h-[210px] rounded-2xl overflow-hidden shadow-2xl group ${isCenter ? 'ring-2 ring-teal-400/40' : ''}`}>
-                      <img
+                      <img width="800" height="600"
                         src={slide.image}
                         alt={`${slide.label} – ${slide.subtitle}`}
                         className="h-full w-full object-cover"
@@ -369,7 +369,7 @@ export const Hero = () => {
                     }}
                   >
                     <div className={`relative w-[280px] sm:w-[320px] h-[360px] sm:h-[400px] rounded-2xl overflow-hidden shadow-2xl group ${isCenter ? 'ring-2 ring-teal-400/40' : ''}`}>
-                      <img
+                      <img width="800" height="600"
                         src={slide.image}
                         alt={`${slide.label} – ${slide.subtitle}`}
                         className={`h-full w-full object-cover transition-transform duration-700 ${isCenter ? 'group-hover:scale-105' : ''}`}

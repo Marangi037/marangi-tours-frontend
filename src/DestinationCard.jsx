@@ -24,7 +24,7 @@ export const DestinationCard = ({ id, imageUrl, name, country, rating, price, te
       onMouseLeave={() => setHovered(false)}
       className='w-full min-w-[300px] px-2 md:min-w-2/4 lg:min-w-1/4 max-h-[460px] flex flex-col rounded-[2rem] relative overflow-hidden shadow-2xl transition-transform duration-300 hover:-translate-y-1 hover:shadow-3xl'
     >
-      <img className='w-full h-full rounded-[2rem] object-cover' src={imageUrl} alt={name} />
+      <img width="800" height="600" loading="lazy" className='w-full h-full rounded-[2rem] object-cover' src={imageUrl} alt={name} />
       <div className={`absolute inset-0 rounded-[2rem] bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-80'}`} />
       
       {/* Price badge */}

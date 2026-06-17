@@ -82,7 +82,7 @@ export const HotelSearchPage = () => {
       <div className="relative h-[300px] w-full flex flex-col justify-end p-8 lg:px-16 overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <img width="800" height="600" loading="lazy" 
             src="/images/photo-1496417263034-38ec4f0b665a.jpg" 
             alt="City Background" 
             className="w-full h-full object-cover blur-sm scale-105"

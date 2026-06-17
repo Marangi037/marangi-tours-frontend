@@ -113,7 +113,7 @@ export const Testimonials = ({ testimonials }) => {
           {/* Left: Image */}
           <div className='relative h-[350px] sm:h-[420px] lg:h-[500px] rounded-2xl overflow-hidden group'>
             {slides.map((slide, i) => (
-              <img
+              <img width="800" height="600" loading="lazy"
                 key={slide.id}
                 src={slide.image}
                 alt={`${slide.name} travel scene`}

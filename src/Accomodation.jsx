@@ -49,7 +49,7 @@ export const Accomodation = () => {
             
             {/* Main Image Container */}
             <div className="relative w-full h-[500px] sm:h-[600px] lg:h-[75vh] max-h-[700px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/5">
-              <img 
+              <img width="800" height="600" loading="lazy" 
                 src="/images/photo-1566073771259-6a8506099945.jpg" 
                 alt="Luxury Hotel" 
                 className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"

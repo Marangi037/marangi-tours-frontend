@@ -96,12 +96,10 @@ export const PredictiveDestinationSearch = () => {
           className="w-full h-full bg-transparent pl-14 pr-12 text-[15px] text-white/80 placeholder-white/40 outline-none"
         />
         {query && (
-          <button 
+          <button aria-label="Icon button" 
             onClick={handleClear}
             className="absolute right-5 text-white/40 hover:text-white/80 transition-colors p-1"
-          >
-            <FaTimes />
-          </button>
+          ><FaTimes /></button>
         )}
       </div>
 
@@ -133,7 +131,7 @@ export const PredictiveDestinationSearch = () => {
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-lg overflow-hidden shrink-0 shadow-md">
-                      <img 
+                      <img width="800" height="600" loading="lazy" 
                         src={destination.imageUrl || '/images/photo-1488085061387-422e29b40080.jpg'} 
                         alt={destination.name}
                         className="w-full h-full object-cover"

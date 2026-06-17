@@ -6,7 +6,12 @@ import { FaLock, FaEnvelope, FaKey, FaArrowRight } from 'react-icons/fa';
 
 export const AdminLayout = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); // Default to light mode as per NeuroBank design
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -204,7 +209,7 @@ export const AdminLayout = () => {
   }
 
   return (
-    <div className={`admin-theme ${isDarkMode ? 'dark' : ''} flex min-h-screen font-inter`}>
+    <div className={`admin-theme ${isDarkMode ? 'dark' : ''} flex min-h-screen font-['Helvetica',_Arial,_sans-serif]`}>
       <AdminSidebar onLogout={handleLogout} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <div className="flex-1 max-h-screen overflow-y-auto bg-[var(--admin-bg)] transition-colors">
         <div className="p-8">

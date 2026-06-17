@@ -197,7 +197,7 @@ export const HotelDetails = () => {
         <section className="hotelHeroGrid">
           <div className="hotelGallery">
             <div className="galleryMain">
-              <img src={galleryImages[selectedImage]} alt={`Slide ${selectedImage + 1}`} />
+              <img width="800" height="600" loading="lazy" src={galleryImages[selectedImage]} alt={`Slide ${selectedImage + 1}`} />
               <button onClick={() => setLightboxOpen(true)} className="wishlistFloat text-[var(--color-text)]">
                 <FaHeart /> Save to wishlist
               </button>
@@ -218,7 +218,7 @@ export const HotelDetails = () => {
                   onClick={() => setSelectedImage(index)}
                   className={`galleryThumbItem ${selectedImage === index ? 'active' : ''}`}
                 >
-                  <img src={image} alt={`Thumbnail ${index + 1}`} />
+                  <img width="800" height="600" loading="lazy" src={image} alt={`Thumbnail ${index + 1}`} />
                 </button>
               ))}
             </div>
@@ -405,7 +405,7 @@ export const HotelDetails = () => {
       {lightboxOpen && (
         <div className="reviewModalBackdrop" onClick={() => setLightboxOpen(false)}>
           <div className="reviewModal" onClick={(e) => e.stopPropagation()}>
-            <img className="w-full rounded-[2rem] object-cover" src={galleryImages[selectedImage]} alt='Lightbox' />
+            <img width="800" height="600" loading="lazy" className="w-full rounded-[2rem] object-cover" src={galleryImages[selectedImage]} alt='Lightbox' />
             <div className='mt-6 flex items-center justify-between gap-3'>
               <button onClick={() => setSelectedImage((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))} className='heroNavButton'>Prev</button>
               <button onClick={() => setSelectedImage((prev) => (prev + 1) % galleryImages.length)} className='heroNavButton'>Next</button>

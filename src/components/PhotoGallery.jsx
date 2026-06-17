@@ -53,7 +53,7 @@ export const PhotoGallery = ({ photos = [] }) => {
           className="w-[60%] h-full rounded-2xl overflow-hidden cursor-pointer relative group"
           onClick={() => openLightbox(0)}
         >
-          <img 
+          <img width="800" height="600" loading="lazy" 
             src={displayPhotos[0]} 
             alt="Main Hotel" 
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
@@ -73,7 +73,7 @@ export const PhotoGallery = ({ photos = [] }) => {
               className="rounded-2xl overflow-hidden cursor-pointer relative group"
               onClick={() => openLightbox(idx + 1)}
             >
-              <img 
+              <img width="800" height="600" loading="lazy" 
                 src={photo} 
                 alt={`Hotel ${idx + 1}`} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
@@ -106,7 +106,7 @@ export const PhotoGallery = ({ photos = [] }) => {
             className="shrink-0 w-[85%] h-full snap-center rounded-2xl overflow-hidden cursor-pointer"
             onClick={() => openLightbox(idx)}
           >
-            <img 
+            <img width="800" height="600" loading="lazy" 
               src={photo} 
               alt={`Hotel ${idx}`} 
               className="w-full h-full object-cover" 
@@ -122,25 +122,21 @@ export const PhotoGallery = ({ photos = [] }) => {
       {/* Lightbox Modal */}
       {lightboxOpen && (
         <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center backdrop-blur-sm animate-in fade-in duration-200">
-          <button 
+          <button aria-label="Icon button" 
             onClick={closeLightbox}
             className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors z-50"
-          >
-            <FaTimes className="text-xl" />
-          </button>
+          ><FaTimes className="text-xl" /></button>
 
           <div className="absolute top-8 text-white/50 text-sm font-medium tracking-widest font-inter">
             {currentIndex + 1} / {displayPhotos.length}
           </div>
 
-          <button 
+          <button aria-label="Icon button" 
             onClick={prevPhoto}
             className="absolute left-4 md:left-12 w-14 h-14 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/80 transition-colors z-50"
-          >
-            <FaChevronLeft className="text-2xl mr-1" />
-          </button>
+          ><FaChevronLeft className="text-2xl mr-1" /></button>
 
-          <img 
+          <img width="800" height="600" loading="lazy" 
             src={displayPhotos[currentIndex]} 
             alt="Fullscreen" 
             className="max-h-[85vh] max-w-[90vw] object-contain rounded-lg shadow-2xl" 
@@ -150,12 +146,10 @@ export const PhotoGallery = ({ photos = [] }) => {
             }}
           />
 
-          <button 
+          <button aria-label="Icon button" 
             onClick={nextPhoto}
             className="absolute right-4 md:right-12 w-14 h-14 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/80 transition-colors z-50"
-          >
-            <FaChevronRight className="text-2xl ml-1" />
-          </button>
+          ><FaChevronRight className="text-2xl ml-1" /></button>
         </div>
       )}
     </>

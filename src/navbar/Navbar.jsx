@@ -206,7 +206,7 @@ export const Navbar = () => {
 
             {/* Logo */}
             <div className='flex items-center gap-2 flex-shrink-0 cursor-pointer md:static absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0' onClick={() => navigate('/')} onMouseEnter={() => window.scrollTo(0, 0)}>
-              <img src="/travel-agency.png" alt="Travel Agency Logo" className="h-8 sm:h-10 w-auto object-contain drop-shadow-md" />
+              <img width="800" height="600" loading="lazy" src="/travel-agency.png" alt="Travel Agency Logo" className="h-8 sm:h-10 w-auto object-contain drop-shadow-md" />
             </div>
           </div>
 
@@ -269,7 +269,7 @@ export const Navbar = () => {
                               onMouseEnter={() => window.scrollTo(0, 0)}
                               className='flex w-full items-center gap-3 p-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 text-left'
                             >
-                              <img
+                              <img width="800" height="600" loading="lazy"
                                 src={item.imageUrl}
                                 alt={item.name}
                                 className='h-12 w-12 rounded-lg object-cover flex-shrink-0'
@@ -359,7 +359,7 @@ export const Navbar = () => {
             {/* Header */}
             <div className='p-5 flex items-center justify-between' style={{ borderBottom: '1px solid rgba(45, 212, 191, 0.12)' }}>
               <div className='flex items-center gap-2 cursor-pointer' onClick={() => { setIsMenu(false); navigate('/'); }} onMouseEnter={() => window.scrollTo(0, 0)}>
-                <img src="/travel-agency.png" alt="Travel Agency Logo" className="h-10 w-auto object-contain drop-shadow-md" />
+                <img width="800" height="600" loading="lazy" src="/travel-agency.png" alt="Travel Agency Logo" className="h-10 w-auto object-contain drop-shadow-md" />
               </div>
               <button onClick={() => setIsMenu(false)} className='flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-all'>
                 <FaTimes className='text-sm' />
@@ -509,9 +509,7 @@ export const Navbar = () => {
                   {wishlistItems.length}
                 </span>
               </div>
-              <button onClick={closeWishlist} className='text-slate-400 hover:text-white transition-colors'>
-                <FaTimes className='text-lg' />
-              </button>
+              <button aria-label="Icon button" onClick={closeWishlist} className='text-slate-400 hover:text-white transition-colors'><FaTimes className='text-lg' /></button>
             </div>
 
             {/* Items */}
@@ -541,7 +539,7 @@ export const Navbar = () => {
                       key={item.id}
                       className='flex items-center gap-3 rounded-xl bg-white/5 border border-white/8 p-3 transition-all hover:bg-white/8'
                     >
-                      <img
+                      <img width="800" height="600" loading="lazy"
                         src={item.imageUrl}
                         alt={item.name}
                         className='h-14 w-14 rounded-lg object-cover flex-shrink-0 cursor-pointer'
@@ -616,7 +614,7 @@ export const Navbar = () => {
                       onMouseEnter={() => window.scrollTo(0, 0)}
                       className='relative rounded-2xl overflow-hidden h-28 cursor-pointer group block'
                     >
-                      <img src={dest.imageUrl} className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' alt={dest.name} />
+                      <img width="800" height="600" loading="lazy" src={dest.imageUrl} className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' alt={dest.name} />
                       <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 transition-colors' />
                       <div className='absolute bottom-3 left-3 right-3'>
                         <p className='text-white font-bold text-sm truncate leading-tight'>{dest.name}</p>
@@ -638,7 +636,7 @@ export const Navbar = () => {
                     onMouseEnter={() => window.scrollTo(0, 0)}
                     className='flex items-center gap-3 rounded-xl bg-white/5 border border-white/8 p-3 transition-all active:bg-white/10 cursor-pointer block'
                   >
-                    <img
+                    <img width="800" height="600" loading="lazy"
                       src={item.imageUrl}
                       alt={item.name}
                       className='h-14 w-14 rounded-lg object-cover flex-shrink-0'

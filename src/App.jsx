@@ -1,6 +1,7 @@
 import { useEffect, Suspense, lazy } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext.jsx";
+import { LoadingScreen } from "./components/LoadingScreen.jsx";
 
 const Home = lazy(() => import("./Home.jsx").then(m => ({ default: m.Home })));
 const Signup = lazy(() => import("./Signup.jsx").then(m => ({ default: m.Signup })));
@@ -39,7 +40,7 @@ const ProtectedRoute = ({ element, requireAuth = false }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div className="h-screen flex justify-center items-center">Loading...</div>;
+    return <LoadingScreen />;
   }
 
   if (requireAuth && !isAuthenticated) {
@@ -86,7 +87,7 @@ function App() {
 
   return (
     <div className="app-shell">
-      <Suspense fallback={<div className="h-screen flex justify-center items-center text-teal-400 font-bold tracking-widest text-sm uppercase">Loading...</div>}>
+      <Suspense fallback={<LoadingScreen />}>
         {!hideNavbarAndFooter && <Navbar />}
         <main>
           <Routes>

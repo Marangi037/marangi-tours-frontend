@@ -11,7 +11,7 @@
   --color-surface-card: #0f1923;
   --color-surface-accent: #0a1628;
   --color-text: #F7EFE3;
-  --color-muted: #8F9FB7;
+  --color-muted: #BAC8DA;
   --color-border: rgba(212, 175, 55, 0.18);
   --color-shadow: rgba(8, 16, 31, 0.24);
 
@@ -582,7 +582,7 @@ a {
 }
 
 .loadingIndicator{
-    @apply absolute top-0 left-0 z-10 h-[3px] rounded-lg bg-secondary
+    @apply absolute top-0 left-0 z-10 h-[3px] rounded-lg bg-secondary origin-left
 }
 
 .loadingIndicator.next {
@@ -590,10 +590,10 @@ a {
 }
 @keyframes loadingEffect{
     from{
-        width: 100%;
+        transform: scaleX(1);
     }
     to{
-        width: 0;
+        transform: scaleX(0);
     }
 }
 

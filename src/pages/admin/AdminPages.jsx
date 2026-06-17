@@ -44,15 +44,15 @@ export const AdminOverview = () => {
   if (!stats) return <div className="flex justify-center py-20"><FaSpinner className="animate-spin text-[var(--admin-accent)] text-3xl" /></div>;
 
   return (
-    <div className="space-y-6">
+    <div className="h-full lg:h-[calc(100vh-4rem)] flex flex-col">
       
       {/* CSS Grid for the NeuroBank layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
         
         {/* Left Column (Span 1) */}
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6 h-full">
           {/* AI Insights / Highlight Card */}
-          <div className="admin-card overflow-hidden relative p-6 h-64 flex flex-col justify-between" style={{ background: 'linear-gradient(135deg, var(--admin-accent) 0%, var(--admin-accent-hover) 100%)', color: 'white' }}>
+          <div className="admin-card overflow-hidden relative p-6 h-64 lg:h-[40%] min-h-[16rem] flex flex-col justify-between" style={{ background: 'linear-gradient(135deg, var(--admin-accent) 0%, var(--admin-accent-hover) 100%)', color: 'white' }}>
             <div className="flex justify-between items-center">
               <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">This Month</span>
               <FaEllipsisH className="text-white/70 cursor-pointer" />
@@ -66,7 +66,7 @@ export const AdminOverview = () => {
           </div>
 
           {/* Transactions / Recent Bookings */}
-          <div className="admin-card p-6 h-[400px] overflow-hidden flex flex-col">
+          <div className="admin-card p-6 h-[400px] lg:h-[60%] lg:flex-1 overflow-hidden flex flex-col">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-lg font-bold">Recent Bookings</h3>
               <div className="w-8 h-8 rounded-full border border-[var(--admin-border)] flex items-center justify-center cursor-pointer text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)]">
@@ -96,19 +96,24 @@ export const AdminOverview = () => {
         </div>
 
         {/* Right Column (Span 2) */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 flex flex-col gap-6 h-full">
           
           {/* Top Row: Balance & Earnings */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto lg:h-[40%] lg:min-h-[16rem]">
             
             {/* Balance Overview (Revenue) */}
-            <div className="admin-card p-6 h-64 flex flex-col justify-between">
+            <div className="admin-card p-6 h-64 lg:h-full flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-sm font-medium text-[var(--admin-text-muted)] mb-1">Total Revenue</p>
                   <div className="flex items-end gap-2">
                     <h2 className="text-3xl font-bold">${stats.totalRevenue}</h2>
-                    <span className="flex items-center text-xs font-bold text-[var(--admin-success)] mb-1"><FaArrowUp className="mr-1"/> 12%</span>
+                    {stats.revenueTrend !== null && stats.revenueTrend !== undefined && (
+                      <span className={`flex items-center text-xs font-bold mb-1 ${stats.revenueTrend >= 0 ? 'text-[var(--admin-success)]' : 'text-[var(--admin-danger)]'}`}>
+                        {stats.revenueTrend >= 0 ? <FaArrowUp className="mr-1"/> : <FaArrowDown className="mr-1"/>}
+                        {Math.abs(stats.revenueTrend)}%
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="w-8 h-8 rounded-full border border-[var(--admin-border)] flex items-center justify-center cursor-pointer text-[var(--admin-text-muted)] hover:text-[var(--admin-accent)]">
@@ -126,7 +131,7 @@ export const AdminOverview = () => {
             </div>
 
             {/* Earnings (Total Bookings) */}
-            <div className="admin-card p-6 h-64 flex flex-col items-center relative">
+            <div className="admin-card p-6 h-64 lg:h-full flex flex-col items-center relative">
               <div className="w-full flex justify-between items-start mb-2">
                 <p className="text-sm font-medium text-[var(--admin-text-muted)]">Total Bookings</p>
                 <FaEllipsisH className="text-[var(--admin-text-muted)] cursor-pointer" />
@@ -146,7 +151,7 @@ export const AdminOverview = () => {
           </div>
 
           {/* Bottom Row: Spending (Users) */}
-          <div className="admin-card p-6 h-[400px] flex flex-col justify-between">
+          <div className="admin-card p-6 h-[400px] lg:h-[60%] lg:flex-1 flex flex-col justify-between">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-[var(--admin-text-muted)] mb-1">Registered Users</p>

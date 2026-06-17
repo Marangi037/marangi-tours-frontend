@@ -90,7 +90,7 @@ export const SearchResults = () => {
 
               return (
                 <div key={hotelId || `${title}-${Math.random()}`} className='overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.05)] shadow-2xl backdrop-blur-xl'>
-                  <img src={image} alt={title} className='h-64 w-full object-cover' />
+                  <img width="800" height="600" loading="lazy" src={image} alt={title} className='h-64 w-full object-cover' />
                   <div className='p-8'>
                     <h2 className='text-2xl font-semibold text-[var(--color-text)]'>{title}</h2>
                     <p className='mt-3 text-[var(--color-muted)] leading-7'>{description}</p>
