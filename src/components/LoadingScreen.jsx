@@ -17,7 +17,7 @@ export const LoadingScreen = () => {
         <div className="absolute inset-0 animate-[spin_3s_linear_infinite]">
           {/* The plane icon positioned at the top of the ring */}
           {/* We rotate the plane 90 degrees so it faces the direction of the spin */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 rotate-90 text-[#D4AF37] text-2xl drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 rotate-[30deg] text-[#D4AF37] text-2xl drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
             <FaPlane />
           </div>
         </div>
