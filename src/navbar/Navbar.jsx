@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FaHeart, FaSearch, FaTimes, FaStar, FaMapMarkerAlt, FaTrash, FaRegUser, FaUserCog } from 'react-icons/fa';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
-import { searchAttractions, destinationCountries } from '../destinationData.js';
+import { searchAttractions, destinationCountries } from '../data/destinationData.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { searchService } from '../services/api.js';
 

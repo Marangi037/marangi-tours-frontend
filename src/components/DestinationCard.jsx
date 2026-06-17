@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import "./destination.css";
+import "../destination.css";
 import { FaStar, FaHeart } from 'react-icons/fa';
-import { useCart } from './context/CartContext.jsx';
+import { useCart } from '../context/CartContext.jsx';
 
 export const DestinationCard = ({ id, imageUrl, name, country, rating, price, temperature, bestTime, tags }) => {
   const [hovered, setHovered] = useState(false);

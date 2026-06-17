@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { hotelService } from './services/api.js';
-import { Breadcrumbs } from './components/Breadcrumbs.jsx';
+import { hotelService } from '../services/api.js';
+import { Breadcrumbs } from '../components/Breadcrumbs.jsx';
 
 const parseQuery = (search) => {
   return Object.fromEntries(new URLSearchParams(search));

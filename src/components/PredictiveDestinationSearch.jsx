@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch, FaTimes } from 'react-icons/fa';
-import { destinationCountries } from '../destinationData.js';
+import { destinationCountries } from '../data/destinationData.js';
 import { useNavigate } from 'react-router-dom';
 
 // Flatten destination data

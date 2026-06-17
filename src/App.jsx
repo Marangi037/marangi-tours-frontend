@@ -3,19 +3,19 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext.jsx";
 import { LoadingScreen } from "./components/LoadingScreen.jsx";
 
-import { Home } from "./Home.jsx";
-const Signup = lazy(() => import("./Signup.jsx").then(m => ({ default: m.Signup })));
-const Login = lazy(() => import("./Login.jsx").then(m => ({ default: m.Login })));
+import { Home } from "./pages/HomePage.jsx";
+const Signup = lazy(() => import("./pages/SignupPage.jsx").then(m => ({ default: m.Signup })));
+const Login = lazy(() => import("./pages/LoginPage.jsx").then(m => ({ default: m.Login })));
 const HotelSearchPage = lazy(() => import("./pages/HotelSearchPage.jsx").then(m => ({ default: m.HotelSearchPage })));
 const HotelDetailPage = lazy(() => import("./pages/HotelDetailPage.jsx").then(m => ({ default: m.HotelDetailPage })));
-const AttractionDetail = lazy(() => import("./AttractionDetail.jsx").then(m => ({ default: m.AttractionDetail })));
-const BookingCheckout = lazy(() => import("./BookingCheckout.jsx").then(m => ({ default: m.BookingCheckout })));
-const MyBookings = lazy(() => import("./MyBookings.jsx").then(m => ({ default: m.MyBookings })));
-const SearchResults = lazy(() => import("./SearchResults.jsx").then(m => ({ default: m.SearchResults })));
-const Dashboard = lazy(() => import("./Dashboard.jsx").then(m => ({ default: m.Dashboard })));
-const Settings = lazy(() => import("./Settings.jsx").then(m => ({ default: m.Settings })));
+const AttractionDetail = lazy(() => import("./pages/AttractionDetailPage.jsx").then(m => ({ default: m.AttractionDetail })));
+const BookingCheckout = lazy(() => import("./pages/BookingCheckoutPage.jsx").then(m => ({ default: m.BookingCheckout })));
+const MyBookings = lazy(() => import("./pages/MyBookingsPage.jsx").then(m => ({ default: m.MyBookings })));
+const SearchResults = lazy(() => import("./pages/SearchResultsPage.jsx").then(m => ({ default: m.SearchResults })));
+const Dashboard = lazy(() => import("./pages/DashboardPage.jsx").then(m => ({ default: m.Dashboard })));
+const Settings = lazy(() => import("./pages/SettingsPage.jsx").then(m => ({ default: m.Settings })));
 const Navbar = lazy(() => import("./navbar/Navbar.jsx").then(m => ({ default: m.Navbar })));
-const Footer = lazy(() => import("./Footer.jsx").then(m => ({ default: m.Footer })));
+const Footer = lazy(() => import("./components/Footer.jsx").then(m => ({ default: m.Footer })));
 const ScrollToTopButton = lazy(() => import("./components/ScrollToTopButton.jsx").then(m => ({ default: m.ScrollToTopButton })));
 const ConciergeChat = lazy(() => import("./components/ConciergeChat.jsx").then(m => ({ default: m.ConciergeChat })));
 const BlogPage = lazy(() => import("./pages/BlogPage.jsx").then(m => ({ default: m.BlogPage })));
@@ -24,7 +24,7 @@ const VerifyResetCodePage = lazy(() => import("./pages/VerifyResetCodePage.jsx")
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage.jsx").then(m => ({ default: m.ResetPasswordPage })));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage.jsx").then(m => ({ default: m.VerifyEmailPage })));
 const OAuthCallbackPage = lazy(() => import("./pages/OAuthCallbackPage.jsx").then(m => ({ default: m.OAuthCallbackPage })));
-const Destination = lazy(() => import("./Destination.jsx").then(m => ({ default: m.Destination })));
+const Destination = lazy(() => import("./pages/DestinationPage.jsx").then(m => ({ default: m.Destination })));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout.jsx").then(m => ({ default: m.AdminLayout })));
 const AdminOverview = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminOverview })));
 const AdminBookings = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminBookings })));
@@ -35,7 +35,7 @@ const AdminBlogs = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => (
 const AdminTestimonials = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminTestimonials })));
 const AdminContacts = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminContacts })));
 const AdminPayments = lazy(() => import("./pages/admin/AdminPages.jsx").then(m => ({ default: m.AdminPayments })));
-const NotFound = lazy(() => import("./NotFound.jsx").then(m => ({ default: m.NotFound })));
+const NotFound = lazy(() => import("./pages/NotFoundPage.jsx").then(m => ({ default: m.NotFound })));
 
 const ProtectedRoute = ({ element, requireAuth = false }) => {
   const { isAuthenticated, loading } = useAuth();

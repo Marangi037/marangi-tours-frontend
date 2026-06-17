@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { FaMapMarkerAlt, FaStar, FaHeart, FaChevronLeft, FaChevronRight, FaChevronDown } from 'react-icons/fa'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { destinationCountries } from './destinationData.js'
-import { useCart } from './context/CartContext.jsx'
-import { useImageOverrides } from './context/ImageOverrideContext.jsx'
+import { destinationCountries } from '../data/destinationData.js'
+import { useCart } from '../context/CartContext.jsx'
+import { useImageOverrides } from '../context/ImageOverrideContext.jsx'
 
 const FALLBACK_IMAGE = '/images/photo-1488085061387-422e29b40080.jpg'
 

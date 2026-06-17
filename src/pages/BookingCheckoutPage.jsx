@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import { useBooking } from './context/BookingContext';
+import { useBooking } from '../context/BookingContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheck, FaTimes, FaCopy, FaCreditCard, FaPaypal, FaMobileAlt, FaArrowLeft } from 'react-icons/fa';
 

@@ -3,12 +3,12 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { FaMapMarkerAlt, FaStar, FaHeart } from 'react-icons/fa';
 import { blogPosts } from '../data/blogs';
-import { destinationCountries } from '../destinationData';
+import { destinationCountries } from '../data/destinationData.js';
 import { Breadcrumbs } from '../components/Breadcrumbs.jsx';
 import { useCart } from '../context/CartContext.jsx';
 import { useImageOverrides } from '../context/ImageOverrideContext.jsx';
 import { Navbar } from '../navbar/Navbar';
-import { Footer } from '../Footer';
+import { Footer } from '../components/Footer.jsx';
 
 export const BlogPage = () => {
   const { slug } = useParams();

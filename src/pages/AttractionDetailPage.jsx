@@ -2,9 +2,9 @@ import React, { useMemo, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FaArrowLeft, FaCalendarAlt, FaCheck, FaHeart, FaMapMarkerAlt, FaPlus, FaMinus, FaStar, FaUsers, FaClock, FaTag, FaShareAlt, FaInfoCircle, FaChevronLeft, FaChevronRight, FaTimes, FaCopy } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useCart } from './context/CartContext.jsx'
-import { getAttractionById, getSimilarAttractions } from './destinationData.js'
-import { Breadcrumbs } from './components/Breadcrumbs.jsx'
+import { useCart } from '../context/CartContext.jsx'
+import { getAttractionById, getSimilarAttractions } from '../data/destinationData.js'
+import { Breadcrumbs } from '../components/Breadcrumbs.jsx'
 
 export const AttractionDetail = () => {
   const { attractionId } = useParams()

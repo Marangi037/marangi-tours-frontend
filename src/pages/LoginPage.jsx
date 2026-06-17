@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from './context/AuthContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 import { FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaChevronLeft, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
 export const Login = () => {

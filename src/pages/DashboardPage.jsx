@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaImage, FaGlobeAfrica, FaMapMarkerAlt, FaStar, FaCheck, FaUndo, FaSearch, FaTrash } from 'react-icons/fa'
-import { destinationCountries } from './destinationData.js'
-import { useImageOverrides } from './context/ImageOverrideContext.jsx'
+import { destinationCountries } from '../data/destinationData.js'
+import { useImageOverrides } from '../context/ImageOverrideContext.jsx'
 
 const FALLBACK_IMAGE = '/images/photo-1488085061387-422e29b40080.jpg'
 
