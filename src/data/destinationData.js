@@ -1155,6 +1155,106 @@ export const destinationCountries = [
       },
     ],
   },
+  {
+    id: 'usa',
+    name: 'USA',
+    flag: '🇺🇸',
+    coords: { left: '25%', top: '35%' },
+    attractions: [
+      {
+        id: 'new-york-city',
+        name: 'New York City',
+        city: 'New York',
+        country: 'USA',
+        imageUrl: '/images/usa_dest1.jpg',
+        rating: 4.8,
+        reviewCount: 95400,
+        entryFee: 0,
+        duration: 'Multiple days',
+        bestTime: 'Evening',
+        description: 'The city that never sleeps. Explore Times Square, Central Park, and the iconic Manhattan skyline.',
+        category: 'Modern',
+        tags: ['City', 'Iconic', 'Culture'],
+        coordinates: { lat: 40.7128, lng: -74.0060 },
+        reviews: [
+          { reviewer: 'John Doe', rating: 5, text: 'Absolutely mesmerizing city vibes.', visited: '2025-05-12' }
+        ]
+      },
+      {
+        id: 'grand-canyon',
+        name: 'Grand Canyon',
+        city: 'Arizona',
+        country: 'USA',
+        imageUrl: '/images/usa_dest2.jpg',
+        rating: 4.9,
+        reviewCount: 62100,
+        entryFee: 35,
+        duration: '1-2 days',
+        bestTime: 'Sunrise',
+        description: 'A breathtaking natural wonder. The deep red and orange canyons stretch out endlessly.',
+        category: 'Nature',
+        tags: ['Nature', 'Hiking', 'Scenic'],
+        coordinates: { lat: 36.1069, lng: -112.1129 },
+        reviews: [
+          { reviewer: 'Jane Smith', rating: 5, text: 'The sunset views here are unparalleled.', visited: '2024-11-20' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'uk',
+    name: 'United Kingdom',
+    flag: '🇬🇧',
+    coords: { left: '46%', top: '28%' },
+    attractions: [
+      {
+        id: 'london-eye',
+        name: 'London Eye',
+        city: 'London',
+        country: 'United Kingdom',
+        imageUrl: '/images/uk_dest1.jpg',
+        rating: 4.7,
+        reviewCount: 81200,
+        entryFee: 30,
+        duration: '1 hour',
+        bestTime: 'Afternoon',
+        description: 'A massive observation wheel offering sweeping views of the River Thames and London skyline.',
+        category: 'Modern',
+        tags: ['City', 'Views', 'Iconic'],
+        coordinates: { lat: 51.5033, lng: -0.1195 },
+        reviews: [
+          { reviewer: 'Alice Williams', rating: 5, text: 'Great views of Big Ben and the city.', visited: '2025-01-10' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'uae',
+    name: 'United Arab Emirates',
+    flag: '🇦🇪',
+    coords: { left: '65%', top: '42%' },
+    attractions: [
+      {
+        id: 'burj-khalifa',
+        name: 'Burj Khalifa',
+        city: 'Dubai',
+        country: 'United Arab Emirates',
+        imageUrl: '/images/uae_dest1.jpg',
+        rating: 4.8,
+        reviewCount: 110500,
+        entryFee: 45,
+        duration: '2 hours',
+        bestTime: 'Sunset',
+        description: 'The tallest building in the world, offering unparalleled views of the Dubai skyline and the desert.',
+        category: 'Modern',
+        tags: ['Architecture', 'City', 'Luxury'],
+        coordinates: { lat: 25.1972, lng: 55.2744 },
+        reviews: [
+          { reviewer: 'Michael Brown', rating: 5, text: 'The view from the top is absolutely stunning.', visited: '2025-02-15' }
+        ]
+      }
+    ]
+  }
 ];
 
 export const getAttractionById = (id) => {
