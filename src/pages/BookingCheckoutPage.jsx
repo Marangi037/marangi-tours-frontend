@@ -17,30 +17,53 @@ const PaymentForm = ({ bookingId, onSuccess, isAttraction, totalPrice }) => {
   const [error, setError] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('stripe');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [paypalEmail, setPaypalEmail] = useState('');
   const [mpesaStatus, setMpesaStatus] = useState('');
   const [showMockMessage, setShowMockMessage] = useState(false);
 
-  // TODO: Uncomment these states when ready to enforce strict validation
-  // const [isStripeComplete, setIsStripeComplete] = useState(false);
-  // const [isPaypalComplete, setIsPaypalComplete] = useState(false);
-  // const [isMpesaComplete, setIsMpesaComplete] = useState(false);
-
-  // const isFormValid = 
-  //   (paymentMethod === 'stripe' && isStripeComplete) ||
-  //   (paymentMethod === 'paypal' && isPaypalComplete) ||
-  //   (paymentMethod === 'mpesa' && isMpesaComplete);
-
-
   const handlePayment = async (e) => {
     e.preventDefault();
-    if (paymentMethod === 'paypal') return; // Handled by PayPal buttons
     
     setLoading(true);
     setError('');
     setMpesaStatus('');
 
+    // --- Strict Validation to prevent Cyber Attacks / Injections ---
+    if (paymentMethod === 'paypal') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!paypalEmail || !emailRegex.test(paypalEmail)) {
+        setError('Please enter a valid PayPal email address.');
+        setLoading(false);
+        return;
+      }
+    }
+
+    if (paymentMethod === 'mpesa') {
+      // Validate Kenyan phone number formats (e.g. 07XXXXXXXX, 2547XXXXXXXX, +2547XXXXXXXX, 01XXXXXXXX)
+      const phoneRegex = /^(?:254|\+254|0)?(7[0-9]{8}|1[0-9]{8})$/;
+      if (!phoneNumber || !phoneRegex.test(phoneNumber.replace(/\s+/g, ''))) {
+        setError('Please enter a valid M-Pesa phone number (e.g. 0712345678).');
+        setLoading(false);
+        return;
+      }
+    }
+    // -------------------------------------------------------------
+
     try {
-      // Mock payment simulation
+      // --- FUTURE API IMPLEMENTATION HOOKS ---
+      // FUTURE DEVELOPERS: Replace the mock simulation below with real API calls.
+      // 
+      // if (paymentMethod === 'stripe') {
+      //   const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, { payment_method: { card: elements.getElement(CardElement) } });
+      // } else if (paymentMethod === 'paypal') {
+      //   await capturePaypalOrder(orderId);
+      // } else if (paymentMethod === 'mpesa') {
+      //   await initiateMpesa(phoneNumber, totalPrice);
+      //   // Poll for M-Pesa status...
+      // }
+      // ----------------------------------------
+
+      // Mock payment simulation (DEMO MODE)
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       if (!isAttraction && bookingId) {
@@ -70,7 +93,7 @@ const PaymentForm = ({ bookingId, onSuccess, isAttraction, totalPrice }) => {
             <FaCreditCard className={paymentMethod === 'stripe' ? 'text-teal-400' : 'text-slate-400'} />
             <span className="font-semibold text-white">Credit Card</span>
           </div>
-          <input type="radio" name="payment" value="stripe" checked={paymentMethod === 'stripe'} onChange={() => setPaymentMethod('stripe')} className="hidden" />
+          <input type="radio" name="payment" value="stripe" checked={paymentMethod === 'stripe'} onChange={() => { setPaymentMethod('stripe'); setShowMockMessage(false); }} className="hidden" />
           <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'stripe' ? 'border-teal-500' : 'border-slate-500'}`}>
             {paymentMethod === 'stripe' && <div className="h-2.5 w-2.5 rounded-full bg-teal-500" />}
           </div>
@@ -108,38 +131,94 @@ const PaymentForm = ({ bookingId, onSuccess, isAttraction, totalPrice }) => {
           )}
         </AnimatePresence>
 
-        {/* PayPal Option (Disabled) */}
-        <label className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 opacity-50 cursor-not-allowed">
+        {/* PayPal Option */}
+        <label className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${paymentMethod === 'paypal' ? 'border-teal-500 bg-teal-500/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}>
           <div className="flex items-center gap-3">
-            <FaPaypal className="text-slate-400" />
+            <FaPaypal className={paymentMethod === 'paypal' ? 'text-teal-400' : 'text-slate-400'} />
             <span className="font-semibold text-white">PayPal</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full ml-2">Coming Soon</span>
           </div>
-          <div className="h-5 w-5 rounded-full border-2 border-slate-500 flex items-center justify-center"></div>
+          <input type="radio" name="payment" value="paypal" checked={paymentMethod === 'paypal'} onChange={() => { setPaymentMethod('paypal'); setShowMockMessage(false); }} className="hidden" />
+          <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-teal-500' : 'border-slate-500'}`}>
+            {paymentMethod === 'paypal' && <div className="h-2.5 w-2.5 rounded-full bg-teal-500" />}
+          </div>
         </label>
 
-        {/* M-Pesa Option (Disabled) */}
-        <label className="flex items-center justify-between p-4 rounded-xl border border-white/10 bg-white/5 opacity-50 cursor-not-allowed">
+        {/* PayPal Element */}
+        <AnimatePresence>
+          {paymentMethod === 'paypal' && (
+            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+              <div className="p-4 rounded-xl bg-slate-950/50 border border-white/10 mt-2">
+                <input
+                  type="email"
+                  value={paypalEmail}
+                  onChange={(e) => {
+                    setPaypalEmail(e.target.value);
+                    setShowMockMessage(true);
+                  }}
+                  placeholder="Enter PayPal Email"
+                  className="w-full bg-transparent text-white placeholder-slate-500 outline-none p-2 border-b border-white/10 focus:border-teal-500 transition-colors"
+                />
+              </div>
+              <AnimatePresence>
+                {showMockMessage && (
+                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="mt-3 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs text-amber-400">
+                    <strong>Testing Mode:</strong> Automatic payment filling is disabled. You don't need to enter real PayPal details. Just click "Complete Booking" to proceed.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* M-Pesa Option */}
+        <label className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${paymentMethod === 'mpesa' ? 'border-teal-500 bg-teal-500/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}>
           <div className="flex items-center gap-3">
-            <FaMobileAlt className="text-slate-400" />
+            <FaMobileAlt className={paymentMethod === 'mpesa' ? 'text-teal-400' : 'text-slate-400'} />
             <span className="font-semibold text-white">M-Pesa</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full ml-2">Coming Soon</span>
           </div>
-          <div className="h-5 w-5 rounded-full border-2 border-slate-500 flex items-center justify-center"></div>
+          <input type="radio" name="payment" value="mpesa" checked={paymentMethod === 'mpesa'} onChange={() => { setPaymentMethod('mpesa'); setShowMockMessage(false); }} className="hidden" />
+          <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'mpesa' ? 'border-teal-500' : 'border-slate-500'}`}>
+            {paymentMethod === 'mpesa' && <div className="h-2.5 w-2.5 rounded-full bg-teal-500" />}
+          </div>
         </label>
+
+        {/* M-Pesa Element */}
+        <AnimatePresence>
+          {paymentMethod === 'mpesa' && (
+            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+              <div className="p-4 rounded-xl bg-slate-950/50 border border-white/10 mt-2">
+                <input
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => {
+                    setPhoneNumber(e.target.value);
+                    setShowMockMessage(true);
+                  }}
+                  placeholder="Enter M-Pesa Phone Number (e.g. 07XXXXXXXX)"
+                  className="w-full bg-transparent text-white placeholder-slate-500 outline-none p-2 border-b border-white/10 focus:border-teal-500 transition-colors"
+                />
+              </div>
+              <AnimatePresence>
+                {showMockMessage && (
+                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="mt-3 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs text-amber-400">
+                    <strong>Testing Mode:</strong> Automatic payment filling is disabled. You don't need to enter a real phone number. Just click "Complete Booking" to proceed.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
 
-      {paymentMethod !== 'paypal' && (
-        <button
-          type="submit"
-          disabled={loading || (paymentMethod === 'stripe' && !stripe) || (paymentMethod === 'mpesa' && !phoneNumber)}
-          className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-xl font-bold transition-all disabled:opacity-50 shadow-xl shadow-teal-500/20 active:scale-[0.98]"
-        >
-          {loading ? 'Processing...' : `Complete Booking — $${totalPrice}`}
-        </button>
-      )}
+      <button
+        type="submit"
+        disabled={loading || (paymentMethod === 'stripe' && !stripe) || (paymentMethod === 'mpesa' && !phoneNumber) || (paymentMethod === 'paypal' && !paypalEmail)}
+        className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-xl font-bold transition-all disabled:opacity-50 shadow-xl shadow-teal-500/20 active:scale-[0.98]"
+      >
+        {loading ? 'Processing...' : `Complete Booking — $${totalPrice}`}
+      </button>
     </form>
   );
 };

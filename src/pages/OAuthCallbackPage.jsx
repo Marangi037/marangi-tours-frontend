@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { authService } from '../services/api.js';
+import { LoadingScreen } from '../components/LoadingScreen.jsx';
 
 export const OAuthCallbackPage = () => {
   const location = useLocation();
@@ -38,10 +39,10 @@ export const OAuthCallbackPage = () => {
   }, [location, navigate]);
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-950 px-4">
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-white text-lg font-semibold tracking-wide">Completing authentication...</p>
+    <div className="h-screen w-full relative">
+      <LoadingScreen />
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-[10000]">
+        <p className="text-white/80 text-sm font-medium tracking-wide">Completing authentication...</p>
       </div>
     </div>
   );

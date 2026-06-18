@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { useLocation, useNavigate, Navigate, Link } from 'react-router-dom';
 import axiosInstance from '../services/axiosInstance.js';
 import OTPInput from '../components/OTPInput.jsx';
+import { FaChevronLeft } from 'react-icons/fa';
 import { Mail } from 'lucide-react';
 
 export const VerifyEmailPage = () => {
@@ -74,6 +75,9 @@ export const VerifyEmailPage = () => {
 
   return (
     <section className="h-screen w-full flex flex-col items-center bg-slate-950 px-4 pt-[80px] pb-6 overflow-y-auto relative">
+      <Link to="/signup" className="absolute top-6 left-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-all z-20">
+        <FaChevronLeft className="text-sm" />
+      </Link>
       <div className='absolute inset-0 opacity-[0.03]' style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-[120px] pointer-events-none" />
 

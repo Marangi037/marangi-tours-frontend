@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { adminService } from '../../services/api';
 import { FaPlus, FaCheck, FaTimes, FaSpinner } from 'react-icons/fa';
+import { LoadingScreen } from '../../components/LoadingScreen.jsx';
 
 import { FaArrowUp, FaArrowDown, FaEllipsisH } from 'react-icons/fa';
 
@@ -41,7 +42,7 @@ export const AdminOverview = () => {
     adminService.getStats().then(res => setStats(res.data)).catch(console.error);
   }, []);
 
-  if (!stats) return <div className="flex justify-center py-20"><FaSpinner className="animate-spin text-[var(--admin-accent)] text-3xl" /></div>;
+  if (!stats) return <LoadingScreen />;
 
   return (
     <div className="h-full lg:h-[calc(100vh-4rem)] flex flex-col">

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../services/axiosInstance.js';
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [oauthProvider, setOauthProvider] = useState(null);
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -28,12 +30,17 @@ export const ForgotPasswordPage = () => {
       await axiosInstance.post('/auth/forgot-password', { email });
       navigate('/verify-reset-code', { state: { email } });
     } catch (err) {
-      if (err.response?.status === 404) {
+      const errMsg = err.response?.data?.error || err.message || 'Something went wrong. Please try again.';
+      if (errMsg.includes('linked to Google')) {
+        setOauthProvider('Google');
+      } else if (errMsg.includes('linked to Facebook')) {
+        setOauthProvider('Facebook');
+      } else if (err.response?.status === 404) {
         setError('No account found with this email address.');
       } else if (err.response?.status === 429) {
         setError('Too many attempts. Please wait a few minutes before trying again.');
       } else {
-        setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+        setError(errMsg);
       }
     } finally {
       setLoading(false);
@@ -98,6 +105,38 @@ export const ForgotPasswordPage = () => {
           </Link>
         </div>
       </div>
+
+      {oauthProvider && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+          <div className="w-full max-w-sm bg-[rgba(8,16,31,0.95)] border border-white/10 rounded-3xl p-6 md:p-8 text-center shadow-[0_30px_70px_rgba(0,0,0,0.6)] relative animate-in zoom-in-95 duration-300">
+            <div className="mx-auto w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6">
+              {oauthProvider === 'Google' ? <FaGoogle className="text-3xl text-red-400" /> : <FaFacebook className="text-3xl text-blue-400" />}
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-3">Linked to {oauthProvider}</h2>
+            <p className="text-sm text-slate-400 mb-8 leading-relaxed">
+              This email address was registered using your {oauthProvider} account. You don't need a password to sign in!
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => {
+                  const apiUrl = import.meta.env.VITE_API_URL || 'https://marangi-tours-backend.onrender.com/api';
+                  window.location.href = `${apiUrl}/auth/${oauthProvider.toLowerCase()}`;
+                }}
+                className={`w-full h-[48px] rounded-xl text-white font-bold text-sm flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-95 ${oauthProvider === 'Google' ? 'bg-red-500/10 border border-red-500/20 text-red-100 hover:bg-red-500/20' : 'bg-blue-500/10 border border-blue-500/20 text-blue-100 hover:bg-blue-500/20'}`}
+              >
+                {oauthProvider === 'Google' ? <FaGoogle className="text-red-400 text-lg" /> : <FaFacebook className="text-blue-400 text-lg" />}
+                Log in with {oauthProvider}
+              </button>
+              <button
+                onClick={() => setOauthProvider(null)}
+                className="w-full h-[48px] rounded-xl text-slate-400 font-semibold text-sm hover:text-white hover:bg-white/5 transition-all"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
